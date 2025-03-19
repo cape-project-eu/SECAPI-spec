@@ -95,7 +95,7 @@ const config = {
             items: [
               {
                 label: 'JoinUs',
-                href: 'mailto://info@secapi.cloud',
+                href: 'mailto:info@secapi.cloud',
               },
             ],
           },
