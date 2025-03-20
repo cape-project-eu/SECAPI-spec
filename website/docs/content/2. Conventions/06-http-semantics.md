@@ -59,10 +59,7 @@ Accept: application/json
 
 * *A successful GET method typically returns the HTTP status code 200 (OK). If the resource is not found, the method should return 404 (Not Found)
 
-### HEAD Method
 
-* *The **HEAD** method requires a response identical to the GET method (using the same semantics as GET), but without returning the response body to the client. It can be used to check the existence of a resource.
-The HEAD method is not standardized by the SECA API.
 
 ### PUT Method
 
@@ -101,15 +98,15 @@ This class of status codes indicates that the action requested by the client has
 
 ##### 3xx Redirection
 
-This class of status codes indicates that the client must take further action to complete the request. Many of these status codes are used for [URL redirection](https://en.wikipedia.org/wiki/URL_redirection). A user agent may perform the action without user intervention only if the method to be used is GET or HEAD. A user agent may automatically redirect a request. A user agent should detect and prevent any cyclic redirects.
+This class of status codes indicates that the client must take further action to complete the request. Many of these status codes are used for [URL redirection](https://en.wikipedia.org/wiki/URL_redirection). A user agent may perform the action without user intervention only if the method to be used is GET. A user agent may automatically redirect a request. A user agent should detect and prevent any cyclic redirects.
 
 ##### 4xx Client Error
 
-This class of status codes is to be used in cases where the client is the cause of the error. Except for HEAD requests, the server should include an entity/representation containing an explanation of the error and whether it is transient or permanent. These status codes are applicable to all methods. User agents should display the information to users.
+This class of status codes is to be used in cases where the client is the cause of the error. The server should include an entity/representation containing an explanation of the error and whether it is transient or permanent. These status codes are applicable to all methods. User agents should display the information to users.
 
 ##### 5xx Server Error
 
-The server was unable to fulfill the request. Status codes that begin with the digit "5" indicate cases where the server encountered an error or was otherwise unable to process the request. Except for HEAD requests, the server should include an entity/representation containing an explanation of the error and whether it is transient or permanent. These status codes are applicable to all methods. User agents should display the information to users.
+The server was unable to fulfill the request. Status codes that begin with the digit "5" indicate cases where the server encountered an error or was otherwise unable to process the request. The server should include an entity/representation containing an explanation of the error and whether it is transient or permanent. These status codes are applicable to all methods. User agents should display the information to users.
 
 #### Status Detail
 
@@ -120,7 +117,6 @@ The server was unable to fulfill the request. Status codes that begin with the d
 Indicates that the client's request has been successfully processed and that there is no more appropriate status code in the 2xx category. Unlike status code 204, a response with a 200 code should include a body. The information returned depends on the method used in the request, for example:
 
 * **GET** - the requested entity.
-* **HEAD** - the HTTP headers of the requested entity.
 * **POST** - an entity that describes or contains the result of the request.
 
 ##### 201 Created
