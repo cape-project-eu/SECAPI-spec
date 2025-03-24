@@ -128,6 +128,19 @@ npm run gen-api-docs all
 
 # Run it
 npm run start
+
+# Expected Result
+> docs-site@0.0.0 start
+> docusaurus start
+[INFO] Starting the development server...
+[SUCCESS] Docusaurus website is running at: http://localhost:3000/
+✔ Client
+  Compiled successfully in 1.12m
+
+client (webpack 5.98.0) compiled successfully
+
+# Navigate to `http://localhost:3000/` in your browser to view the website.
+
 ```
 
 
