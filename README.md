@@ -71,7 +71,7 @@ An open industry standard, a new Application Programming Interface specification
 **Makefile:** Automates the generation and validation of OpenAPI files, ensuring consistency in documentation and schema definitions.
 
 ## Generating OpenAPI Files Using Makefile
-### The OpenAPI files will be used in the website
+ The OpenAPI files will be used in the website.
 
 ### Requirements
 * [Go](https://go.dev/doc/install) > 1.24
