@@ -14,7 +14,68 @@ An open industry standard, a new Application Programming Interface specification
 - Comparison of compliant providers and increased resources using multiple providers
 - Directly address the demand of the public sector to have no vendor lock-in
 
-## Installation
+## Repository structure
+
+```
+|─/spec                     # Main specification directory containing API definitions and related resources
+│─── Activitylog.v1.yaml    # API definitions for activity auto generated
+│─── authorization.v1.yaml  # API definitions for storage services auto generated
+│─── compute.v1.yaml        # API definitions for network services auto generated
+|─── loadbalancer.v1.yaml   # API definitions for compute services auto generated
+│─── network.v1.yaml        # API definitions for network services auto generated
+│─── objectstorage.v1.yaml  # API definitions for objectstorage services auto generated
+|─── region.v1.yaml         # API definitions for region services auto generated
+│─── storage.v1.yaml        # API definitions for storage services auto generated
+│─── workspace.v1.yaml      # API definitions for network services auto generated
+│── /schemas                # JSON Schema definitions that define API data structures
+│── /templates              # Template file (.tpl) used for generating OpenAPI YAMLs
+│── /resources              # Resource definitions for all pages existing in the OpenAPI
+|─/website                  # Website directory
+│── /docs                   # Documentation of SECA
+│── /scripts                # Scripts to generate all files to construct the website
+│── /src                    # Contains all resources to be used in the website
+│── /static                 # Additional files or utilities
+│─Makefile                  # Automation script for generating and validating OpenAPI files
+│─README.md                 # This file
+```
+### Description
+**spec/*.yaml:** Contains the automatically generated .yaml files, which are used to build the API documentation and website. These files are created using tools like gomplate, based on the resources, templates, and schemas.
+
+**/schemas:** Includes JSON Schema definitions that structure the API's request and response data. These schemas ensure data consistency and validation.
+
+**/templates:** Holds .tpl (template) files that define reusable components for generating OpenAPI specifications dynamically. Tools like gomplate process these templates to create .yaml files.
+
+**/resources:** Contains all the resource definitions corresponding to different API endpoints, ensuring modular and maintainable API documentation.
+
+**Makefile:** Automates the generation and validation of OpenAPI files, ensuring consistency in documentation and schema definitions.
+
+## Generating OpenAPI Files Using Makefile
+### The OpenAPI files will be used in the website 
+```bash
+# Check your Go version using `go version` and skip this step if it is > 1.24
+# Download the specified version of Go.
+wget https://go.dev/dl/go1.24.1.linux-amd64.tar.gz
+
+# Add Go binary to PATH
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+source ~/.bashrc
+
+# Go Version
+go version
+expected: go version go1.24.1 linux/amd64
+
+# Run the Makefile to generate OpenAPI files
+make
+
+# Verify that the `dist/specs` directory contains the generated YAML files
+ls dist/specs
+
+# Result
+activitylog.v1.yaml    compute.v1.yaml       network.v1.yaml        region.v1.yaml   workspace.v1.yaml
+authorization.v1.yaml  loadbalancer.v1.yaml  objectstorage.v1.yaml  storage.v1.yaml
+```
+
+## Website Installation
 
 Ensure you have [Node.js](https://nodejs.org/) installed.
 
@@ -36,6 +97,7 @@ npm run gen-api-docs all
 # Run it
 npm run start
 ```
+
 
 ## Contributing
 All contributors are warmly welcome. If you want to become a new contributor, we are so happy! Just, before doing it, read the tips and guidelines presented in the [dedicated documentation page](./CONTRIBUTING.md).
