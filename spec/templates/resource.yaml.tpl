@@ -17,6 +17,7 @@ info:
 security:
   - bearerAuth: []
 
+
 tags:
 {{- range $spec.resources }}
   - name: {{ .name | strings.Title }}
@@ -275,7 +276,8 @@ paths:
 {{- end }}
 components:
   securitySchemes:
-    $ref: './schemas/security.yaml#/securitySchemes'
+    bearerAuth:
+      $ref: './schemas/security.yaml#/securitySchemes/bearerAuth'
 
   schemas:
 {{- range $spec.resources }}

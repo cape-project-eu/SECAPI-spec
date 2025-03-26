@@ -6,3 +6,5 @@ securitySchemes:
     description: |
       Use a JWT token for authentication. The token identifies the user,
       and policies (RBAC, ABAC, or hybrid) determine authorization.
+    example: sdhYh9dSR631kLbbOAV9XvVR1gpThWHoEmTlcadgxK7HhdVUxVqjX3pKjMe8eDeT
+  description: "Authentication methods supported by the API"  

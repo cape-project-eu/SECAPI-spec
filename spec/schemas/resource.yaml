@@ -4,6 +4,10 @@ ResourceMetadata:
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/TypeMetadata'
+  example:
+    name: "resource-name"
+    apiVersion: "v1"
+    kind: "workspace"
 
 GlobalResourceMetadata:
   description: |
@@ -184,6 +188,9 @@ RegionalMetadata:
     workspace:
       type: string
       description: Workspace identifier
+    example:
+      region: eu-west-1
+      workspace: production  
 
 ZonalMetadata:
   type: object
@@ -285,3 +292,4 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+  example: |
