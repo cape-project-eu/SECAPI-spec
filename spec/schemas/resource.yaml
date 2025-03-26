@@ -1,9 +1,13 @@
 ResourceMetadata:
+  description: |
+    Metadata for all resources with type and name information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/TypeMetadata'
 
 GlobalResourceMetadata:
+  description: |
+    Metadata for global resources with name, permission, modification, type, and tenant information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -12,6 +16,8 @@ GlobalResourceMetadata:
   - $ref: '#/TenantMetadata'
 
 RegionalResourceMetadata:
+  description: |
+    Metadata for regional resources with name, permission, modification, type, tenant, and region information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -21,6 +27,8 @@ RegionalResourceMetadata:
   - $ref: '#/RegionalMetadata'
 
 ZonalResourceMetadata:
+  description: |
+    Metadata for zonal resources with name, permission, modification, type, tenant, region, and zone information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -36,6 +44,8 @@ TypeMetadata:
   required:
   - apiVersion
   - kind
+  description:  |
+    Metadata for all resources with type information.
   properties:
     apiVersion:
       type: string
@@ -111,6 +121,7 @@ NameMetadata:
   readOnly: true
   required:
   - name
+  description: Metadata for resource names
   properties:
     name:
       type: string
@@ -125,6 +136,7 @@ NameMetadata:
 
 UserResourceMetadata:
   type: object
+  description: Metadata for user-defined resource properties
   properties:
     labels:
       type: object

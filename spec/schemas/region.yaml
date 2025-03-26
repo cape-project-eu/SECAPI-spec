@@ -9,6 +9,8 @@ Region:
       $ref: './region.yaml#/RegionSpec'
     status:
       $ref: './region.yaml#/RegionStatus'
+  description: |
+    A geographical area containing a set of data centers, often isolated from other regions for purposes of fault tolerance, redundancy, and availability.
 
 RegionSpec:
   type: object
@@ -17,13 +19,19 @@ RegionSpec:
     - providers
   properties:
     availableZones:
+      description: |
+        The list of zones available in the region.
       type: array
       items:
         type: string
     providers:
+      description: | 
+        The list of providers available in the region.
       type: array
       items:
         $ref: './region.yaml#/Provider'
+  description: |
+    The specification of a region, including the available zones and providers.
 
 RegionStatus:
   $ref: "./resource.yaml#/Status"
@@ -44,3 +52,5 @@ Provider:
     url:
       type: string
       example: "https://demo.secapi.cloud/providers/seca.network"
+  description: |
+    A provider of cloud services
