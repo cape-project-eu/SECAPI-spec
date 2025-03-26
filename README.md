@@ -74,6 +74,12 @@ source ~/.bashrc
 go version
 expected: go version go1.24.1 linux/amd64
 
+# Generate resources api files
+make generate resource-apis
+
+# Lint
+make lint
+
 # Run the Makefile to generate OpenAPI files
 make
 
