@@ -16,24 +16,35 @@ An open industry standard, a new Application Programming Interface specification
 
 ## Repository structure
 
-```text
+**spec/** Contains the automatically generated .yaml files, which are used to build the API documentation and website. These files are created using tools like gomplate, based on the resources, templates, and schemas.
 
-|─ /spec                     # Main specification containing API definitions and related resources
-│   ├── <name>.<version>.yaml      # Versioned API definition (added manually or using a template)
-|   ├── /schemas                   # JSON Schema definitions that are used by the API specifications
-|   ├── /templates                 # Template files (.tpl) used for generating OpenAPI YAMLs
-|   └── /resources                 # Resource definitions for all pages existing in the OpenAPI
-│
-├─ /website                   # Website of SECA API
-│   ├── /docs                   # Documentation of SECA
-│   ├── /scripts                # Scripts to generate all files to construct the website
-│   ├── /src                    # Contains all resources to be used in the website
-│   └── /static                 # Additional files or utilities
-│
-├─ Makefile                   # Automation script for generating and validating OpenAPI files
-├─ /Config                    # Configuration of linter & quality analysis tool
-└─ README.md                  # This file
-```
+**<name>.<version>.yaml** Versioned API definition (added manually or using a template)
+
+**/schemas:** Includes JSON Schema definitions that structure the API's request and response data. These schemas ensure data consistency and validation.
+
+**/templates:** Holds .tpl (template) files that define reusable components for generating OpenAPI specifications dynamically. Tools like gomplate process these templates to create .yaml files.
+
+**/resources:** Contains all the resource definitions corresponding to different API endpoints, ensuring modular and maintainable API documentation.
+
+**Website** Contains all the resources and tools to build the Website API
+
+**/docs:** Contains Markdown documentation files for the API, used by Docusaurus to generate pages.
+
+**/scripts:** Utility scripts to help manage and deploy the documentation site.
+
+**/src:** The source code for the website, including React components and page layouts.
+
+**/static:** Stores static assets such as images, icons, and other resources.
+
+**docusaurus.config.js:** Configuration file for the Docusaurus site, defining site structure, themes, and plugins.
+
+**package.json:** Manages dependencies and scripts for building the website.
+
+**Other**
+
+**Makefile:** Automates the generation and validation of OpenAPI files, ensuring consistency in documentation and schema definitions.
+
+**Config** Configuration of linter & quality analysis tool.
 
 ## Generating OpenAPI Files Using Makefile
 
