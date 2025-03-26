@@ -16,35 +16,61 @@ An open industry standard, a new Application Programming Interface specification
 
 ## Repository structure
 
-**spec/** Contains the automatically generated .yaml files, which are used to build the API documentation and website. These files are created using tools like gomplate, based on the resources, templates, and schemas.
+### `spec`
 
-**<name>.<version>.yaml** Versioned API definition (added manually or using a template)
+ Contains the automatically generated .yaml files, which are used to build the API documentation and website. These files are created using tools like gomplate, based on the resources, templates, and schemas.
 
-**/schemas:** Includes JSON Schema definitions that structure the API's request and response data. These schemas ensure data consistency and validation.
+#### `name.version.yaml`
 
-**/templates:** Holds .tpl (template) files that define reusable components for generating OpenAPI specifications dynamically. Tools like gomplate process these templates to create .yaml files.
+ Versioned API definition (added manually or using a template)
 
-**/resources:** Contains all the resource definitions corresponding to different API endpoints, ensuring modular and maintainable API documentation.
+#### `schemas`
 
-**Website** Contains all the resources and tools to build the Website API
+Includes JSON Schema definitions that structure the API's request and response data. These schemas ensure data consistency and validation.
 
-**/docs:** Contains Markdown documentation files for the API, used by Docusaurus to generate pages.
+#### `templates`
 
-**/scripts:** Utility scripts to help manage and deploy the documentation site.
+ Holds .tpl (template) files that define reusable components for generating OpenAPI specifications dynamically. Tools like gomplate process these templates to create .yaml files.
 
-**/src:** The source code for the website, including React components and page layouts.
+#### `resources`
 
-**/static:** Stores static assets such as images, icons, and other resources.
+Contains all the resource definitions corresponding to different API endpoints, ensuring modular and maintainable API documentation.
 
-**docusaurus.config.js:** Configuration file for the Docusaurus site, defining site structure, themes, and plugins.
+### `website`
 
-**package.json:** Manages dependencies and scripts for building the website.
+Contains all the resources and tools to build the Website API
 
-**Other**
+#### `docs`
 
-**Makefile:** Automates the generation and validation of OpenAPI files, ensuring consistency in documentation and schema definitions.
+Contains Markdown documentation files for the API, used by Docusaurus to generate pages.
 
-**Config** Configuration of linter & quality analysis tool.
+#### `scripts`
+
+Utility scripts to help manage and deploy the documentation site.
+
+#### `src`
+
+The source code for the website, including React components and page layouts.
+
+#### `static`
+
+Stores static assets such as images, icons, and other resources.
+
+#### `docusaurus.config.js`
+
+Configuration file for the Docusaurus site, defining site structure, themes, and plugins.
+
+#### `package.json`
+
+Manages dependencies and scripts for building the website.
+
+### `Makefile`
+
+Automates the generation and validation of OpenAPI files, ensuring consistency in documentation and schema definitions.
+
+### `config`
+
+Configuration of linter & quality analysis tool.
 
 ## Generating OpenAPI Files Using Makefile
 
