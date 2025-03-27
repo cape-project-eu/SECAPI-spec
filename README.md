@@ -83,7 +83,7 @@ Configuration of linter & quality analysis tool.
 ### Website Setup Instructions
 
 ```bash
-#git clone
+# Clone the repository
 git clone https://github.com/eu-sovereign-cloud/spec.git
 
 cd spec/
@@ -101,7 +101,7 @@ go version
 expected: go version go1.24.1 linux/amd64
 
 # Generate resources api files
-make generate resource-apis
+make resource-apis
 
 # Lint
 make lint
