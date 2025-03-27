@@ -192,10 +192,7 @@ RegionalMetadata:
     workspace:
       type: string
       description: Workspace identifier
-    example:
-      region: eu-west-1
-      workspace: production  
-
+      
 ZonalMetadata:
   type: object
   description: Metadata for zonal resources
