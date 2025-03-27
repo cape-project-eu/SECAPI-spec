@@ -17,7 +17,6 @@ info:
 security:
   - bearerAuth: []
 
-
 tags:
 {{- range $spec.resources }}
   - name: {{ .name | strings.Title }}
@@ -167,7 +166,7 @@ paths:
             {{ .name | strings.Title }} successfully created, doesn't indicate successful
             resource provisioning.
           content:
-            application/json: 
+            application/json:
               schema:
                 $ref: '{{ .schema }}'
               {{- if and (coll.Has . "example") (coll.Has .example "putResponse") }}
@@ -276,7 +275,7 @@ paths:
 {{- end }}
 components:
   securitySchemes:
-      $ref: './schemas/security.yaml#/securitySchemes'
+    $ref: './schemas/security.yaml#/securitySchemes'
 
   schemas:
 {{- range $spec.resources }}
@@ -291,7 +290,7 @@ components:
           description: List of {{ .plural }}
           type: array
           items:
-            $ref: '{{ .schema }}'  
+            $ref: '{{ .schema }}'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'
 {{ end }}
