@@ -16,7 +16,7 @@ A comprehensive REST API for managing cloud infrastructure resources in complian
 
 - **Compute**: Virtual machine management with various performance tiers
 - **Storage**: Block storage volumes with guaranteed IOPS levels
-- **Network**: LANs, subnets, security groups, and public IP management
+- **Network**: Networks, subnets, security groups, and public IP management
 - **Identity**: Integrated authentication and authorization
 
 ## Technical Specifications
@@ -60,11 +60,9 @@ This guide walks you through the process of creating and managing cloud instance
 
 Let's suppose you, as subject user@secapi.eu, and tenant administrator, start a new project!
 
-
 ## Step 0: Make sure you have the grant to get region details
 
-Create the **Role**: region-administrator 
-
+Create the **Role**: region-administrator
 
 ```
 PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrator
@@ -92,7 +90,7 @@ PUT ${authorization-provider-url}/v1/tenants/tenant-id/roles/region-administrato
 }
 ```
 
-Create the **Role-Assignment**: region-administrator 
+Create the **Role-Assignment**: region-administrator
 
 ```
 PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-administrator
@@ -117,11 +115,13 @@ PUT ${authorization-provider-url}/v1/tenants/tenant-id/role-assignments/region-a
 ```http
 GET /v1/regions
 ```
+
 here you get **provider-url** that can be:
+
 - dns-based (e.g https://eu-workspace.ionos.secapi.eu)
 - path-based (e.g. https://aruba.secapi.eu/providers/seca.workspace)
 
-This will return available regions and their zones. Resources can be created at either the regional level (like LANs and Public IPs) or the zonal level (like Instances).
+This will return available regions and their zones. Resources can be created at either the regional level (like Networks and Public IPs) or the zonal level (like Instances).
 
 ## Step 1: Create a Workspace
 
@@ -143,7 +143,6 @@ Content-Type: application/json
 ```
 
 Note: Creating a workspace automatically grants you admin permissions for that workspace.
-
 
 ## Step 2: Review Available SKUs
 
@@ -209,57 +208,40 @@ Content-Type: application/json
 
 {
   "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
+    "env": "production",
+    "project": "web-shop"
   },
   "annotations": {
-    "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
+    "description": "Linux",
   },
   "spec": {
-    "profile": {
-      "storageSkuRef": "tenants/{tenant_id}/skus/gold",
-      "skuExtensions": {
-        "additionalProp1": {}
-      }
-    },
+    "skuRef": ".../seca.250",
     "sizeGB": 50,
-    "origin": {
-      type: {
-        "sourceImageRef": "tenants/{tenant_id}/images/ubuntu-24.04"
-      }
-    }
+    "sourceImageRef": "tenants/{tenant_id}/images/ubuntu-24.04"
   }
 }
 ```
 
 ## Step 5: Set Up Network
 
-### 5.1 Create a LAN
+### 5.1 Create a Network
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network
 Content-Type: application/json
 
 {
   "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
-  },
+    "env": "production",
+    "project": "web-shop"
+  }
   "annotations": {
-    "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
-  },
+    "description": "Production network for web-shop",
+  }
   "spec": {
-    "profile": {
-      "networkSkuRef": "tenants/{tenant_id}/skus/gold-lan",
-      "skuExtensions": {
-        "additionalProp1": {}
-      }
+    "skuRef": ".../seca.1000",
+    "cidr": {
+      "ipv4": "10.100.0.0/16"
     }
   }
 }
@@ -268,31 +250,21 @@ Content-Type: application/json
 ### 5.2 Create a Subnet
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/subnets/web-shop-subnet
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/subnets/web-shop-subnet
 Content-Type: application/json
 
 {
   "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
-  },
+    "env": "production",
+    "project": "web-shop"
+  }
   "annotations": {
-    "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
-  },
+    "description": "Public subnet",
+  }
   "spec": {
-    "profile": {
-      "networkSkuRef": "tenants/{tenant_id}/skus/gold-subnet"
-    },
+    "networkRef": ".../web-shop-network",
     "cidr": {
-      "ipv4Range": "198.51.100.42"
-    },
-    "dhcpEnabled": true,
-    "defaultGateway": {
-      "type": "auto",
-      "value": "string"
+      "ipv4": "10.100.1.0/24"
     }
   }
 }
@@ -301,47 +273,42 @@ Content-Type: application/json
 ### 5.3 Set Up Security Group
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/security-groups/web-shop-sg
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/security-groups/web-shop-sg
 Content-Type: application/json
 
 {
   "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
+    "env": "production",
+    "project": "web-shop"
   },
   "annotations": {
     "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
   },
   "spec": {
     "rules": [
       {
-        "labels": {
-          "language": "en",
-          "billing.cost-center": "platform-eng",
-          "env": "production"
-        },
         "annotations": {
-          "description": "Resource with some human readable description",
-          "color": "red",
-          "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
+          "description": "Allow HTTP(s) from anyone",
         },
-        "spec": {
-          "description": "string",
-          "direction": "ingress",
-          "protocol": "tcp",
-          "portRange": {
-            "from": 65535,
-            "to": 65535
-          },
-          "source": {
-            "type": "securityGroup",
-            "value": "string"
-          },
-          "priority": 10000
-        }
+        "direction": "ingress",
+        "protocol": "tcp",
+        "ports": {
+          "list": [80, 443]
+        },
+        "sourceRefs": []
+      }
+      {
+        "annotations": {
+          "description": "Allow SSH from secure system",
+        },
+        "direction": "ingress",
+        "protocol": "tcp",
+        "ports": {
+          "from": 22
+        },
+        "sourceRefs": [
+          "55.44.33.11"
+        ]
       }
     ]
   }
@@ -351,49 +318,29 @@ Content-Type: application/json
 ### 5.4 Create Public IP
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/public-ips
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/public-ips/ip1
 Content-Type: application/json
 
 {
-  "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
-  },
-  "annotations": {
-    "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
-  },
   "spec": {
-    "ipVersion": "IPv4",
-    "type": "Static"
+    "version": "IPv4"
   }
 }
 ```
+
 ## Step 6: Create NIC
 
-Create the NIC instance:
+Create the a NIC with a public IP for the instance (automatically generate the private IPv4):
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/nic
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/nics/n1
 Content-Type: application/json
 
 {
-  "labels": {
-    "language": "en",
-    "billing.cost-center": "platform-eng",
-    "env": "production"
-  },
-  "annotations": {
-    "description": "Resource with some human readable description",
-    "color": "red",
-    "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
-  },
   "spec": {
-    "subnetRef": "tenants/{tenant_id}/workspaces/web-shop-prod/lans/web-shop-network/subnets/web-shop-subnet",
-    "staticPrivateIPs": [],
-    "publicIPRef": "tenants/{tenant_id}/workspaces/web-shop-prod/public-ips"
+    "subnetRef": ".../web-shop-subnet",
+    "addresses": ["0.0.0.0"],
+    "publicIPRef": ".../ip1"
   }
 }
 ```
@@ -418,36 +365,15 @@ Content-Type: application/json
     "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
   },
   "spec": {
-    "profile": {
-      "instanceSkuRef": "tenants/{tenant_id}/skus/gold",
-      "skuExtensions": {
-        "additionalProp1": {}
-      }
-    },
-    "network": {
-      "primaryNicRef": "tenants/{tenant_id}/workspaces/web-shop-prod/nic",
-      "otherNics": []
-    },
-    "operatingSystem": {
-      "cloudInitData": {
-        "userData": "string",
-        "sshKeyExternalRef": [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
-        ]
-      },
-      "osBlockStorageRef": {
-        "objectRef": "tenants/{tenant_id}/workspaces/web-shop-prod/block-storages/web-shop-os-disk",
-        "properties": {
-          "connectionType": "iSCSI",
-          "deviceKind": "instance",
-          "deviceRef": "instance-123"
-        }
-      }
-    },
-    "storage": {
-      "dataBlockStorageRef": []
+    "skuRef": .../gold",
+    "primaryNicRef": ".../n1"
+    "sshKeys": [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
+    ]
+    "bootVolume": {
+      "deviceRef": ".../web-shop-os-disk"
     }
-  }
+  } 
 }
 
 ```
