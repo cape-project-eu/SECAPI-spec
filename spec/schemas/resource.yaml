@@ -98,6 +98,10 @@ PermissionMetadata:
     verb:
       type: string
       example: get
+  example:     
+      scope: "workspace/production"
+      resource: "seca.compute/instances/my-server"
+      verb: get  
 
 ModificationMetadata:
   type: object
@@ -285,6 +289,8 @@ StatusCondition:
       maxLength: 32768
 
 ResponseMetadata:
+  description: |
+    Metadata for response objects.
   allOf:
   - $ref: '#/PermissionMetadata'
   - type: object
@@ -292,4 +298,4 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
-  example: |
+      

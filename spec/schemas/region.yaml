@@ -9,14 +9,6 @@ Region:
       $ref: './region.yaml#/RegionSpec'
     status:
       $ref: './region.yaml#/RegionStatus'
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT
-        description: |
-          Use a JWT token for authentication. The token identifies the user,
-          and policies (RBAC, ABAC, or hybrid) determine authorization.  
   description: |
     A geographical area containing a set of data centers, often isolated from other regions for purposes of fault tolerance, redundancy, and availability.
 

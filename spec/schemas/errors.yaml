@@ -57,6 +57,7 @@ schemas:
         description: A string indicating which URI query parameter caused the error.
 
   Error400:
+    description: A 400 Bad Request error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 400 Bad Request error response
@@ -68,6 +69,7 @@ schemas:
         instance: "/errors/400"
 
   Error401:
+    description: A 401 Unauthorized error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 401 Unauthorized error response
@@ -79,6 +81,7 @@ schemas:
         instance: "/errors/401"
 
   Error403:
+    description: A 403 Forbidden error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 403 Forbidden error response
@@ -90,6 +93,7 @@ schemas:
         instance: "/errors/403"
 
   Error404:
+    description: A 404 Not Found error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 404 Not Found error response
@@ -101,6 +105,7 @@ schemas:
         instance: "/errors/404"
 
   Error409:
+    description: A 409 Conflict error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 409 Conflict error response
@@ -112,6 +117,7 @@ schemas:
         instance: "/errors/409"
 
   Error412:
+    description: A 412 Precondition Failed error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 412 Precondition Failed error response
@@ -123,6 +129,7 @@ schemas:
         instance: "/errors/412"
 
   Error422:
+    description: A 422 Unprocessable Entity error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 422 Unprocessable Entity error response
@@ -136,6 +143,7 @@ schemas:
         instance: "/errors/422"
 
   Error500:
+    description: A 500 Internal Server Error error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 500 Internal Server Error error response
