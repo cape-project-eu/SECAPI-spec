@@ -1,6 +1,7 @@
 Workspace:
   type: object
-  description: Represents a workspace resource in the Sovereign European Cloud API
+  description: |
+    Represents a workspace, a workspace is a collection of resources.
   required:
   - spec
   properties:
@@ -13,6 +14,7 @@ Workspace:
 
 WorkspaceSpec:
   type: object
+  example: {}
 
 WorkspaceStatus:
   allOf:
@@ -20,13 +22,6 @@ WorkspaceStatus:
   - type: object
     readOnly: true
     properties:
-      phase:
-        type: string
-        description: Current lifecycle phase of the workspace
-        enum:
-          - Pending
-          - Ready
-          - Deleting
       resourceCount:
         type: integer
         description: Number of resources currently in the workspace

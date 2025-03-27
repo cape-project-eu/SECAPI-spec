@@ -14,75 +14,58 @@ BlockStorage:
 
 BlockStorageSpec:
   type: object
-  properties:
-    profile:
-      type: object
-      properties:
-        storageSkuRef:
-          type: string
-          description: Reference to the SKU used for this block storage
-        skuExtensions:
-          $ref: './sku.yaml#/SkuExtensions'
-    sizeGB:
-      type: integer
-    origin:
-      type: object
-      properties:
-        sourceImageRef:
-          type: string
-          readOnly: true
-          description: Reference to the source image used as the base for creating this block storage. This cannot be modified.
-
-BlockStorageStatus:
-  type: object
-  readOnly: true
   description: |
-    Conditions type `attachment` indicates the status of the volume attachment.
-    The status can be `attached` or `detached`.
+    References the SKU used for this block.
+    If a reference to the source image is used as the base for creating this block storage.
+  required:
+  - skuRef
+  - sizeGB
   properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    skuExtensions:
+      type: object
+      additionalProperties:
+        type: string
+      example: {}
     sizeGB:
       type: integer
       example: 10
-    attachedTo:
-      $ref: '#/VolumeAttachment'
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-      example:
-      - type: "attachment"
-        status: "attached"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "AttachedToInstance"
-        message: "Volume is attached to instance-123"
+    sourceImageRef:
+      $ref: './resource.yaml#/Reference'
 
-VolumeAttachment:
-  type: object
-  description: Represents a connection between a Block Storage and a device
-  properties:
-    objectRef:
-      type: string
+BlockStorageStatus:
+  allOf:
+  - $ref: './resource.yaml#/Status'
+  - type: object
+    readOnly: true
+    description: |
+      Conditions type `attachment` indicates the status of the volume attachment.
+      The status can be `attached` or `detached`.
+    required:
+    - sizeGB
     properties:
-      $ref: '#/VolumeAttachmentProperties'
-  example:
-    objectRef: "instance-123"
-    properties:
-      connectionType: "iSCSI"
-      deviceKind: "instance"
-      deviceRef: "instance-123"
+      sizeGB:
+        type: integer
+        example: 10
+      attachedTo:
+        $ref: './resource.yaml#/Reference' 
 
-VolumeAttachmentProperties:
+VolumeReference:
   type: object
+  description: Represents a connection between a Block Storage and an a user of the block storage.
+  required:
+  - deviceRef
   properties:
-    connectionType:
+    deviceRef:
+      $ref: './resource.yaml#/Reference'
+    type:
       type: string
       description: The connection type depends on the type of device and type of block storage.
-      example: iSCSI, nvme
-    deviceKind:
-      type: string
-      description: the type of device a block-storage is connected to. For now only 'instance' possible
-      example: instance
-    deviceRef:
-      type: string
+      enum:
+      - virtio
+      default: virtio
+  example:
+    deviceRef: ".../block-123"
+    type: "virtio"
+

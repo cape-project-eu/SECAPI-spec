@@ -2,7 +2,10 @@ PublicIp:
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
-    description: Represents a public IP address that can be assigned to network resources
+    description: |
+      Represents a public IP address that can be assigned to network 
+      resources. A CSP might enable Bring Your Own IP (BYOIP) where
+      the IP address are made available.
     required:
     - spec
     properties:
@@ -15,58 +18,38 @@ PublicIp:
 
 PublicIpSpec:
   type: object
-  description: Specification of the public IP
+  description: |
+    Specification of the public IP.
+  required:
+    - version
   properties:
-    ipAddress:
+    version:
       type: string
-      description: The public IP address
-    ipVersion:
-      type: string
-      description: IP version of the address (limited to IPv4 for now)
+      description: IP version of the address
       enum:
         - IPv4
-    type:
+        - IPv6
+    address:
       type: string
-      description: Type of public IP allocation
-      enum:
-        - Static
-        - Dynamic
-      default: Static
-
-
-PublicIpAssignment:
-  type: object
-  properties:
-    objectRef:
-      type: string
+      description: The public IP address in case of BYOIP.
+  example:
+    version: "IPv4"
 
 PublicIpStatus:
-  type: object
-  readOnly: true
-  description: |
-    Current status of the public IP.
-    Condition type `allocation` indicates the status of the public IP allocation.
-    The status can be `allocated` or `released`.
-    Condition type  `binding` indicates the status of the IP binding to a resource.
-    The status can be `bound` or `unbound`.
-  properties:
-    state:
-      $ref: './resource.yaml#/ResourceState'
-    attachedTo:
-      $ref: '#/PublicIpAssignment'      
-    conditions:
-      type: array
-      items:
-        $ref: "./resource.yaml#/StatusCondition"
-      example:
-      - type: "allocation"
-        status: "allocated"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "IpAddressAssigned"
-        message: "Public IP address has been assigned"
-      - type: "binding"
-        status: "bound"
-        lastTransitionTime: "2024-11-21T14:39:22Z"
-        reason: "BoundToResource"
-        message: "IP is bound to a resource"
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      Current status of the public IP.
+      Condition type `allocation` indicates the status of the public IP allocation.
+      The status can be `allocated` or `released`.
+      Condition type  `binding` indicates the status of the IP binding to a resource.
+      The status can be `bound` or `unbound`.
+    properties:
+      attachedTo:
+        $ref: './resource.yaml#/Reference'
+      ipAddress:
+        type: string
+        description: The public IP address in case.
 

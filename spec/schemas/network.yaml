@@ -1,0 +1,112 @@
+Network: # -> rename to PrivateNetwork works like a VPC
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: './network.yaml#/NetworkSpec'
+      status:
+        $ref: './network.yaml#/NetworkStatus'
+
+NetworkSpec:
+  type: object
+  description: |
+    A Network represents a virtual network that can be used to isolate resources.
+    Key network concepts:
+
+    * Defines a range of IP addresses for compute resources (e.g. instances)
+    * Enables network segmentation and isolation
+    * Provides common performance configuration across the network using a SKU
+
+    The `cidr` is the base CIDR block for the network. Additional CIDR blocks can be
+    added to the network using the `additionalCidrs` field. The `additionalCidrs` can 
+    be changed after the network is created in case they are not used. The main CIDR
+    block cannot be changed after the network is created. All cidrs must be non-overlapping.
+    The cidrs have to be part of the RFC 1918 address space in case of IPv4 and or RFC 4193.
+
+    In case the system should automatically assign IP addresses to the network cidrs
+    only the network prefix is required. E.g. to request a /16 IPv4 CIDR block the
+    CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
+    be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
+  required:
+  - cidr
+  - skuRef
+  - routeTableRef
+  properties:
+    cidr:
+      $ref: './network.yaml#/cidr'
+    additionalCidrs:
+      type: array
+      items:
+        $ref: './network.yaml#/cidr'
+    skuRef:
+      type: string
+      description: |
+        Reference to the SKU used by default for all NIC in this Network.
+        Can be overridden by the NIC.
+      example: "seca.1000"
+    routeTableRef:
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - type: string
+        description: |
+          Reference to the route table used by default for all Subnets.
+    skuExtensions:
+      type: string
+      example: {}
+  example:
+    skuRef: ".../seca.1000"
+    cidr:
+      ipv4: "0.0.0.0/16"
+      ipv6: "::/56"
+  
+NetworkStatus:
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    description: |
+      Current status of the network and its CIDR blocks. Will report
+      the status of the CIDR blocks and the network as a whole including
+      automatically assigned IP networks.
+    required:
+    - cidr
+    properties:
+      cidr:
+        $ref: './network.yaml#/cidr'
+      additionalCidrs:
+        type: array
+        items:
+          $ref: './network.yaml#/cidr'
+      routeTableRef:
+        $ref: './resource.yaml#/Reference'
+    example:
+      cidr:
+        ipv4: "10.100.0.0/16"
+        ipv6: "2001:239:203:2400::/56"
+
+cidr:
+  type: object
+  description: |
+    Combined IPv4 and IPv6 CIDR block for a subnet. Depending on the network
+    configuration, either the IPv4 or IPv6 range can be omitted. So the following
+    combinations are possible:
+
+    * IPv4 only
+    * IPv6 only
+    * IPv4 and IPv6 (Dual Stack)
+  properties:
+    ipv4:
+      type: string
+      description: |
+        IPv4 CIDR block for the subnet.
+      example: '10.0.100.0/24'
+    ipv6:
+      type: string
+      description: |
+        IPv6 CIDR block for the subnet.
+      example: '2001:db8::/32'

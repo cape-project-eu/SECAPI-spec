@@ -1,5 +1,8 @@
 Region:
   type: object
+  description: |
+    Represents a region, which is a geographical location
+    with one or more zones. 
   required:
     - spec
   properties:
@@ -9,8 +12,6 @@ Region:
       $ref: './region.yaml#/RegionSpec'
     status:
       $ref: './region.yaml#/RegionStatus'
-  description: |
-    A geographical area containing a set of data centers, often isolated from other regions for purposes of fault tolerance, redundancy, and availability.
 
 RegionSpec:
   type: object
@@ -23,8 +24,9 @@ RegionSpec:
         The list of zones available in the region.
       type: array
       items:
-        type: string
-      example: ["eu-west-1a", "eu-west-1b"]  
+        $ref: '#/Zone'
+      example: ["a", "b", "c"]
+
     providers:
       description: | 
         The list of providers available in the region.
@@ -33,6 +35,11 @@ RegionSpec:
         $ref: './region.yaml#/Provider'
   description: |
     The specification of a region, including the available zones and providers.
+
+Zone:
+  type: string
+  description: Reference to a specific zone within a region
+  example: "a"
 
 RegionStatus:
   $ref: "./resource.yaml#/Status"
