@@ -246,6 +246,7 @@ responses:
           detail: "The subnetRef is not correctly formatted."
           sources:
           - pointer: "/spec/subnetRef"
+            parameter: "subnet"
           instance: "/errors/422"
 
   Error500:

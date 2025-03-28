@@ -1,4 +1,6 @@
 ObjectStorageAccount:
+  description: |
+    An object storage account resource, which includes metadata, specification, and status.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -14,8 +16,12 @@ ObjectStorageAccount:
 
 ObjectStorageAccountSpec:
   type: object
+  description: |
+    The specification of an object storage account, including the region and zone.
 
 ObjectStorageAccountStatus:
+  description: |
+    The status of an object storage account, including the access key, secret key, and canonical user ID.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
