@@ -18,7 +18,6 @@ info:
 security:
   - bearerAuth: []
 
-
 tags:
   - name: Region
     description: Region management
@@ -87,7 +86,7 @@ paths:
     
 components:
   securitySchemes:
-      $ref: './schemas/security.yaml#/securitySchemes'
+    $ref: './schemas/security.yaml#/securitySchemes'
 
   schemas:
     RegionIterator:
@@ -101,6 +100,6 @@ components:
           description: List of regions
           type: array
           items:
-            $ref: './schemas/region.yaml#/Region'  
+            $ref: './schemas/region.yaml#/Region'
         metadata:
           $ref: './schemas/resource.yaml#/ResponseMetadata'

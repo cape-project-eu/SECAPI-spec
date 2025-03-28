@@ -15,6 +15,8 @@ Region:
 
 RegionSpec:
   type: object
+  description: |
+    The specification of a region, including the available zones and providers.
   required:
     - availableZones
     - providers
@@ -33,8 +35,6 @@ RegionSpec:
       type: array
       items:
         $ref: './region.yaml#/Provider'
-  description: |
-    The specification of a region, including the available zones and providers.
 
 Zone:
   type: string
@@ -46,6 +46,8 @@ RegionStatus:
 
 Provider:
   type: object
+  description: |
+    A provider of cloud services
   required:
     - name
     - version
@@ -60,5 +62,3 @@ Provider:
     url:
       type: string
       example: "https://demo.secapi.cloud/providers/seca.network"
-  description: |
-    A provider of cloud services

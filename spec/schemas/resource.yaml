@@ -111,9 +111,9 @@ PermissionMetadata:
       type: string
       example: get
   example:     
-      scope: "workspace/production"
-      resource: "seca.compute/instances/my-server"
-      verb: get  
+    scope: "workspace/production"
+    resource: "seca.compute/instances/my-server"
+    verb: get  
 
 ModificationMetadata:
   type: object
@@ -212,7 +212,6 @@ ZonalMetadata:
   properties:
     zone:
       $ref: './region.yaml#/Zone'
-
 
 Status:
   type: object
