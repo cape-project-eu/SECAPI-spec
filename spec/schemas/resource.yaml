@@ -202,7 +202,7 @@ RegionalMetadata:
     workspace:
       type: string
       description: Workspace identifier
-      
+
 ZonalMetadata:
   type: object
   description: Metadata for zonal resources
@@ -300,4 +300,3 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
-      
