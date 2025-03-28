@@ -57,6 +57,7 @@ schemas:
         description: A string indicating which URI query parameter caused the error.
 
   Error400:
+    description: A 400 Bad Request error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 400 Bad Request error response
@@ -65,8 +66,10 @@ schemas:
         type: "http://secapi.eu/errors/invalid-request"
         title: "Bad Request"
         detail: "The request was invalid or cannot be served."
+        instance: "/errors/400"
 
   Error401:
+    description: A 401 Unauthorized error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 401 Unauthorized error response
@@ -75,8 +78,10 @@ schemas:
         type: "http://secapi.eu/errors/unauthorized"
         title: "Unauthorized"
         detail: "Authentication is required and has failed or has not been provided."
+        instance: "/errors/401"
 
   Error403:
+    description: A 403 Forbidden error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 403 Forbidden error response
@@ -85,8 +90,10 @@ schemas:
         type: "http://secapi.eu/errors/forbidden"
         title: "Forbidden"
         detail: "The request was valid, but the server is refusing action."
+        instance: "/errors/403"
 
   Error404:
+    description: A 404 Not Found error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 404 Not Found error response
@@ -95,8 +102,10 @@ schemas:
         type: "http://secapi.eu/errors/resource-not-found"
         title: "Not Found"
         detail: "The requested resource could not be found."
+        instance: "/errors/404"
 
   Error409:
+    description: A 409 Conflict error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 409 Conflict error response
@@ -105,8 +114,10 @@ schemas:
         type: "http://secapi.eu/errors/resource-conflict"
         title: "Conflict"
         detail: "The request could not be completed due to a conflict with the current state of the resource."
+        instance: "/errors/409"
 
   Error412:
+    description: A 412 Precondition Failed error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 412 Precondition Failed error response
@@ -115,8 +126,10 @@ schemas:
         type: "http://secapi.eu/errors/precondition-failed"
         title: "Precondition Failed"
         detail: "The precondition given in the If-Match header failed."
+        instance: "/errors/412"
 
   Error422:
+    description: A 422 Unprocessable Entity error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 422 Unprocessable Entity error response
@@ -127,8 +140,10 @@ schemas:
         detail: "The request was well-formed but was unable to be followed due to semantic errors."
         source:
           pointer: "/data/attributes/username"
+        instance: "/errors/422"
 
   Error500:
+    description: A 500 Internal Server Error error response
     allOf:
     - $ref: '#/schemas/Error'
     - description: A 500 Internal Server Error error response
@@ -137,6 +152,7 @@ schemas:
         type: "http://secapi.eu/errors/internal-server-error"
         title: "Internal Server Error"
         detail: "The server encountered an unexpected condition that prevented it from fulfilling the request."
+        instance: "/errors/500"
 
 responses:
   Error400:
@@ -150,6 +166,7 @@ responses:
           type: "http://secapi.eu/errors/invalid-request"
           title: "Bad Request"
           detail: "The request was invalid or cannot be served."
+          instance: "/errors/400"
 
   Error401:
     description: Unauthorized
@@ -162,6 +179,7 @@ responses:
           type: "http://secapi.eu/errors/unauthorized"
           title: "Unauthorized"
           detail: "Authentication is required and has failed or has not been provided."
+          instance: "/errors/401"
 
   Error403:
     description: Forbidden
@@ -174,6 +192,7 @@ responses:
           type: "http://secapi.eu/errors/forbidden"
           title: "Forbidden"
           detail: "The request was valid, but the server is refusing action."
+          instance: "/errors/403"
 
   Error404:
     description: Not Found
@@ -186,6 +205,7 @@ responses:
           type: "http://secapi.eu/errors/resource-not-found"
           title: "Not Found"
           detail: "The requested resource could not be found."
+          instance: "/errors/404"
 
   Error409:
     description: Conflict
@@ -198,6 +218,7 @@ responses:
           type: "http://secapi.eu/errors/resource-conflict"
           title: "Conflict"
           detail: "The request could not be completed due to a conflict with the current state of the resource."
+          instance: "/errors/409"
 
   Error412:
     description: Precondition Failed
@@ -210,6 +231,7 @@ responses:
           type: "http://secapi.eu/errors/precondition-failed"
           title: "Precondition Failed"
           detail: "The precondition given in the If-Match header failed."
+          instance: "/errors/412"
 
   Error422:
     description: Unprocessable Entity
@@ -224,6 +246,7 @@ responses:
           detail: "The subnetRef is not correctly formatted."
           sources:
           - pointer: "/spec/subnetRef"
+          instance: "/errors/422"
 
   Error500:
     description: Internal Server Error
@@ -236,3 +259,4 @@ responses:
           type: "http://secapi.eu/errors/internal-server-error"
           title: "Internal Server Error"
           detail: "The server encountered an unexpected condition that prevented it from fulfilling the request."
+          instance: "/errors/500"

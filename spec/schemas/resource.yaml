@@ -1,9 +1,17 @@
 ResourceMetadata:
+  description: |
+    Metadata for all resources with type and name information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/TypeMetadata'
+  example:
+    name: "resource-name"
+    apiVersion: "v1"
+    kind: "workspace"
 
 GlobalResourceMetadata:
+  description: |
+    Metadata for global resources with name, permission, modification, type, and tenant information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -12,6 +20,8 @@ GlobalResourceMetadata:
   - $ref: '#/TenantMetadata'
 
 RegionalResourceMetadata:
+  description: |
+    Metadata for regional resources with name, permission, modification, type, tenant, and region information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -21,6 +31,8 @@ RegionalResourceMetadata:
   - $ref: '#/RegionalMetadata'
 
 ZonalResourceMetadata:
+  description: |
+    Metadata for zonal resources with name, permission, modification, type, tenant, region, and zone information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -36,6 +48,8 @@ TypeMetadata:
   required:
   - apiVersion
   - kind
+  description:  |
+    Metadata for all resources with type information.
   properties:
     apiVersion:
       type: string
@@ -96,6 +110,10 @@ PermissionMetadata:
     verb:
       type: string
       example: get
+  example:     
+    scope: "workspace/production"
+    resource: "seca.compute/instances/my-server"
+    verb: get  
 
 ModificationMetadata:
   type: object
@@ -123,6 +141,7 @@ NameMetadata:
   readOnly: true
   required:
   - name
+  description: Metadata for resource names
   properties:
     name:
       type: string
@@ -137,6 +156,7 @@ NameMetadata:
 
 UserResourceMetadata:
   type: object
+  description: Metadata for user-defined resource properties
   properties:
     labels:
       type: object
@@ -192,7 +212,6 @@ ZonalMetadata:
   properties:
     zone:
       $ref: './region.yaml#/Zone'
-
 
 Status:
   type: object
@@ -272,6 +291,8 @@ StatusCondition:
     lastTransitionTime: "2024-11-21T14:39:22Z"
 
 ResponseMetadata:
+  description: |
+    Metadata for response objects.
   allOf:
   - $ref: '#/PermissionMetadata'
   - type: object

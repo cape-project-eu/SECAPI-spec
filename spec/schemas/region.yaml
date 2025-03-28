@@ -15,16 +15,23 @@ Region:
 
 RegionSpec:
   type: object
+  description: |
+    The specification of a region, including the available zones and providers.
   required:
     - availableZones
     - providers
   properties:
     availableZones:
+      description: |
+        The list of zones available in the region.
       type: array
       items:
         $ref: '#/Zone'
       example: ["a", "b", "c"]
+
     providers:
+      description: | 
+        The list of providers available in the region.
       type: array
       items:
         $ref: './region.yaml#/Provider'
@@ -39,6 +46,8 @@ RegionStatus:
 
 Provider:
   type: object
+  description: |
+    A provider of cloud services
   required:
     - name
     - version
