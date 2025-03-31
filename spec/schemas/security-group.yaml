@@ -62,6 +62,8 @@ SecurityGroupStatus:
 
 SecurityGroupRuleSpec:
   type: object
+  description: |
+    Specification of a security group rule defining network access permissions.
   required:
     - direction
     - protocol

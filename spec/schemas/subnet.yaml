@@ -56,7 +56,9 @@ SubnetSpec:
     cidr:
       ipv4: "0.0.0.0/24"
       ipv6: "::/64"
+    zone: "a"
     skuRef: ".../seca.1000" 
+
 
 SubnetStatus:
   allOf:
