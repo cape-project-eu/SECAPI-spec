@@ -19,6 +19,8 @@ WorkspaceSpec:
   example: {}
 
 WorkspaceStatus:
+  description: |
+    Status of the workspace, including the number of resources in the workspace.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
