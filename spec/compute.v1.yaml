@@ -89,6 +89,10 @@ paths:
                       ramGB: 32
                       tier: seca.xl
                       vCPU: 16
+                metadata:
+                  resource: seca.compute/tenants/{tenant}/skus
+                  scope: workspace/production
+                  verb: get
 
         '400':
           $ref: './schemas/errors.yaml#/responses/Error400'

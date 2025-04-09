@@ -75,7 +75,7 @@ InstanceSpec:
       items:
         $ref: './block-storage.yaml#/VolumeReference'
   example:
-    skuRef: ".../seca.1000"
+    skuRef: ".../seca.s"
     zone: "a"
     bootVolume: 
       deviceRef: ".../block-123"
