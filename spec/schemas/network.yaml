@@ -59,8 +59,8 @@ NetworkSpec:
       type: string
       example: ""
   example:
-    skuRef: ".../seca.1000"
-    routeTableRef: ".../resource-a1b2c3"
+    skuRef: "tenants/public/skus/seca.1000"
+    routeTableRef: "tenants/public/route-tables/route-table-1"
     skuExtensions: ""
     cidr:
       ipv4: "0.0.0.0/16"
