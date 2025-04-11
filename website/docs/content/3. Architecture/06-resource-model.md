@@ -24,9 +24,9 @@ The fields we are currently providing are the below listed:
 - **id** - Resource Id
 - **region** - In which region the resource is hosted within the cloud provider’s infrastructure. Available with both regional and zonal resources
 - **zone** - In which availabilityZone the resource is hosted within the cloud provider’s infrastructure. Available only with zonal resources
-- **creationTimestamp** -  cloud resource metadata to provide information about the resource’s lifecycle, specifically when it was created .
-- **deletionTimestamp** - cloud resource metadata to provide information about when it was scheduled for deletion
-- **lastModifiedTimestamp** - cloud resource metadata to provide information about when occurred the last update, also used for multi-version concurrency control (MVCC) - see "if-match".
+- **creationAt** -  cloud resource metadata to provide information about the resource’s lifecycle, specifically when it was created .
+- **deletionAt** - cloud resource metadata to provide information about when it was scheduled for deletion
+- **lastModifiedAt** - cloud resource metadata to provide information about when occurred the last update, also used for multi-version concurrency control (MVCC) - see "if-match".
 - **labels** - key-value pair mechanism used for organizing, categorizing, and identifying resources based on user-defined attributes.
 
 ### Properties
@@ -45,7 +45,7 @@ What do we include in the status object is below described:
 - **conditions**
   - **type** - the condition type (e.g Ready, Available, Progressing)
   - **status** - whether the condition is met (True, False, or Unknown)
-  - **lastTransitionTime** - When the condition last changed
+  - **lastTransitionAt** - When the condition last changed
   - **reason** - Details about the current condition status, helpful for debugging or understanding issues.
   - **message** - Human-readable message indicating details about the last status transition
 - **state** - indicates the resource lifecycle phase, like Pending, Succeeded, Failed or Unknown.
