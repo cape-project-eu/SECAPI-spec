@@ -18,7 +18,7 @@ Image:
   example:
     labels:
       os: linux
-      version: 13
+      version: "13"
       base: debian
     annotations:
       name: Debian Container
@@ -27,10 +27,10 @@ Image:
         preinstalled software for the use of linux containers.
       release: 2025-01-01T00:00:00Z
       eol: 2026-01-01T00:00:00Z
-      recommendedCpu: 2
-      recommendedMemory: 2
-      recommendedNics: 2
-      recommendedStorageSize: 100
+      recommendedCpu: "2"
+      recommendedMemory: "2"
+      recommendedNics: "2"
+      recommendedStorageSize: "100"
     spec:
       blockStorageRef: block-storages/temp-a9b2bc3d81
       cpuArchitecture: amd64
@@ -73,10 +73,16 @@ ImageSpec:
       default: UEFI
 
 ImageStatus:
+  description: |
+    Status of the Image, including the size of the Image in MB.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
     readOnly: true
+    description: |
+      Current status of the Image. The status is read-only and will be set by
+      the system. The status contains information about the current state of the
+      Image.
     properties:
       sizeMB:
         type: integer

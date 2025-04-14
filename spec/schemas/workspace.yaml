@@ -24,6 +24,10 @@ WorkspaceStatus:
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
+    description: |
+      Current status of the workspace. The status is read-only and will be set by
+      the system. The status contains information about the current state of the
+      workspace and its resources.
     readOnly: true
     properties:
       resourceCount:
