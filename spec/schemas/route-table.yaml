@@ -44,6 +44,9 @@ RouteSpec:
     The target reference can be an instance,
     a gateway or an IP address (v4 or v6) that is part of the
     network the route table is attached to.
+  required:
+  - destinationCidrBlock
+  - targetRef
   properties:
     destinationCidrBlock:
       type: string

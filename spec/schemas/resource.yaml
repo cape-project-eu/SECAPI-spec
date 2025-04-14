@@ -110,10 +110,10 @@ PermissionMetadata:
     verb:
       type: string
       example: get
-  example:     
+  example:
     scope: "workspace/production"
-    resource: "seca.compute/instances/my-server"
-    verb: get  
+    resource: "/tenants/public/instances/my-server"
+    verb: get
 
 ModificationMetadata:
   type: object
@@ -300,3 +300,8 @@ ResponseMetadata:
       skipToken:
         type: string
         description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+  example:
+    skipToken: "false"
+    scope: "workspace/production"
+    resource: "seca.compute/instances/my-server"
+    verb: get  

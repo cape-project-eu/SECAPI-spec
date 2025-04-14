@@ -104,10 +104,12 @@ source ~/.bashrc
 go version
 expected: go version go1.24.1 linux/amd64
 
-# Generate resources api files
-make resource-apis
+# Install gotemplate
+go install github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
+echo 'export PATH="$HOME/go/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
 
-# Lint
+# Generate resources api files && Lint
 make lint
 
 # Run the Makefile to generate OpenAPI files
@@ -117,8 +119,8 @@ make
 ls dist/specs
 
 # Result
-activitylog.v1.yaml    compute.v1.yaml       network.v1.yaml        region.v1.yaml   workspace.v1.yaml
-authorization.v1.yaml  loadbalancer.v1.yaml  objectstorage.v1.yaml  storage.v1.yaml
+extensions.activitylog.v1.yaml    foundation.compute.v1.yaml       foundation.network.v1.yaml        foundation.region.v1.yaml   foundation.workspace.v1.yaml
+foundation.authorization.v1.yaml  extensions.loadbalancer.v1.yaml  extensions.objectstorage.v1.yaml  foundation.storage.v1.yaml
 ```
 
 ## Website Installation
