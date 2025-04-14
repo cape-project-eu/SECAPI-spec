@@ -110,10 +110,10 @@ PermissionMetadata:
     verb:
       type: string
       example: get
-  example:     
+  example:
     scope: "workspace/production"
-    resource: "seca.compute/instances/my-server"
-    verb: get  
+    resource: "/tenants/public/instances/my-server"
+    verb: get
 
 ModificationMetadata:
   type: object
