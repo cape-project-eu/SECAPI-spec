@@ -13,6 +13,8 @@ SystemRole:
     * WORKSPACE_VIEWER - Can view all resources in workspace
 
 Role:
+  description: |
+    Role represents a set of permissions that can be assigned to users.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -82,6 +84,8 @@ RoleStatus:
   $ref: "./resource.yaml#/Status"
 
 RoleAssignment:
+  description: |
+    Role assignment for a user account. The role is assigned to the user account in the context of the specified scopes.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
