@@ -1,4 +1,7 @@
 NetworkLoadBalancer:
+  description: |
+    Represents a Network Load Balancer resource. It is used to distribute incoming network traffic
+    across multiple backend instances based on the specified frontend configuration.
   allOf:
   - $ref: './resource.yaml#/UserResourceMetadata'
   - type: object
@@ -32,6 +35,9 @@ NetworkLoadBalancerSpec:
       minItems: 1
 
 NetworkLoadBalancerStatus:
+  description: |
+    Represents the status of the Network Load Balancer. It provides information about
+    the health of the backend instances and their readiness to handle traffic.
   allOf:
   - $ref: "./resource.yaml#/Status"
   - type: object
