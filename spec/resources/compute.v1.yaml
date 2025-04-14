@@ -1,3 +1,4 @@
+group: foundation
 title: Compute
 name: compute
 version: v1
@@ -31,6 +32,10 @@ resources:
         resource: "seca.compute/instances/my-server"
         verb: get
       list:
+        metadata:
+          scope: "workspace/production"
+          resource: "/tenants/public/skus/seca.s"
+          verb: get
         items:
         - { spec: { provider: 'SECA', tier: 'seca.s',  vCPU:  2, ramGB:  4, cpuType: 'amd64', benchmarkPoints:  3000 }}
         - { spec: { provider: 'SECA', tier: 'seca.m',  vCPU:  4, ramGB:  8, cpuType: 'amd64', benchmarkPoints:  6000 }}

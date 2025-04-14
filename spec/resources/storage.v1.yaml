@@ -1,3 +1,4 @@
+group: foundation
 title: Storage
 name: storage
 version: v1
@@ -26,6 +27,11 @@ resources:
         | SECA | seca.100 | 100 IOPS | High-performance block storage tier |
     example:
       list:
+        metadata:
+          skipToken: "false"
+          scope: "workspace/production"
+          resource: "seca.compute/instances/my-server"
+          verb: get  
         items:
         - { spec: { provider: 'SECA', tier: 'seca.general', description: 'a storage with no guaranteed throughput for normal usage' }}
         - { spec: { provider: 'SECA', tier: 'seca.100', description: 'minimal 100 iops, 99% of time, when >50GB' }}
@@ -36,6 +42,11 @@ resources:
     hierarchy: [tenant]
     schema: ./schemas/image.yaml#/Image
     operations: [list, get, put, delete]
+    description:
+      put:
+        Creates or updates a image. The return code of the endpoint provides indicates if the resource was created or updated.
+        A client must accept both as successful response to the request. Please check the [Image Handling](/docs/content/Other/image-handling) section
+        before creating images.
   - name: block-storage
     plural: block-storages
     hierarchy: [tenant, workspace]

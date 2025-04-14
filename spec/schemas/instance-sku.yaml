@@ -59,7 +59,4 @@ InstanceSkuCapability:
     ramGB:
       type: integer
     cpuType:
-      type: string  
-
-InstanceSkuStatus:
-  $ref: "./resource.yaml#/Status"
+      type: string
