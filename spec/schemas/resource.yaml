@@ -123,6 +123,10 @@ ModificationMetadata:
   - lastModifiedAt
   - resourceVersion
   properties:
+    createdAt:
+      type: string
+      format: date-time
+      description: Indicates the time when the resource was created. The field is set by the provider and should not be modified by the user.
     deletedAt:
       type: string
       format: date-time

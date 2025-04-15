@@ -24,8 +24,8 @@ The fields we are currently providing are the below listed:
 - **id** - Resource Id
 - **region** - In which region the resource is hosted within the cloud provider’s infrastructure. Available with both regional and zonal resources
 - **zone** - In which availabilityZone the resource is hosted within the cloud provider’s infrastructure. Available only with zonal resources
-- **creationAt** -  cloud resource metadata to provide information about the resource’s lifecycle, specifically when it was created .
-- **deletionAt** - cloud resource metadata to provide information about when it was scheduled for deletion
+- **createdAt** -  cloud resource metadata to provide information about the resource’s lifecycle, specifically when it was created .
+- **deletedAt** - cloud resource metadata to provide information about when it was scheduled for deletion
 - **lastModifiedAt** - cloud resource metadata to provide information about when occurred the last update, also used for multi-version concurrency control (MVCC) - see "if-match".
 - **labels** - key-value pair mechanism used for organizing, categorizing, and identifying resources based on user-defined attributes.
 
