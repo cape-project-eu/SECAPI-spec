@@ -120,6 +120,7 @@ ModificationMetadata:
   readOnly: true
   description: Base metadata for all resources with optional region references
   required:
+  - createdAt  
   - lastModifiedAt
   - resourceVersion
   properties:
