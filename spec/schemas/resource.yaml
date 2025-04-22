@@ -83,14 +83,78 @@ TypeMetadata:
       $ref: '#/Reference'
 
 Reference:
+  description: |
+    Reference to a resource. The reference is represented as the full URN (Uniform Resource Name) name of the resource.
+    The reference can be used to refer to a resource in other resources.
+  anyOf:
+  - $ref: '#/ReferenceURN'
+  - $ref: '#/ReferenceObject'
+
+ReferenceURN:
   type: string
   description: |
     A unique resource name used to reference this resource in other resources. The reference
-    is represented as the full URN (Uniform Resource Name) of the resource. In most cases,
-    the prefix of the URN can be automatically derived from the provider. To simplify usage,
-    only the resource name can be specified as a reference using the prefix `.../` to enable
-    automatic prefix inference.
-  example: .../resource-a1b2c3
+    is represented as the full URN (Uniform Resource Name) name of the resource. 
+    
+    ### Automatic Prefix Inference
+
+    In most cases, the prefix of the URN can be automatically derived in the given context.
+    To simplify usage, only the resource type and name might be specified as a reference
+    using the `<type>/<name>` notation. The suffix can be made more specific by adding
+    additional segments separated by slashes. 
+    
+    The prefix is automatically inferred from the context. For example, if the resource is a
+    block storage in the same workspace the reference can be specified as 
+    `block-storages/my-block-storage`. If the resource is a block storage in a different workspace, the
+    reference can be specified as `workspaces/ws-1/block-storages/my-block-storage`.
+
+    For automatic prefix inference, the following rules apply:
+    - the version is inferred from the current resource version
+    - the workspace is inferred from the current workspace
+    - the region is inferred from the current region
+    - the provider is inferred from the type and context of the usage
+
+    The prefix inference is resolved on admission into the full URN format, which makes it
+    mostly suitable for human use.
+  example: resources/resource-a1b2c3
+
+ReferenceObject:
+  type: object
+  description: |
+    A reference to a resource using an object. The object contains the
+    same information as the ReferenceURN, but is represented as a structured object.
+    The advantage of this representation is that it can be used to reference
+    resources in different workspaces or regions without the need to specify
+    the full URN.
+  required:
+  - resource
+  properties:
+    region:
+      type: string
+      description: |
+        Region of the resource. If not set, the region is inferred from the context.
+      example: "us-west-1"
+    provider:
+      type: string
+      description: |
+        Provider of the resource. If not set, the provider is inferred from the context.
+      example: "seca.compute/v1"
+    tenant:
+      type: string
+      description: |
+        Tenant of the resource. If not set, the tenant is inferred from the context.
+      example: "tenant-1"
+    workspace:
+      type: string
+      description: |
+        Workspace of the resource. If not set, the workspace is inferred from the context.
+      example: "workspace-1"
+    resource:
+      type: string
+      description: |
+        Name and type of the resource. Must be in the format `<type>/<name>`.
+        The type is the resource type, and the name is the resource name.
+      example: resources/resource-a1b2c3
 
 PermissionMetadata:
   type: object

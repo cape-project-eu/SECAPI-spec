@@ -228,7 +228,7 @@ Content-Type: application/json
     "description": "Linux",
   },
   "spec": {
-    "skuRef": ".../seca.rd500",
+    "skuRef": "skus/seca.250",
     "sizeGB": 50,
     "sourceImageRef": "tenants/public/images/ubuntu-24.04"
   }
@@ -252,7 +252,7 @@ Content-Type: application/json
     "description": "Production network for web-shop",
   }
   "spec": {
-    "skuRef": ".../seca.1000",
+    "skuRef": "skus/seca.1000",
     "cidr": {
       "ipv4": "10.100.0.0/16"
     }
@@ -275,7 +275,7 @@ Content-Type: application/json
     "description": "Public subnet",
   }
   "spec": {
-    "networkRef": ".../web-shop-network",
+    "networkRef": "networks/web-shop-network",
     "cidr": {
       "ipv4": "10.100.1.0/24"
     }
@@ -351,9 +351,9 @@ Content-Type: application/json
 
 {
   "spec": {
-    "subnetRef": ".../web-shop-subnet",
+    "subnetRef": "subnets/web-shop-subnet",
     "addresses": ["0.0.0.0"],
-    "publicIPRef": ".../ip1"
+    "publicIPRef": "public-ips/ip1"
   }
 }
 ```
@@ -378,13 +378,19 @@ Content-Type: application/json
     "externalID": "980c0d88-09e1-42f9-a4ae-f8f4687d6c99"
   },
   "spec": {
-    "skuRef": .../gold",
-    "primaryNicRef": ".../n1"
+    "skuRef": "skus/gold",
+    "primaryNicRef": {
+      "provider": "seca.network/v1",
+      "resource": "nics/n1"
+    }
     "sshKeys": [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."
     ]
     "bootVolume": {
-      "deviceRef": ".../web-shop-os-disk"
+      "deviceRef": {
+        "provider": "seca.storage/v1",
+        "resource": "block-storages/web-shop-os-disk"
+      }
     }
   } 
 }
