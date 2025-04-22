@@ -1,0 +1,143 @@
+PublicCluster:
+  description: |
+    Represents a public kubernetes cluster resource. A public cluster is
+    accessible from the internet and can be used to deploy applications
+    that require external access.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: '#/PublicClusterSpec'
+      status:
+        $ref: '#/PublicClusterStatus'
+
+PublicClusterSpec:
+  type: object
+  description: |
+    Specification of the public kubernetes cluster, including its configuration
+    and network settings.
+
+    Changing the sku of the cluster will cause the cluster to be recreated.
+  required:
+  - skuRef
+  properties:
+    skuRef:
+      $ref: './resource.yaml#/Reference'
+    restrictKubernetesApi:
+      description: |
+        Restrict access to the Kubernetes API to specific IP addresses or ranges.
+        This is a security feature to limit access to the cluster. If not specified,
+        the Kubernetes API is accessible from any IP address. Nodes that are 
+        part of the cluster are always allowed to access the Kubernetes API. 
+      type: array
+      items:
+        type: string
+        description: |
+          IP address or CIDR range to restrict access to the Kubernetes API.
+          The IP address or CIDR can be for IPv4 or IPv6.
+      example:
+      - "1.2.3.4/32"
+      - "2002::1234:abcd:ffff:c0a8:101/64"
+      - "1.2.3.4"
+      - "2002::1234:abcd:ffff:c0a8:101"
+
+PublicClusterStatus:
+  description: |
+    Represents the status of the public kubernetes cluster.
+  allOf:
+  - $ref: "./resource.yaml#/Status"
+  - type: object
+    readOnly: true
+    properties:
+      nodePools:
+        description: |
+          List of node pools in the cluster. Each node pool is represented by its 
+          reference to a public node pool.
+        type: array
+        items:
+          $ref: './resource.yaml#/Reference'
+      kubeConfig:
+        type: string
+        description: |
+          The kube config file for the cluster. This file is used to configure
+          access to the cluster using kubectl or other Kubernetes clients.
+        example: "---\n..."
+
+PublicNodePool:
+  description: |
+    Represents a Node Pool resource in a Kubernetes cluster. A Node Pool is a group of
+    nodes with the same configuration, including instance SKU, network configuration,
+    and security group settings. Node Pools are used to manage the scaling and
+    lifecycle of nodes in a Kubernetes cluster.
+  allOf:
+  - $ref: './resource.yaml#/UserResourceMetadata'
+  - type: object
+    required:
+    - spec
+    properties:
+      metadata:
+        $ref: './resource.yaml#/RegionalResourceMetadata'
+      spec:
+        $ref: '#/PublicNodePoolSpec'
+      status:
+        $ref: '#/PublicNodePoolStatus'
+
+PublicNodePoolSpec:
+  type: object
+  description: |
+    Specification of the public kubernetes node pool, including its configuration
+    and network settings. Since the node pool is public, all nodes in the pool
+    have a public IP address and are accessible from the internet.
+
+    The node pool is mainly determined by the following fields:
+    * `instances` field is required to specify the number of instances in the node pool.
+    * `clusterRef` field is required to specify the cluster to which this node pool belongs.
+    * `instanceSkuRef` field is required to specify the compute instance SKU for the nodes in this node pool.
+    * `subnetRef` field is required to specify the subnet in which the nodes will be deployed.
+    * `zone` field is required to specify the zone in which the nodes will be deployed.
+  required:
+  - instances
+  - clusterRef
+  - instanceSkuRef
+  - subnetRef
+  - zone
+  properties:
+    instances:
+      description: |
+        The number of instances in the node pool. This field is required to
+        specify the number of nodes in the node pool.
+      type: integer
+      minimum: 1
+    clusterRef:
+      $ref: './resource.yaml#/Reference'
+    instanceSkuRef:
+      $ref: './resource.yaml#/Reference'
+    subnetRef:
+      $ref: './resource.yaml#/Reference'
+    zone:
+      $ref: './region.yaml#/Zone'
+    securityGroupRef:
+      $ref: './resource.yaml#/Reference'
+
+PublicNodePoolStatus:
+  description: |
+    Represents the status of the public kubernetes node pool. The status
+    represents if the instances of the node pool are provisioned to the
+    cluster. 
+  allOf:
+  - $ref: './resource.yaml#/Status'
+  - type: object
+    readOnly: true
+    properties:
+      nodes:
+        description: |
+          List of nodes in the Node Pool. Each node is represented by its 
+          reference to a compute instance.
+        type: array
+        items:
+          $ref: './resource.yaml#/Reference'

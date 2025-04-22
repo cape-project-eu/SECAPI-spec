@@ -1,0 +1,58 @@
+ClusterSku:
+  type: object
+  description: |
+    Represents a Stock Keeping Unit (SKU) for kubernetes Clusters.
+  properties:
+    metadata:
+      $ref: './resource.yaml#/RegionalResourceMetadata'
+    spec:
+      $ref: "#/ClusterSkuSpec"
+
+ClusterSkuSpec:
+  type: object
+  description: |
+    Specification of the instance SKU, including its capabilities and extensions.
+  properties:
+    description:
+      type: string
+      description: |
+        Description of the SKU.
+    version:
+      type: string
+      description: |
+        The kubernetes major and minor version.
+        The version is a string in the format of `<major>.<minor>`.
+    automaticUpdatePolicy:
+      type: string
+      description: |
+        The automatic updates policy for the kubernetes cluster.
+
+        The policy can be one of the following:
+        - `none`: Automatic updates are disabled for the
+          kubernetes cluster.
+        - `stable`: Automatic updates are enabled for the 
+          stable version of kubernetes.
+        - `preview`: Automatic updates are enabled for the
+          preview version of kubernetes.
+      enum:
+        - none
+        - stable
+        - preview
+    type:
+      type: string
+      description: |
+        The type of kubernetes cluster.
+        - `dedicated`: A dedicated kubernetes control plane cluster.
+          This cluster uses extra resources for the control plane.
+          It is recommended for performance intensive workloads.
+        - `shared`: A shared kubernetes cluster. 
+          This cluster uses shared resources for the control plane.
+          It is recommended for cost sensitive workloads.
+      enum:
+        - dedicated
+        - shared
+  example:
+    description: 'Kubernetes Cluster SKU'
+    version: '1.30'
+    automaticUpdatePolicy: 'stable'
+    type: 'shared'

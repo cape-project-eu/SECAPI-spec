@@ -1,0 +1,18 @@
+group: extensions
+title: Kubernetes
+name: kubernetes
+version: v1beta1
+description: |
+  The Kubernetes API provides access to Kubernetes resources.
+  This API is part of the Sovereign European Cloud API.
+resources:
+  - name: public-cluster
+    plural: public-clusters
+    hierarchy: [tenant, workspace]
+    schema: ./schemas/kubernetes.yaml#/PublicCluster
+    operations: [list, get, put, delete]
+  - name: public-node-pool
+    plural: public-node-pools
+    hierarchy: [tenant, workspace]
+    schema: ./schemas/kubernetes.yaml#/PublicNodePool
+    operations: [list, get, put, delete]
