@@ -26,7 +26,7 @@ A comprehensive REST API for managing cloud infrastructure resources in complian
 - Content Types: JSON for requests and responses
 - Status: Production-ready for core IaaS operations
 
-![API Diagram](@site/static/img/api-diagram.png)
+![API Diagram](@site/static/img/usage.png)
 
 ## Current Scope
 
