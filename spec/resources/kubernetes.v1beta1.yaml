@@ -6,13 +6,13 @@ description: |
   The Kubernetes API provides access to Kubernetes resources.
   This API is part of the Sovereign European Cloud API.
 resources:
-  - name: public-cluster
-    plural: public-clusters
+  - name: cluster
+    plural: clusters
     hierarchy: [tenant, workspace]
-    schema: ./schemas/kubernetes.yaml#/PublicCluster
+    schema: ./schemas/kubernetes.yaml#/Cluster
     operations: [list, get, put, delete]
-  - name: public-node-pool
-    plural: public-node-pools
-    hierarchy: [tenant, workspace]
-    schema: ./schemas/kubernetes.yaml#/PublicNodePool
+  - name: node-pool
+    plural: node-pools
+    hierarchy: [tenant, workspace, cluster]
+    schema: ./schemas/kubernetes.yaml#/NodePool
     operations: [list, get, put, delete]
