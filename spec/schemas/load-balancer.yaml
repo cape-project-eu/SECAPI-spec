@@ -27,7 +27,10 @@ NetworkLoadBalancerSpec:
   - frontends
   properties:
     nicRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the NIC attached to the load balancer.
+      - example: 'nics/lb-1'
     frontends:
       type: array
       items:
@@ -88,7 +91,11 @@ LoadBalancerTarget:
       type: array
       description: 'Nic reference to the members as part of the LoadBalancerTarget'
       items:
-        $ref: './resource.yaml#/Reference'
+        allOf:
+        - $ref: './resource.yaml#/Reference'
+        - description: Reference to the NIC of a backend instance.
+        - example: 'nics/nic-1'
+
     healthCheck:
       $ref: '#/LoadBalancerHealthCheck'
     proxyProtocol:

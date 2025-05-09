@@ -25,7 +25,10 @@ RouteTableSpec:
   - routes
   properties:
     localRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the network from which the route table will inherit the routes from.
+      - example: 'networks/network-1'
     routes:
       type: array
       items:
@@ -56,7 +59,10 @@ RouteSpec:
         IPv6 or IPv4.
       example: '0.0.0.0/0'
     targetRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
+      - example: 'internet-gateways/internet-gateway-1'
 
 RouteTableStatus:
   description: |

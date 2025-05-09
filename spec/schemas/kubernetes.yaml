@@ -27,7 +27,10 @@ ClusterSpec:
   - skuRef
   properties:
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the Kubernetes cluster.
+      - example: "skus/seca.xl"
     restrictKubernetesApi:
       description: |
         Restrict access to the Kubernetes API to specific IP addresses or ranges.
@@ -114,13 +117,22 @@ NodeTemplate:
   - rootVolume
   properties:
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the node instances.
+      - example: "skus/seca.xl"
     subnetRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the NIC attached to the node instances.
+      - example: "subnets/k8s-nodes-a"
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the security group associated with the node instances.
+      - example: "security-groups/k8s-nodes"
     rootVolume:
       $ref: '#/NodeRootVolume'
   example:
@@ -152,7 +164,10 @@ NodeRootVolume:
   - sizeGB
   properties:
     skuRef:
-      $ref: './resource.yaml#/Reference'
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      - description: Reference to the SKU of the block storage created to store the root volume.
+      - example: "skus/seca.le500"
     sizeGB:
       description: |
         Size of the root volume in GB. The size is recommended to be at least 100GB.
@@ -160,9 +175,7 @@ NodeRootVolume:
       example: 100
       minimum: 20
   example:
-    skuRef:
-      provider: seca.storage/v1
-      resource: skus/seca.le500
+    skuRef: skus/seca.le500
     sizeGB: 100
 
 NodePoolStatus:
@@ -181,4 +194,7 @@ NodePoolStatus:
           reference to a compute instance.
         type: array
         items:
-          $ref: './resource.yaml#/Reference'
+          allOf:
+          - $ref: './resource.yaml#/Reference'
+          - description: Reference to the compute instance representing the node.
+          - example: "instances/instance-123"
