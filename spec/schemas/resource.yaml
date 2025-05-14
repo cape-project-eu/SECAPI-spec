@@ -404,6 +404,7 @@ ResponseMetadata:
   allOf:
   - $ref: '#/PermissionMetadata'
   - type: object
+    readOnly: true
     properties:
       skipToken:
         type: string
