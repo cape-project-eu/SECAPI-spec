@@ -9,7 +9,7 @@ This document will explain in details:
   
 The benchmarking is essential to measure the performances of the cloud server and to associate the right SECA size to the righe performance baseline in your infrastructure.
 It is a must to meet the minimum numbers for scores and memory for each size the CSP wants to participate with.
-In order to be part of SECA it is not essential or mandatory to participate with all the products and lables.
+In order to be part of SECA it is not essential or mandatory to participate with all the products and labels.
 
 ### Conditions
 
