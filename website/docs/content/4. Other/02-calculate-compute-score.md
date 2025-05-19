@@ -2,10 +2,14 @@
 
 ## Abstract
 
-This document will explain in details how to prepare your systems for the benchmark, where to start the benchmark and how to review the scores.
-The benchmarking is essential to measure the performances of the cloud server and be able to associate the right lable to the righe performance baseline in your infrastructure.
-Before labeling on of your machine, it is a must to meet the minimum scores for each type of product you want to participate with.
-In order to be part of SECA it is not essential or mandatory to participate with all the products and lables 
+This document will explain in details:
+- How to prepare your systems for the benchmark
+- Where to run the benchmark
+- What to measure against
+  
+The benchmarking is essential to measure the performances of the cloud server and to associate the right SECA size to the righe performance baseline in your infrastructure.
+It is a must to meet the minimum numbers for scores and memory for each size the CSP wants to participate with.
+In order to be part of SECA it is not essential or mandatory to participate with all the products and lables.
 
 ### Conditions
 
@@ -13,11 +17,8 @@ These are the baseline condition to run a test:
 
 * The hardware tested must be **the same** as your **production** hardware
 * You should test one size of server at the time
-* The VM running the Benchmark must be running the latest Debian Linux 12 cloud image
-* At the time of the test the Hypervisor must be topped up wit the same type of VMs running the same OS as the Benchmark VM
-  * For example: you are testing a SECA.L (8 CPU, 16 GB RAM), the VM being tested must be hosted on a Hypervisor which is hosting as many SECA.L type as possible, all running Debian Linux 12.
 * No additional software must be installed or run during the benchmark, not in he VM being tested not in the VMs running on the same Hypervisor
-* The use of swap memory is allowed during the benchmark process; however, it is recommended to only avoid it.
+* The use of swap memory is allowed during the benchmark process; however, it is recommended to avoid it.
 * Hyper-threads should not be considered as physical cores when evaluating or reporting the system's CPU configuration.
 
 ### Software
@@ -29,33 +30,46 @@ This software ensures consistency and comparability of results across various ha
 
 ### Shared or Dedicated vCPU
 
-We created 2 types of classification for the compute power scores
+In SECA there are 2 types of classification for the compute scores
 
-- 1 Shared : in this model all the CPUs/Cores of an Hypervisor are pooled together and each VM will be using a portion of that power it is usually less performing in the multi-core tasks but it is also less expensive.
-- 2 Dedicated : in this model each of the vCPU is pinned to a physical core; al model is more expensive but the performances fluctuate less in time and there is less impact of noisy neighbors.
+- Dedicated vCPU
+- Shared vCPU
 
-### Minimum Score per SECA.Size
+------
+
+- Dedicated: In this model, each virtual CPU (vCPU) is assigned to a specific physical core, and only the virtual machine (VM) it’s assigned to can use it. This results in more consistent performance and less fluctuation over time, with reduced impact from other VMs. However, it tends to be more expensive.
+- Shared: In this model, the CPUs and cores of the hypervisor are pooled together, and each VM gets a portion of the available resources. This can result in lower performance, particularly for workloads requiring multiple cores, and it is more susceptible to the noisy neighbor effect. However, it is more cost-effective.
+
+
+### Minimum Score per SECA.Size Dedicated vCPU Flavour
+
+The table below outlines the required multi-core benchmark scores for each SECA instance of Dedicated vCPU Type.
+It is importanto to note that Size, RAM, baseline performance score are a requirement to flag a flavour with a specific Seca.Size.
+The number of vCPU is instead a suggested value as you can get to the baseline performance score with any number of vCPU depending on type/architecture/frequency
+
+| Seca.Size.D |GB RAM | Min.SCORE | Suggested vCPU |
+| --------- | ----------- | --------- | --------- |
+| SECA.2XS.D  | 1         | 500       |  1  |
+| SECA.XS.D  | 2         | 750       |  1  |
+| SECA.S.D    | 4         | 2200      |  2  |
+| SECA.M.D    | 8         | 3500      |  4  |
+| SECA.L.D    | 16        | 6000      |  8  |
+| SECA.XL.D   | 32       | 9000      |  16  |
+| SECA.2XL.D  | 64       | 13000     |  32  |
+
+
+### Minimum Score per SECA.Size Shared vCPU Flavour
 
 The table below outlines the required multi-core benchmark scores for each SECA instance of Shared Type.
-It is importanto to note that while the number of vCPU is a suggestion as you can get to the specific value with less or more vCPU depending on type/architecture/frequency
+It is importanto to note that Size, RAM, baseline performance score are a requirement to flag a flavour with a specific Seca.Size.
+The number of vCPU is instead a suggested value as you can get to the baseline performance score with any number of vCPU depending on type/architecture/frequency
 
-| Seca.Size |GB RAM | Min.SCORE | Suggested vCPU |
+| Seca.Size.S | GB RAM | Min.SCORE | Suggested vCPU |
 | --------- | ----------- | --------- | --------- |
-| SECA.2XS  | 1         | 500       |  1  |
-| SECA.XS   | 2         | 750       |  1  |
-| SECA.S    | 4         | 2200      |  2  |
-| SECA.M    | 8         | 3500      |  4  |
-| SECA.L    | 16        | 6000      |  8  |
-| SECA.XL   | 32       | 9000      |  16  |
-| SECA.2XL  | 64       | 13000     |  32  |
-
-
-| Seca.Size | GB RAM | Min.SCORE | Suggested vCPU |
-| --------- | ----------- | --------- | --------- |
-| SECA.2XS  | 1         | 500       | 1 |
-| SECA.XS   | 2         | 750       | 1 |
-| SECA.S    | 4         | 2200      | 2 |
-| SECA.M    | 8         | 3500      | 4 |
-| SECA.L    | 16        | 6000      | 8 |
-| SECA.XL   | 32       | 9000      | 16 |
-| SECA.2XL  | 64       | 13000     | 32 |
+| SECA.2XS.S  | 1         | 500       | 1 |
+| SECA.XS.S   | 2         | 700       | 1 |
+| SECA.S.S    | 4         | 2000      | 2 |
+| SECA.M.S    | 8         | 3000      | 4 |
+| SECA.L.S    | 16        | 5500      | 8 |
+| SECA.XL.S   | 32       | 8000      | 16 |
+| SECA.2XL.S  | 64       | 9000     | 32 |
