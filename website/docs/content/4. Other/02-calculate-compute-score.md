@@ -47,7 +47,7 @@ The table below outlines the required multi-core benchmark scores for each SECA 
 It is importanto to note that Size, RAM, baseline performance score are a requirement to flag a flavour with a specific Seca.Size.
 The number of vCPU is instead a suggested value as you can get to the baseline performance score with any number of vCPU depending on type/architecture/frequency
 
-| Seca.Size.D |GB RAM | Min.SCORE | Suggested vCPU |
+| Seca.Size.Type |GB RAM | Min.SCORE | Suggested vCPU |
 | --------- | ----------- | --------- | --------- |
 | SECA.2XS.D  | 1         | 500       |  1  |
 | SECA.XS.D  | 2         | 750       |  1  |
@@ -64,7 +64,7 @@ The table below outlines the required multi-core benchmark scores for each SECA 
 It is importanto to note that Size, RAM, baseline performance score are a requirement to flag a flavour with a specific Seca.Size.
 The number of vCPU is instead a suggested value as you can get to the baseline performance score with any number of vCPU depending on type/architecture/frequency
 
-| Seca.Size.S | GB RAM | Min.SCORE | Suggested vCPU |
+| Seca.Size.Type | GB RAM | Min.SCORE | Suggested vCPU |
 | --------- | ----------- | --------- | --------- |
 | SECA.2XS.S  | 1         | 500       | 1 |
 | SECA.XS.S   | 2         | 700       | 1 |
