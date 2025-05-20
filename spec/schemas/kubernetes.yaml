@@ -1,4 +1,4 @@
-Cluster:
+KubernetesCluster:
   description: |
     Represents a kubernetes cluster resource. A cluster is
     accessible from the internet and can be used to deploy applications
@@ -12,11 +12,11 @@ Cluster:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: '#/ClusterSpec'
+        $ref: '#/KubernetesClusterSpec'
       status:
-        $ref: '#/ClusterStatus'
+        $ref: '#/KubernetesClusterStatus'
 
-ClusterSpec:
+KubernetesClusterSpec:
   type: object
   description: |
     Specification of the  kubernetes cluster, including its configuration
@@ -46,7 +46,7 @@ ClusterSpec:
       - "1.2.3.4"
       - "2002::1234:abcd:ffff:c0a8:101"
 
-ClusterStatus:
+KubernetesClusterStatus:
   description: |
     Represents the status of the  kubernetes cluster.
   allOf:
@@ -61,7 +61,7 @@ ClusterStatus:
           access to the cluster using kubectl or other Kubernetes clients.
         example: "---\n..."
 
-NodePool:
+KubernetesNodePool:
   description: |
     Represents a Node Pool resource in a Kubernetes cluster. A Node Pool is a group of
     nodes with the same configuration, including instance SKU, network configuration,
@@ -76,11 +76,11 @@ NodePool:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: '#/NodePoolSpec'
+        $ref: '#/KubernetesNodePoolSpec'
       status:
-        $ref: '#/NodePoolStatus'
+        $ref: '#/KubernetesNodePoolStatus'
 
-NodePoolSpec:
+KubernetesNodePoolSpec:
   type: object
   description: |
     Specification of the  kubernetes node pool, including its configuration
@@ -99,9 +99,9 @@ NodePoolSpec:
       maximum: 5000
       example: 3
     nodeTemplate:
-      $ref: '#/NodeTemplate'
+      $ref: '#/KubernetesNodeTemplate'
 
-NodeTemplate:
+KubernetesNodeTemplate:
   type: object
   description: |
     Template for creating nodes in the node pool. The template includes
@@ -122,7 +122,7 @@ NodeTemplate:
     securityGroupRef:
       $ref: './resource.yaml#/Reference'
     rootVolume:
-      $ref: '#/NodeRootVolume'
+      $ref: '#/KubernetesNodeRootVolume'
   example:
     skuRef:
       provider: seca.compute/v1
@@ -140,7 +140,7 @@ NodeTemplate:
         resource: skus/seca.le500
       sizeGB: 100
 
-NodeRootVolume:
+KubernetesNodeRootVolume:
   type: object
   description: |
     Root volume for the node. The root volume is used to store the operating
@@ -165,7 +165,7 @@ NodeRootVolume:
       resource: skus/seca.le500
     sizeGB: 100
 
-NodePoolStatus:
+KubernetesNodePoolStatus:
   description: |
     Represents the status of the  kubernetes node pool. The status
     represents if the instances of the node pool are provisioned to the

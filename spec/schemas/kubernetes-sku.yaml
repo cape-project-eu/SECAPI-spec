@@ -1,4 +1,4 @@
-ClusterSku:
+KubernetesClusterSku:
   description: |
     Represents a Stock Keeping Unit (SKU) for kubernetes Clusters.
   allOf:
@@ -8,9 +8,9 @@ ClusterSku:
       metadata:
         $ref: './resource.yaml#/SkuResourceMetadata'
       spec:
-        $ref: "#/ClusterSkuSpec"
+        $ref: "#/KubernetesClusterSkuSpec"
 
-ClusterSkuSpec:
+KubernetesClusterSkuSpec:
   type: object
   description: |
     Specification of the instance SKU, including its capabilities and extensions.

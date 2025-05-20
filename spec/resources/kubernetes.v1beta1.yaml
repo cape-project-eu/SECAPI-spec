@@ -9,10 +9,10 @@ resources:
   - name: cluster
     plural: clusters
     hierarchy: [tenant, workspace]
-    schema: ./schemas/kubernetes.yaml#/Cluster
+    schema: ./schemas/kubernetes.yaml#/KubernetesCluster
     operations: [list, get, put, delete]
   - name: node-pool
     plural: node-pools
     hierarchy: [tenant, workspace, cluster]
-    schema: ./schemas/kubernetes.yaml#/NodePool
+    schema: ./schemas/kubernetes.yaml#/KubernetesNodePool
     operations: [list, get, put, delete]
