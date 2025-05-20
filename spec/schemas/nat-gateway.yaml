@@ -45,19 +45,19 @@ InternetNatGatewayInstanceSpec:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the public IP allocated to this internet NAT gateway.
-      - example: 'public-ips/ip-1'
+        example: 'public-ips/ip-1'
     nicRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the NIC attached to the internet NAT gateway.
-      - example: 'nics/nat-gateway-1'
+        example: 'nics/nat-gateway-1'
     zone: 
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the security group associated with the NAT gateway.
-      - example: 'security-groups/security-group-1'
+        example: 'security-groups/security-group-1'
 
 InternetNatGatewayInstanceStatus:
   $ref: "./resource.yaml#/Status"

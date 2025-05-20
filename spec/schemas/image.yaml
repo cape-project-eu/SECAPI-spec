@@ -53,7 +53,7 @@ ImageSpec:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the block storage used to store the image.
-      - example: "block-storages/block-123"
+        example: "block-storages/block-123"
     cpuArchitecture:
       type: string
       description: CPU architecture for the Image
