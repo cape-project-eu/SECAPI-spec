@@ -131,10 +131,10 @@ GET ${compute-provider-url}/v1/tenants/{tenant_id}/skus
 
 Available compute tiers:
 
-- seca.s: 2 vCPU, 4GB RAM, 3000 benchmark points
-- seca.m: 4 vCPU, 8GB RAM, 6000 benchmark points
-- seca.l: 8 vCPU, 16GB RAM, 12000 benchmark points
-- seca.xl: 16 vCPU, 32GB RAM, 24000 benchmark points
+- seca.s.d: 2 vCPU, 4GB RAM, 3000 benchmark points
+- seca.m.d: 4 vCPU, 8GB RAM, 6000 benchmark points
+- seca.l.d: 8 vCPU, 16GB RAM, 12000 benchmark points
+- seca.xl.s: 16 vCPU, 32GB RAM, 24000 benchmark points
 
 ### Check Storage SKUs
 
