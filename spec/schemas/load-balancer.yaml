@@ -30,7 +30,9 @@ NetworkLoadBalancerSpec:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the NIC attached to the load balancer.
-        example: 'nics/lb-1'
+        example: 
+          provider: seca.network/v1
+          resource: nics/lb-1
     frontends:
       type: array
       items:
@@ -94,7 +96,9 @@ LoadBalancerTarget:
         allOf:
         - $ref: './resource.yaml#/Reference'
         - description: Reference to the NIC of a backend instance.
-          example: 'nics/nic-1'
+          example:
+            provider: seca.network/v1
+            resource: nics/nic-1
 
     healthCheck:
       $ref: '#/LoadBalancerHealthCheck'

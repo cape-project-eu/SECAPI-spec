@@ -109,7 +109,9 @@ SecurityGroupRuleSpec:
         allOf:
         - $ref: './resource.yaml#/Reference'
         - description: Reference to a CIDR block, IP address, gateway, instance or security group allowed to communicate with the security group.
-          example: 'security-groups/security-group-1'
+          example: 
+            provider: seca.network/v1
+            resource: security-groups/security-group-1
   example:
     annotations:
       description: "Allow incoming HTTP(s) traffic"

@@ -120,19 +120,25 @@ NodeTemplate:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the SKU of the node instances.
-        example: "skus/seca.xl"
+        example:
+          provider: seca.compute/v1
+          resource: skus/seca.xl
     subnetRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the NIC attached to the node instances.
-        example: "subnets/k8s-nodes-a"
+        example:
+        provider: seca.network/v1
+        resource: subnets/k8s-nodes-a
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the security group associated with the node instances.
-        example: "security-groups/k8s-nodes"
+        example:
+          provider: seca.network/v1
+          resource: security-groups/k8s-nodes
     rootVolume:
       $ref: '#/NodeRootVolume'
   example:
@@ -167,7 +173,9 @@ NodeRootVolume:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the SKU of the block storage created to store the root volume.
-        example: "skus/seca.le500"
+        example: 
+          provider: seca.storage/v1
+          resource: skus/seca.le500
     sizeGB:
       description: |
         Size of the root volume in GB. The size is recommended to be at least 100GB.
@@ -197,4 +205,6 @@ NodePoolStatus:
           allOf:
           - $ref: './resource.yaml#/Reference'
           - description: Reference to the compute instance representing the node.
-            example: "instances/instance-123"
+            example: 
+              provider: seca.compute/v1
+              resource: instances/instance-123

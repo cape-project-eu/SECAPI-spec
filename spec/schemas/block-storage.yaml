@@ -58,7 +58,9 @@ BlockStorageStatus:
         allOf:
         - $ref: './resource.yaml#/Reference' 
         - description: Reference to the instance the block storage is attached to.
-          example: "instances/instance-123"
+          example:
+            provider: seca.compute/v1
+            resource: instances/instance-123
 
 VolumeReference:
   type: object

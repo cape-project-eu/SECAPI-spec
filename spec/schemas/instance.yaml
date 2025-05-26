@@ -34,7 +34,9 @@ InstanceSpec:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the primary NIC attached to this instance.
-        example: 'network-interfaces/nic-123'
+        example:
+          provider: seca.network/v1
+          resource: network-interfaces/nic-123
     additionalNicRefs:
       type: array
       description: Additional NICs attached to this instance
@@ -42,14 +44,18 @@ InstanceSpec:
         allOf:
         - $ref: './resource.yaml#/Reference'
         - description: Reference to an additional NIC attached to this instance.
-          example: 'network-interfaces/nic-124'
+          example:
+            provider: seca.network/v1
+            resource: network-interfaces/nic-124
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the security group associated with this instance.
-        example: 'security-groups/sg-123'
+        example:
+          provider: seca.network/v1
+          resource: security-groups/sg-123
     userData:
       type: string
       description: |
