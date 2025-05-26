@@ -128,8 +128,8 @@ NodeTemplate:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the NIC attached to the node instances.
         example:
-        provider: seca.network/v1
-        resource: subnets/k8s-nodes-a
+          provider: seca.network/v1
+          resource: subnets/k8s-nodes-a
     zone:
       $ref: './region.yaml#/Zone'
     securityGroupRef:
