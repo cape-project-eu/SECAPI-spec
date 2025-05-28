@@ -22,20 +22,20 @@ resources:
 
         | Tier | vCPU | RAM | Architecture | benchmarkPoints |
         |-|-|-|-|-|
-        | 2XS.D | 1 | 1 | amd64 | min 500 |
-        | XS.D | 1 | 2 | amd64 | min 750 |
-        | S.D | 2 | 4 | amd64 | min 2200 |
-        | M.D | 4 | 8 | amd64 | min 3500 |
-        | L.D | 8 | 16 | amd64 | min 6000 |
-        | XL.D | 16 | 32 | amd64 | min 9000 |
-        | 2XL.D | 32 | 64 | amd64 | min 13000 |
-        | 2XS.S | 1 | 1 | amd64 | min 500 |
-        | XS.S | 1 | 2 | amd64 | min 700 |
-        | S.S | 2 | 4 | amd64 | min 2000 |
-        | M.S | 4 | 8 | amd64 | min 3000 |
-        | L.S | 8 | 16 | amd64 | min 5500 |
-        | XL.S | 16 | 32 | amd64 | min 8000 |
-        | 2XL.S | 32 | 64 | amd64 | min 9000 |
+        | D2XS | 1 | 1 | amd64 | min 500 |
+        | DXS | 1 | 2 | amd64 | min 750 |
+        | DS | 2 | 4 | amd64 | min 2200 |
+        | DM | 4 | 8 | amd64 | min 3500 |
+        | DL | 8 | 16 | amd64 | min 6000 |
+        | DXL | 16 | 32 | amd64 | min 9000 |
+        | D2XL | 32 | 64 | amd64 | min 13000 |
+        | S2XS | 1 | 1 | amd64 | min 500 |
+        | SXS | 1 | 2 | amd64 | min 700 |
+        | SS | 2 | 4 | amd64 | min 2000 |
+        | SM | 4 | 8 | amd64 | min 3000 |
+        | SL | 8 | 16 | amd64 | min 5500 |
+        | SXL | 16 | 32 | amd64 | min 8000 |
+        | S2XL | 32 | 64 | amd64 | min 9000 |
     example:
       list:
         metadata:
@@ -43,20 +43,20 @@ resources:
           resource: "tenants/1/skus"
           verb: list
         items:
-        - { metadata: { name: 'seca.2xs.d' }, labels: { tier: '2XS.D', provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  1 }}
-        - { metadata: { name: 'seca.xs.d'  }, labels: { tier: 'XS.D',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  2 }}
-        - { metadata: { name: 'seca.s.d'   }, labels: { tier: 'S.D',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  2, ram:  4 }}
-        - { metadata: { name: 'seca.m.d'   }, labels: { tier: 'M.D',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  4, ram:  8 }}
-        - { metadata: { name: 'seca.l.d'   }, labels: { tier: 'L.D',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  8, ram: 16 }}
-        - { metadata: { name: 'seca.xl.d'  }, labels: { tier: 'XL.D',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 16, ram: 32 }}
-        - { metadata: { name: 'seca.2xl.d' }, labels: { tier: '2XL.D', provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 32, ram: 64 }}
-        - { metadata: { name: 'seca.2xs.s' }, labels: { tier: '2XS.S', provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  1 }}
-        - { metadata: { name: 'seca.xs.s'  }, labels: { tier: 'XS.S',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  2 }}
-        - { metadata: { name: 'seca.s.s'   }, labels: { tier: 'S.S',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  2, ram:  4 }}
-        - { metadata: { name: 'seca.m.s'   }, labels: { tier: 'M.S',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  4, ram:  8 }}
-        - { metadata: { name: 'seca.l.s'   }, labels: { tier: 'L.S',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  8, ram: 16 }}
-        - { metadata: { name: 'seca.xl.s'  }, labels: { tier: 'XL.S',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 16, ram: 32 }}
-        - { metadata: { name: 'seca.2xl.s' }, labels: { tier: '2XL.S', provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 32, ram: 64 }}
+        - { metadata: { name: 'seca.d2xs' }, labels: { tier: 'D2XS', provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  1 }}
+        - { metadata: { name: 'seca.dxs'  }, labels: { tier: 'DXS',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  2 }}
+        - { metadata: { name: 'seca.ds'   }, labels: { tier: 'DS',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  2, ram:  4 }}
+        - { metadata: { name: 'seca.dm'   }, labels: { tier: 'DM',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  4, ram:  8 }}
+        - { metadata: { name: 'seca.dl'   }, labels: { tier: 'DL',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  8, ram: 16 }}
+        - { metadata: { name: 'seca.dxl'  }, labels: { tier: 'DXL',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 16, ram: 32 }}
+        - { metadata: { name: 'seca.d2xl' }, labels: { tier: 'D2XL', provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 32, ram: 64 }}
+        - { metadata: { name: 'seca.s2xs' }, labels: { tier: 'S2XS', provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  1 }}
+        - { metadata: { name: 'seca.sxs'  }, labels: { tier: 'SXS',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  1, ram:  2 }}
+        - { metadata: { name: 'seca.ss'   }, labels: { tier: 'SS',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  2, ram:  4 }}
+        - { metadata: { name: 'seca.sm'   }, labels: { tier: 'SM',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  4, ram:  8 }}
+        - { metadata: { name: 'seca.sl'   }, labels: { tier: 'SL',   provider: 'seca', architecture: 'amd64' }, spec: { vCPU:  8, ram: 16 }}
+        - { metadata: { name: 'seca.sxl'  }, labels: { tier: 'SXL',  provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 16, ram: 32 }}
+        - { metadata: { name: 'seca.s2xl' }, labels: { tier: 'S2XL', provider: 'seca', architecture: 'amd64' }, spec: { vCPU: 32, ram: 64 }}
   - name: instance
     plural: instances
     hierarchy: [tenant, workspace]

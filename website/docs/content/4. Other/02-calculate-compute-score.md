@@ -49,13 +49,13 @@ The number of vCPU is instead a suggested value as you can get to the baseline p
 
 | Seca.Size.Type |GB RAM | Min.SCORE | Suggested vCPU |
 | --------- | ----------- | --------- | --------- |
-| SECA.2XS.D  | 1         | 500       |  1  |
-| SECA.XS.D  | 2         | 750       |  1  |
-| SECA.S.D    | 4         | 2200      |  2  |
-| SECA.M.D    | 8         | 3500      |  4  |
-| SECA.L.D    | 16        | 6000      |  8  |
-| SECA.XL.D   | 32       | 9000      |  16  |
-| SECA.2XL.D  | 64       | 13000     |  32  |
+| SECA.D2XS  | 1         | 500       |  1  |
+| SECA.DXS  | 2         | 750       |  1  |
+| SECA.DS    | 4         | 2200      |  2  |
+| SECA.DM.    | 8         | 3500      |  4  |
+| SECA.DL    | 16        | 6000      |  8  |
+| SECA.DXL   | 32       | 9000      |  16  |
+| SECA.D2XL  | 64       | 13000     |  32  |
 
 
 ### Minimum Score per SECA.Size Shared vCPU Flavour
@@ -66,10 +66,10 @@ The number of vCPU is instead a suggested value as you can get to the baseline p
 
 | Seca.Size.Type | GB RAM | Min.SCORE | Suggested vCPU |
 | --------- | ----------- | --------- | --------- |
-| SECA.2XS.S  | 1         | 500       | 1 |
-| SECA.XS.S   | 2         | 700       | 1 |
-| SECA.S.S    | 4         | 2000      | 2 |
-| SECA.M.S    | 8         | 3000      | 4 |
-| SECA.L.S    | 16        | 5500      | 8 |
-| SECA.XL.S   | 32       | 8000      | 16 |
-| SECA.2XL.S  | 64       | 9000     | 32 |
+| SECA.S2XS  | 1         | 500       | 1 |
+| SECA.SXS   | 2         | 700       | 1 |
+| SECA.SS    | 4         | 2000      | 2 |
+| SECA.SM    | 8         | 3000      | 4 |
+| SECA.SL    | 16        | 5500      | 8 |
+| SECA.SXL   | 32       | 8000      | 16 |
+| SECA.S2XL  | 64       | 9000     | 32 |
