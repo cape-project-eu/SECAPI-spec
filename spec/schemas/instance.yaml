@@ -61,6 +61,7 @@ InstanceSpec:
       description: |
         Cloud-init user data for instance initialization
         Example cloud-init user configuration with SSH key:
+      maxLength: 65536
       example: |
         #cloud-config
         packages:
@@ -71,11 +72,13 @@ InstanceSpec:
         Instances in the same anti-affinity group are placed on different physical hosts.
         The number of maximum instances in an anti-affinity group is provider-specific.
       type: string
+      maxLength: 64
       example: 'exclusive-server'
     sshKeys:
       type: array
       items:
         type: string
+        maxLength: 4096
       description: |
         Provider-specific references to SSH keys used in cloud-init vendorData.
         These references are used to inject SSH public keys during instance initialization

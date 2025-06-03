@@ -30,6 +30,7 @@ BlockStorageSpec:
     sizeGB:
       type: integer
       description: Size of the block storage in GB.
+      maximum: 1000000
       example: 10
     sourceImageRef:
       allOf:
@@ -53,6 +54,7 @@ BlockStorageStatus:
       sizeGB:
         type: integer
         description: Size of the block storage in GB.
+        maximum: 1000000
         example: 10
       attachedTo:
         allOf:
