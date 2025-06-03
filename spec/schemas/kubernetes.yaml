@@ -49,6 +49,20 @@ ClusterSpec:
       - "2002::1234:abcd:ffff:c0a8:101/64"
       - "1.2.3.4"
       - "2002::1234:abcd:ffff:c0a8:101"
+    podCidr:
+      type: string
+      description: |
+        CIDR range for the pod network. This is used to allocate IP addresses
+        for pods in the cluster. The CIDR must be a valid IPv4 or IPv6 CIDR.
+        If not specified, a default provider CIDR will be used.
+      example: "192.168.0.0/24"
+    serviceCidr:
+      type: string
+      description: |
+        CIDR range for the service network. This is used to allocate IP addresses
+        for services in the cluster. The CIDR must be a valid IPv4 or IPv6 CIDR.
+        If not specified, a default provider CIDR will be used.
+      example: "100.64.0.0/18"
 
 ClusterStatus:
   description: |
@@ -105,6 +119,14 @@ NodePoolSpec:
       example: 3
     nodeTemplate:
       $ref: '#/NodeTemplate'
+    taints:
+      type: array
+      description: |
+        List of taints to apply to the nodes in the node pool. Taints are used
+        to mark nodes as unsuitable for certain workloads, allowing for more
+        fine-grained control over scheduling.
+      items:
+        $ref: '#/NodeTaint'
 
 NodeTemplate:
   type: object
@@ -159,6 +181,43 @@ NodeTemplate:
         provider: seca.storage/v1
         resource: skus/seca.le500
       sizeGB: 100
+
+NodeTaint:
+  type: object
+  description: |
+    Represents a taint applied to the nodes in the node pool. Taints are used
+    to control which pods can be scheduled on the nodes. A taint consists of a
+    key, value, and effect.
+  required:
+  - key
+  - value
+  - effect
+  properties:
+    key:
+      type: string
+      description: |
+        The key of the taint. The key is used to identify the taint and is used
+        in conjunction with the value and effect.
+      example: "example-key"
+      maximum: 63
+    value:
+      type: string
+      description: |
+        The value of the taint. The value is used to identify the taint and is used
+        in conjunction with the key and effect.
+      example: "example-value"
+      maximum: 63
+    effect:
+      type: string
+      enum:
+      - NoSchedule
+      - PreferNoSchedule
+      - NoExecute
+      description: |
+        The effect of the taint. The effect determines how the taint is applied to
+        the nodes in the node pool. For details on the effects, see the 
+        (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
+      example: "NoSchedule"
 
 NodeRootVolume:
   type: object
