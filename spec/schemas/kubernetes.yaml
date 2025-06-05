@@ -1,4 +1,4 @@
-Cluster:
+KubernetesCluster:
   description: |
     Represents a kubernetes cluster resource. A cluster is
     accessible from the internet and can be used to deploy applications
@@ -12,11 +12,11 @@ Cluster:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: '#/ClusterSpec'
+        $ref: '#/KubernetesClusterSpec'
       status:
-        $ref: '#/ClusterStatus'
+        $ref: '#/KubernetesClusterStatus'
 
-ClusterSpec:
+KubernetesClusterSpec:
   type: object
   description: |
     Specification of the  kubernetes cluster, including its configuration
@@ -64,7 +64,7 @@ ClusterSpec:
         If not specified, a default provider CIDR will be used.
       example: "100.64.0.0/18"
 
-ClusterStatus:
+KubernetesClusterStatus:
   description: |
     Represents the status of the  kubernetes cluster.
   allOf:
@@ -80,7 +80,7 @@ ClusterStatus:
         maxLength: 65536  
         example: "---\n..."
 
-NodePool:
+KubernetesNodePool:
   description: |
     Represents a Node Pool resource in a Kubernetes cluster. A Node Pool is a group of
     nodes with the same configuration, including instance SKU, network configuration,
@@ -95,11 +95,11 @@ NodePool:
       metadata:
         $ref: './resource.yaml#/RegionalResourceMetadata'
       spec:
-        $ref: '#/NodePoolSpec'
+        $ref: '#/KubernetesNodePoolSpec'
       status:
-        $ref: '#/NodePoolStatus'
+        $ref: '#/KubernetesNodePoolStatus'
 
-NodePoolSpec:
+KubernetesNodePoolSpec:
   type: object
   description: |
     Specification of the  kubernetes node pool, including its configuration
@@ -118,7 +118,7 @@ NodePoolSpec:
       maximum: 5000
       example: 3
     nodeTemplate:
-      $ref: '#/NodeTemplate'
+      $ref: '#/KubernetesNodeTemplate'
     taints:
       type: array
       description: |
@@ -126,9 +126,9 @@ NodePoolSpec:
         to mark nodes as unsuitable for certain workloads, allowing for more
         fine-grained control over scheduling.
       items:
-        $ref: '#/NodeTaint'
+        $ref: '#/KubernetesNodeTaint'
 
-NodeTemplate:
+KubernetesNodeTemplate:
   type: object
   description: |
     Template for creating nodes in the node pool. The template includes
@@ -164,7 +164,7 @@ NodeTemplate:
           provider: seca.network/v1
           resource: security-groups/k8s-nodes
     rootVolume:
-      $ref: '#/NodeRootVolume'
+      $ref: '#/KubernetesNodeRootVolume'
   example:
     skuRef:
       provider: seca.compute/v1
@@ -182,7 +182,7 @@ NodeTemplate:
         resource: skus/seca.le500
       sizeGB: 100
 
-NodeTaint:
+KubernetesNodeTaint:
   type: object
   description: |
     Represents a taint applied to the nodes in the node pool. Taints are used
@@ -219,7 +219,7 @@ NodeTaint:
         (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
       example: "NoSchedule"
 
-NodeRootVolume:
+KubernetesNodeRootVolume:
   type: object
   description: |
     Root volume for the node. The root volume is used to store the operating
@@ -247,7 +247,7 @@ NodeRootVolume:
     skuRef: skus/seca.le500
     sizeGB: 100
 
-NodePoolStatus:
+KubernetesNodePoolStatus:
   description: |
     Represents the status of the  kubernetes node pool. The status
     represents if the instances of the node pool are provisioned to the
