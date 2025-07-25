@@ -15,7 +15,7 @@ Our chat server currently has two main rooms:
 
 ## Onboarding Process
 
-- Start at the `SECA Community`room: All new users will initially join this room. This allows you to get acquainted with the community, observe ongoing discussions, and introduce yourself.
+- Start at the `SECA Community` room: All new users will initially join this room. This allows you to get acquainted with the community, observe ongoing discussions, and introduce yourself.
 - Introduce Yourself: Feel free to say hello to everyone! A brief introduction about your interests in this project or what brought you here can be a great way to kick off the communication with others :).
 - Follow our [Code of Conduct](./CONTRIBUTING.md).
 - Participate whenever you can: Even if the room is for general discussions, try to keep conversations relevant to the project.
