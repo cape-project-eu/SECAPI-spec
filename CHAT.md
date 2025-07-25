@@ -4,7 +4,7 @@
 
 Welcome to our chat server! We're happy to have you joining our community. Before you start, to ensure a positive and productive environment for everyone, please take a look at this guideline to support your onboarding.
 
-To enter our Chat Server, you will need a Matrix account like for instance `@johndoe:matrix.org`. Simply log in to your Matrix client (Web or Local) with your existing account, and then proceed to join our rooms.
+To enter our Chat Server, you will need a Matrix account like for instance `@johndoe:matrix.org`. Simply log in to your Matrix client (web or local) with your existing account, and then proceed to join our rooms.
 
 ## Chat Rooms
 
