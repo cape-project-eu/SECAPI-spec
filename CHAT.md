@@ -19,5 +19,5 @@ Our chat server currently has two main rooms:
 - Introduce Yourself: Feel free to say hello to everyone! A brief introduction about your interests in this project or what brought you here can be a great way to kick off the communication with others :).
 - Follow our [Code of Conduct](./CONTRIBUTING.md).
 - Participate whenever you can: Even if the room is for general discussions, try to keep conversations relevant to the project.
-- Joining `SECA Core`: If you believe that you can contribute in a more productive way to this project, please reach out to one of the project administrators so they can grant you access to the `SECA Core`room after assessing your request. Do not directly request access in `SECA Community` room.
+- Joining `SECA Core`: If you believe that you can contribute in a more productive way to this project, please reach out to one of the project administrators so they can grant you access to the `SECA Core` room after assessing your request. Do not directly request access in `SECA Community` room.
 - Confidentiality in `SECA Core`: By participating on this room, remember that discussions may sometimes involve sensitive project information or early-stage ideas. Please respect the confidentiality of these discussions and do not share their content. Unless it's decided otherwise.
