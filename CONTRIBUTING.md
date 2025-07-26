@@ -56,6 +56,6 @@ We follow:
 ## Communication Channels
 - Github Issues and Discussions
 - SECA [Chat](./CHAT.md) has two rooms:
-    - SECA Community [[Matrix Client](https://matrix.to/#/#seca-community:chat.secapi.cloud), [Home Server](https://chat.secapi.cloud/#/room/#seca-community:chat.secapi.cloud)]
+    - SECA Community [[Matrix Client](https://matrix.to/#/#seca-community:chat.secapi.cloud)]
     - SECA Core (through invite only)
   
