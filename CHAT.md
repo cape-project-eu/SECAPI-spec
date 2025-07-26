@@ -10,7 +10,7 @@ To enter our Chat Server, you will need a Matrix account like for instance `@joh
 
 Our chat server currently has two main rooms:
 - `SECA Community`: This room is open to everyone and is the primary space for general discussions, asking questions, and interacting with the SECA community.
-  [[Matrix Client](https://matrix.to/#/#seca-community:chat.secapi.cloud), [Home Server](https://chat.secapi.cloud/#/room/#seca-community:chat.secapi.cloud)]
+  [[Matrix Client](https://matrix.to/#/#seca-community:chat.secapi.cloud)]
 - `SECA Core`: This room is for specific users involved in the core development and decision-making processes of our SECA open-source project. Access to this room is granted by invitation only.
 
 ## Onboarding Process
