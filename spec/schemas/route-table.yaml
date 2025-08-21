@@ -19,22 +19,14 @@ RouteTableSpec:
   type: object
   description: |
     The RouteTableSpec defines the routes that are associated with the route table.
-    The `localRef` is a reference to the network it will inherit the routes from.
   required:
-  - localRef
   - routes
   properties:
-    localRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      - description: Reference to the network from which the route table will inherit the routes from.
-        example: 'networks/network-1'
     routes:
       type: array
       items:
         $ref: '#/RouteSpec'
   example:
-    localRef: 'networks/network-1'
     routes:
     - destinationCidrBlock: '0.0.0.0/0'
       targetRef: 'internet-gateways/internet-gateway-1'

@@ -244,7 +244,7 @@ Content-Type: application/json
 ### 6.2 Create RouteTable
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/route-tables/web-shop-route-table
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/route-tables/web-shop-route-table
 Content-Type: application/json
 
 {
@@ -256,7 +256,6 @@ Content-Type: application/json
     "description": "Production route table for web-shop",
   },
   "spec": {
-    "localRef": "networks/web-shop-network",
     "routes": [
       {
         "destinationCidrBlock": "0.0.0.0/0",
@@ -289,7 +288,7 @@ Content-Type: application/json
 ### 6.4 Create a Subnet
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/subnets/web-shop-subnet
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/subnets/web-shop-subnet
 Content-Type: application/json
 
 {
@@ -301,7 +300,6 @@ Content-Type: application/json
     "description": "Public subnet",
   }
   "spec": {
-    "networkRef": "networks/web-shop-network",
     "cidr": {
       "ipv4": "10.100.1.0/24"
     }

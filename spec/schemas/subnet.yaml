@@ -41,17 +41,11 @@ SubnetSpec:
   required:
   - cidr
   - zone
-  - networkRef
   properties:
     cidr:
       $ref: './network.yaml#/cidr'
     zone:
       $ref: './region.yaml#/Zone'
-    networkRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      - description: |
-          Reference to the network used by this Subnet.
     routeTableRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
@@ -72,7 +66,6 @@ SubnetSpec:
       ipv4: "0.0.0.0/24"
       ipv6: "::/64"
     zone: "a"
-    networkRef: "networks/network-1"
     skuRef: "skus/seca.1000"
 
 SubnetStatus:
