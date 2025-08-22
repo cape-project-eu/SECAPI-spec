@@ -55,13 +55,6 @@ NicSpec:
       - $ref: './resource.yaml#/Reference'
       - description: Reference to the SKU of the NIC.
         example: "skus/seca.n1k"
-    routeTableRef:
-      allOf:
-      - $ref: './resource.yaml#/Reference'
-      - description: |
-          Reference to the route table used by default for this NIC.
-          If not provided, routeTableRef associated with the subnet will be used.
-        example: "route-tables/route-table-1"
     subnetRef:
       allOf:
       - $ref: './resource.yaml#/Reference'
@@ -103,12 +96,6 @@ NicStatus:
           - $ref: './resource.yaml#/Reference'
           - description: Reference to a public IP address associated with this NIC.
             example: "public-ips/public-ip-123"
-      routeTableRef:
-        allOf:
-        - $ref: './resource.yaml#/Reference'
-        - description: |
-            The route table by this nic.
-          example: "route-tables/route-table-1"
     example:
       state: "active"
       macAddress: "00:00:00:00:00:00"
@@ -116,7 +103,6 @@ NicStatus:
       - "10.100.0.10"
       - "10.100.0.11"
       - "2001:db8:1234:5678::a"
-      routeTableRef: "route-tables/route-table-1"
 
 NicIp:
   type: string
