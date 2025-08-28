@@ -71,6 +71,7 @@ TypeMetadata:
       - image
       - instance
       - instance-sku
+      - internet-gateway
       - network
       - network-load-balancer
       - network-sku
