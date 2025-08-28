@@ -235,15 +235,60 @@ Content-Type: application/json
     "skuRef": "skus/seca.n1k",
     "cidr": {
       "ipv4": "10.100.0.0/16"
-    }
+    },
+    "routeTableRef": "route-tables/web-shop-route-table"
   }
 }
 ```
 
-### 6.2 Create a Subnet
+### 6.2 Create RouteTable
 
 ```http
-PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/subnets/web-shop-subnet
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/route-tables/web-shop-route-table
+Content-Type: application/json
+
+{
+  "labels": {
+    "env": "production",
+    "project": "web-shop"
+  },
+  "annotations": {
+    "description": "Production route table for web-shop",
+  },
+  "spec": {
+    "routes": [
+      {
+        "destinationCidrBlock": "0.0.0.0/0",
+        "targetRef": "internet-gateways/web-shop-internet-gateway"
+      }
+    ]
+  }
+}
+```
+
+### 6.3 Create Internet Gateway
+
+```http
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/internet-gateways/web-shop-internet-gateway
+Content-Type: application/json
+
+{
+  "labels": {
+    "env": "production",
+    "project": "web-shop"
+  },
+  "annotations": {
+    "description": "Production internet gateway for web-shop",
+  },
+  "spec": {}
+}
+```
+
+
+### 6.4 Create a Subnet
+
+```http
+PUT ${network-provider-url}/v1/tenants/{tenant_id}/workspaces/web-shop-prod/networks/web-shop-network/subnets/web-shop-subnet
 Content-Type: application/json
 
 {
@@ -255,7 +300,6 @@ Content-Type: application/json
     "description": "Public subnet",
   }
   "spec": {
-    "networkRef": "networks/web-shop-network",
     "cidr": {
       "ipv4": "10.100.1.0/24"
     }

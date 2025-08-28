@@ -62,11 +62,11 @@ resources:
     operations: [list, get, put, delete]
   - name: subnet
     plural: subnets
-    hierarchy: [tenant, workspace]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/subnet.yaml#/Subnet'
     operations: [list, get, put, delete]
   - name: route-table
     plural: route-tables
-    hierarchy: [tenant, workspace]
+    hierarchy: [tenant, workspace, network]
     schema: './schemas/route-table.yaml#/RouteTable'
     operations: [list, get, put, delete]
