@@ -48,7 +48,7 @@ The Key Elements of this model are listed below:
 
 A resource authorization model with a dedicated resource provider centralizes access control across resources, offering an efficient, consistent, and secure way to manage permissions and enforce policies at scale in a cloud environment. This model enhances security by reducing complexity and enabling centralized governance over resource access.
 
-> By default each tenant is initialized with the well-known [System Roles](../4.%20Other/04-system-roles.md) 
+> By default each tenant is initialized with the well-known [System Roles](../5. Other/04-system-roles.md) 
 
 ### Role
 
