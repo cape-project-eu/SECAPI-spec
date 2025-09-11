@@ -53,7 +53,7 @@ paths:
       operationId: list{{ .plural | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
         - $ref: './schemas/parameters.yaml#/parameters/labelSelector'
         - $ref: './schemas/parameters.yaml#/parameters/limitParam'
@@ -101,9 +101,9 @@ paths:
       operationId: get{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
       responses:
         '200':
           description: Successful response
@@ -145,9 +145,9 @@ paths:
       operationId: createOrUpdate{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       requestBody:
         description: |
@@ -230,9 +230,9 @@ paths:
       operationId: delete{{ .name | strings.Title | strings.ReplaceAll " " "" }}
       parameters:
       {{- range .hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
@@ -269,9 +269,9 @@ paths:
       operationId: {{ .name | strings.Title | strings.ReplaceAll " " "" }}{{ $resource.name | strings.Title }}
       parameters:
       {{- range $resource.hierarchy }}
-        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}'
+        - $ref: './schemas/parameters.yaml#/parameters/{{ . }}PathParam'
       {{- end}}
-        - $ref: './schemas/parameters.yaml#/parameters/resourceName'
+        - $ref: './schemas/parameters.yaml#/parameters/resourceNamePathParam'
         - $ref: './schemas/parameters.yaml#/parameters/ifUnmodifiedSince'
       responses:
         '202':
