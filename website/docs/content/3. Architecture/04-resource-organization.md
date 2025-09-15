@@ -35,20 +35,51 @@ Key Aspects of this concept are described below:
 
 ## Cloud Resource
 
-A Cloud Resource represents a distinct, managed service or component that is provisioned, configured, and controlled by a resource provider (earlier mentioned as `resourceProviderWorkspace`). Each cloud resource in this model is managed through a unified API that defines its lifecycle, configuration, and access policies. This allows consumers to interact consistently across IaaS, PaaS, and SaaS resources, despite their differing levels of abstraction.
+A **Cloud Resource** is the core managed entity in the cloud platform. It represents a distinct service or component—such as a virtual machine, a network, or a storage volume—that is provisioned, configured, and managed through the platform’s unified API.
 
-The Key characteristics of the cloud resource are reported below:
+Every cloud resource is defined by two key dimensions:
 
-- **Unified Resource Interface** - Each cloud resource in the model follows a standardized API schema, enabling consistent creation, management, and deletion across layers; the API typically includes endpoints for lifecycle management (create, update, delete) allowing seamless integration and automation.
-- **Region Awareness** - Region awareness in a cloud resource model refers to the capability of cloud resources to recognize and act upon their geographic, network, or logical region within the cloud provider's infrastructure. This awareness is crucial for optimizing performance, regulatory compliance, cost management, and data residency requirements, as well as for providing better user experiences
-  - we define **global**, **regional**, and **zonal** resources
-- **Service Layer** - there is no difference about the provisioned service layer to the customer so IaaS, PaaS, or SaaS, resources are modeled with the same standard specification.
-- **Resource Provider** - A resource provider is responsible for creating, managing, and maintaining cloud resources across the service layers (IaaS, PaaS, SaaS). It handles resource provisioning ensuring that users can interact with resources through the standardized API without worrying about the underlying infrastructure. Examples: 'seca.network', 'seca.compute'.
-- **Lifecycle Management** - Cloud resources are managed through defined states and transitions, such as active, creating, updating, deleting, deleted. Standardized lifecycle events ensure predictable behavior, allowing consumers to automate deployment and scaling processes across resources.
-- **Configuration and Customization** - Each resource can be configured according to its type and purpose. For IaaS resources, this might mean selecting compute size and storage; for PaaS, it might involve setting runtime parameters; and for SaaS, it might include user and permission management.
+- The **Resource Provider** responsible for managing it
+- The **Resource Type** describing its kind or category
 
-In a Cloud Resource Model API, a cloud resource is any standardized, provider-managed service available through IaaS, PaaS, or SaaS layers. Each resource adheres to a unified API interface for consistent lifecycle management, configuration, access control, and monitoring, allowing users to interact seamlessly across various cloud service layers.
+Each cloud resource therefore exists as a specific instance of a resource type, owned and controlled by a resource provider.
 
-Infrastructure-as-a-Service (IaaS) operations are inherently asynchronous due to the time required to provision and configure physical or virtualized resources. When a request is made to create, modify, or delete an IaaS resource (such as a virtual machine, storage volume, or network interface), the API immediately returns a response, while the actual work continues in the background. Clients must poll the operation status endpoint to track the progress and eventual completion of these long-running tasks, ensuring robust handling of provisioning delays, failures, and rollback scenarios.
+This structure ensures clear separation of concerns:
+- The **Cloud Resource** is the user-facing unit of consumption.
+- The **Resource Provider** abstracts away the complexity of managing it.
+- The **Resource Type** defines what kind of resource it is.
 
-Client-scoped resource naming provides a powerful advantage in asynchronous cloud environments by enabling predictable resource referencing before creation is complete. When clients define resources using their own scope and naming convention (e.g., "workspace/my-app/network/vpcs/primary-vpc"), dependent resources can immediately reference this deterministic identifier without waiting for the actual resource creation to finish. This pattern eliminates blocking dependencies in the resource creation chain - for instance, a subnet can be created referencing its parent VPC's client-scoped name while the VPC is still being provisioned. The cloud platform guarantees the consistency of these references once all async operations complete, dramatically improving deployment parallelism while maintaining proper resource relationships.
+
+### Resource Provider
+
+A **Resource Provider** is the **control-plane component** that enables the creation, management, and maintenance of cloud resources. It acts as the abstraction layer between the unified API and the underlying Cloud Service Provider (CSP) implementation, ensuring users can interact with resources without worrying about infrastructure details.
+
+**Core responsibilities**:
+- Provisioning and deprovisioning resources
+- Exposing a unified API interface for lifecycle operations
+- Managing multiple related resource types within a single domain
+- Enforcing security, compliance, and access control policies
+- Hiding CSP-specific complexity behind a standardized surface
+
+A Resource Provider is identified by a namespace-like name, and each resource type it manages belongs to this namespace.
+
+Example:
+- **seca.compute**: manages compute-related types like Instance
+- **seca.network**: manages networking types like Network, Subnet, NIC
+
+In SECA, all Resource Providers services begin with the prefix **seca.** This ensures a consistent namespace for SECA-specific services, while still allowing external providers to use their own namespaces.
+
+SECA groups its Resource Providers in two types:
+ - **Foundation**: they provide fundamental building blocks like compute, storage, networking, and identity — which serve as prerequisites for almost all other services.
+ - **Extensions**: they represent domain-specific, advanced, or value-added capabilities that are not required for the platform to operate, but extend its functionality for specific use cases or vertical domains.
+
+### Resource Type ###
+
+A **Resource Type** defines a specific **kind of resource** that can be managed by a given Resource Provider. It acts as the schema or blueprint for creating resource instances.
+
+**Key characteristics**:
+- Bound to a Resource Provider: each resource type exists only within the context of its provider.
+- Domain Model Alignment: all resource types under the same provider share a common domain model and follow the same operational and governance logic.
+- Schema Definition: the resource type defines the structure, configurable properties, lifecycle operations, and behaviors for resources created from it.
+
+This combination of **Resource Provider** + **Resource Type** + **Resource Name** forms the complete identity of any cloud resource within the platform.
