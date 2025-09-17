@@ -9,7 +9,7 @@ RouteTable:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/NetworkRegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalNetworkResourceMetadata'
       spec:
         $ref: '#/RouteTableSpec'
       status:

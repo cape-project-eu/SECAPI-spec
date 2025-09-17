@@ -12,7 +12,7 @@ PublicIp:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: '#/PublicIpSpec'
       status:

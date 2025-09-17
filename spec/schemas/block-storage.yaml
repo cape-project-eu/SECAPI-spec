@@ -7,7 +7,7 @@ BlockStorage:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/ZonalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: '#/BlockStorageSpec'
       status:

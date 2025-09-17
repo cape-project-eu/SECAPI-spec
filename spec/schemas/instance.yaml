@@ -10,7 +10,7 @@ Instance:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/ZonalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: './instance.yaml#/InstanceSpec'
       status:

@@ -12,7 +12,7 @@ InternetGateway:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: './internet-gateway.yaml#/InternetGatewaySpec'
       status:
