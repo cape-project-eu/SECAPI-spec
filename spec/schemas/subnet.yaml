@@ -21,7 +21,7 @@ Subnet:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/NetworkZonalResourceMetadata'
+        $ref: './resource.yaml#/RegionalNetworkResourceMetadata'
       spec:
         $ref: './subnet.yaml#/SubnetSpec'
       status:

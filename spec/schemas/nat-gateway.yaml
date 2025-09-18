@@ -18,7 +18,7 @@ InternetNatGatewayInstance:
   - spec
   properties:
     metadata:
-      $ref: './resource.yaml#/RegionalResourceMetadata'
+      $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
     spec:
       $ref: './nat-gateway.yaml#/InternetNatGatewayInstanceSpec'
     status:

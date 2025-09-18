@@ -21,7 +21,7 @@ GlobalResourceMetadata:
 
 RegionalResourceMetadata:
   description: |
-    Metadata for regional resources with name, permission, modification, type, tenant, and region information.
+    Metadata for regional resources with name, permission, modification, type, tenant and region information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
@@ -30,42 +30,30 @@ RegionalResourceMetadata:
   - $ref: '#/TenantMetadata'
   - $ref: '#/RegionalMetadata'
 
-ZonalResourceMetadata:
+RegionalWorkspaceResourceMetadata:
   description: |
-    Metadata for zonal resources with name, permission, modification, type, tenant, region, and zone information.
+    Metadata for regional resources with name, permission, modification, type, tenant and workspace and region information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
   - $ref: '#/ModificationMetadata'
   - $ref: '#/TypeMetadata'
   - $ref: '#/TenantMetadata'
-  - $ref: '#/RegionalMetadata'
-  - $ref: '#/ZonalMetadata'
+  - $ref: '#/WorkspaceMetadata'
+  - $ref: '#/RegionalMetadata'  
 
-NetworkRegionalResourceMetadata:
+RegionalNetworkResourceMetadata:
   description: |
-    Metadata for network regional resources with name, permission, modification, type, tenant, network and region information.
+    Metadata for regional resources with name, permission, modification, type, tenant, workspace, network and region information.
   allOf:
   - $ref: '#/NameMetadata'
   - $ref: '#/PermissionMetadata'
   - $ref: '#/ModificationMetadata'
   - $ref: '#/TypeMetadata'
   - $ref: '#/TenantMetadata'
+  - $ref: '#/WorkspaceMetadata'
   - $ref: '#/NetworkMetadata'
   - $ref: '#/RegionalMetadata'
-
-NetworkZonalResourceMetadata:
-  description: |
-    Metadata for network zonal resources with name, permission, modification, type, tenant, network, region, and zone information.
-  allOf:
-  - $ref: '#/NameMetadata'
-  - $ref: '#/PermissionMetadata'
-  - $ref: '#/ModificationMetadata'
-  - $ref: '#/TypeMetadata'
-  - $ref: '#/TenantMetadata'
-  - $ref: '#/NetworkMetadata'
-  - $ref: '#/RegionalMetadata'
-  - $ref: '#/ZonalMetadata'
 
 SkuResourceMetadata:
   description: |
@@ -329,7 +317,7 @@ SystemResourceMetadata:
 
 TenantMetadata:
   type: object
-  description: Metadata for global resources with tenant constraints
+  description: Metadata for resources with tenant constraints
   readOnly: true
   required:
   - tenant
@@ -337,6 +325,30 @@ TenantMetadata:
     tenant:
       type: string
       description: Tenant identifier
+      maxLength: 64
+
+WorkspaceMetadata:
+  type: object
+  description: Metadata for resources with workspace constraints
+  readOnly: true
+  required:
+  - workspace
+  properties:
+    workspace:
+      type: string
+      description: Workspace identifier
+      maxLength: 64
+
+NetworkMetadata:
+  type: object
+  description: Metadata for resources with network constraints
+  readOnly: true
+  required:
+  - network
+  properties:
+    network:
+      type: string
+      description: Network identifier
       maxLength: 64
 
 RegionalMetadata:
@@ -349,32 +361,6 @@ RegionalMetadata:
     region:
       type: string
       description: Reference to the region where the resource is located
-      maxLength: 64
-    workspace:
-      type: string
-      description: Workspace identifier
-      maxLength: 64
-
-ZonalMetadata:
-  type: object
-  description: Metadata for zonal resources
-  readOnly: true
-  required:
-  - zone
-  properties:
-    zone:
-      $ref: './region.yaml#/Zone'
-
-NetworkMetadata:
-  type: object
-  description: Metadata for network resources
-  readOnly: true
-  required:
-  - network
-  properties:
-    network:
-      type: string
-      description: Network identifier
       maxLength: 64
 
 Status:

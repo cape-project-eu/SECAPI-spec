@@ -13,7 +13,7 @@ Network: # -> rename to PrivateNetwork works like a VPC
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: './network.yaml#/NetworkSpec'
       status:

@@ -30,7 +30,7 @@ SecurityGroup:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: '#/SecurityGroupSpec'
       status:

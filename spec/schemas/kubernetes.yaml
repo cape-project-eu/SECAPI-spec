@@ -10,7 +10,7 @@ KubernetesCluster:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: '#/KubernetesClusterSpec'
       status:
@@ -93,7 +93,7 @@ KubernetesNodePool:
     - spec
     properties:
       metadata:
-        $ref: './resource.yaml#/RegionalResourceMetadata'
+        $ref: './resource.yaml#/RegionalWorkspaceResourceMetadata'
       spec:
         $ref: '#/KubernetesNodePoolSpec'
       status:
