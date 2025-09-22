@@ -20,7 +20,7 @@ Content-Type: application/json
                 "status": "True",
                 "lastTransitionTime": "2024-11-06T14:25:18Z",
                 "reason": "VPCInitialized",
-                "message": "The VPC has been initialized successfully"
+                "message": "The VPC has been successfully initialized "
             }
         ]
     }

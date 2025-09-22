@@ -20,35 +20,68 @@ Based on **SECA Standard API Server** we adopted the below architecture:
 ![API Access Control](@site/static/img/access-control.png)
 
 - More in detail, every request goes to the Control Plane API Server.
-  - first check is **identify** who is the customer
-  - after authentication we need to verify if the customer has the **privilege** to perform the request
-  - afterwards we can **validate** and/or **manipulate** the request to fulfill domain requirements
+  - the first step is to **identify** who the customer is.
+  - after authentication, we need to verify if the customer has the necessary **privilege** to perform the request
+  - finally, we can **validate** and/or **manipulate** the request to meet domain requirements
+
+# Control Plane API – Authentication and Authorization
+
+## Request Flow
+
+Every request to the Control Plane API Server follows a structured sequence:
+
+1. **Identification** – Determine who the customer is.  
+2. **Authentication** – Verify the provided credentials using **JSON Web Tokens (JWT)** ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)).  
+3. **Authorization** – Check whether the authenticated customer has the necessary **privileges** to perform the requested action, following the Bearer Token usage defined in [RFC 6750](https://datatracker.ietf.org/doc/html/rfc6750).  
+4. **Validation and Manipulation** – Validate the request and, if necessary, transform or enrich it to meet domain requirements.  
 
 ## Authentication
 
-As stated in the REST API Guidelines, authentication is handled via JSON Web Tokens (JWT). All API endpoints require a valid JWT to be included in the Authorization header using the Bearer scheme (e.g., `Authorization: Bearer <token>`). The JWT validation middleware verifies the token's signature, expiration, and required permissions (see *Authorization*) before allowing access to protected resources. Token issuance and management are handled externally to this API - clients must obtain valid tokens through the appropriate authentication service. Requests with missing, expired, or invalid tokens will receive a 401 Unauthorized response.
+All API endpoints require a valid **JWT** to be included in the `Authorization` header using the Bearer scheme, for example:
+
+`Authorization: Bearer <token>`
+
+The JWT validation middleware ensures:
+
+- **Signature verification** – Confirms token integrity.  
+- **Expiration check** – Rejects expired tokens.  
+- **Scope/role check** – Ensures the token contains required claims for access (see *Authorization*).  
+
+Token issuance and lifecycle management are handled **externally** to this API.  
+Clients must obtain valid tokens from the designated **Authentication Service**.  
+
+Requests with missing, expired, or invalid tokens will receive a **401 Unauthorized** response, as defined in [RFC 7235](https://datatracker.ietf.org/doc/html/rfc7235).  
 
 ## Authorization
 
-Resource Authorization Model makes sure users or applications have the right to invoke Control Plane APIs.
+Once authenticated, the system enforces **Authorization** policies:
 
-We need a specific service within the cloud environment being responsible for managing access controls and enforcing permissions for other resources
+- **Role-based access control (RBAC)** – Assigns permissions based on customer roles.  
+- **Scope-based restrictions** – Limits actions according to claims embedded in the JWT (e.g., `scope`, `role`, or `permissions` fields).  
+- **Domain-specific rules** – Ensures that only valid operations aligned with business/domain logic are executed.  
 
-- according to the Control Plane API organization we have a  provider workspace for every resource type.
-- we define an **authorization** provider workspace to take care of authorization concepts.
+Requests that fail authorization checks will receive a **403 Forbidden** response, as defined in [RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231).  
 
-This model centralizes authorization logic, making it scalable, consistent, and easier to manage across a wide range of resources.
+## Authorization Provider Model
 
-The Key Elements of this model are listed below:
+In the common **SECA control plane implementation**, authorization is managed by a **Dedicated Authorization Provider**, which centralizes access control decisions across all resources.
 
-- **Dedicated Resource Provider** - This is a centralized service that acts as the authority for all authorization decisions. Instead of each resource handling its own access controls, the dedicated provider manages policies, roles, and permissions for all resources
-- **Authorization Policies** - Policies define the permissions granted to users, groups, or services. These policies are managed by the dedicated provider and applied consistently across resources. Policies typically define **who** (identity) has access to **what** (resource) and **how** (permissions, such as read, write, or delete).
-- **Roles and Role-Based Access Control (RBAC)**: The provider offers a way to define roles that encapsulate a set of permissions. Roles can be applied to users, groups, or other identities. For example, roles might include "Viewer," "Editor," or "Administrator," each with different levels of access. RBAC simplifies authorization management by assigning roles instead of individual permissions.
-- **Access Control Enforcement**: Once policies and roles are defined, the cloud API enforces them consistently across resources. When a user or service tries to access a resource, the dedicated provider validates the request based on the permissions associated with the user’s role or policies.
+### Key Elements
 
-A resource authorization model with a dedicated resource provider centralizes access control across resources, offering an efficient, consistent, and secure way to manage permissions and enforce policies at scale in a cloud environment. This model enhances security by reducing complexity and enabling centralized governance over resource access.
+- **Dedicated Resource Provider** – A centralized service that acts as the authority for all authorization decisions. Instead of each resource managing access controls independently, the provider enforces policies, roles, and permissions globally.  
+- **Authorization Policies** – Define permissions granted to users, groups, or services. Policies define **who** (identity) can access **what** (resource) and **how** (permissions such as read, write, or delete). These policies are applied consistently across all resources.  
+- **Roles and RBAC** – The provider manages roles such as `Viewer`, `Editor`, or `Administrator`, each with a specific set of permissions. Roles simplify management by grouping permissions and applying them to users, groups, or services.  
+- **Access Control Enforcement** – The API enforces policies and roles defined by the provider. When a user or service attempts to access a resource, the provider validates the request against the associated permissions before granting or denying access.  
 
-> By default each tenant is initialized with the well-known [System Roles](../5. Other/04-system-roles.md) 
+### Benefits
+
+A centralized Authorization Provider enhances security and governance by:
+
+- Reducing complexity through a single source of truth for access control.  
+- Ensuring consistency across all cloud resources.  
+- Enabling scalable and efficient management of roles and policies.  
+
+By default each tenant is initialized with the well-known [System Roles](../5. Other/04-system-roles.md) 
 
 ### Role
 
