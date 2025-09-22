@@ -33,6 +33,13 @@ NetworkLoadBalancerSpec:
       example:
         provider: seca.network/v1
         resource: nics/lb-1
+    securityGroupRef:
+      allOf:
+      - $ref: './resource.yaml#/Reference'
+      description: Reference to the security group associated with this instance.
+      example:
+        provider: seca.network/v1
+        resource: security-groups/sg-123
     frontends:
       type: array
       items:
