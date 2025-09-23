@@ -4,28 +4,62 @@ Cloud Requests can be divided in two categories **Control-Plane** and **Data-Pla
 
 ## Control-Plane
 
-Those APIs are used to create and manage cloud resources in a specific tenant. The
-Control-Plane APIs are responsible for managing resources and returning configurations,
-such as metadata, resource properties, and states. The resources managed by
-Control-Plane APIs follow a standardized resource schema.
+These APIs are used to create and manage cloud resources within a specific tenant. The Control Plane APIs handle the lifecycle of resources and provide configuration details such as metadata, properties, and state information. All resources managed through the Control Plane APIs adhere to a standardized resource schema.
 
 ![Shared API Gateway Model](@site/static/img/shared-api-gw-model.png)
 
-To ensure compatibility of the SECA API across all providers, a common API server is
-implemented. This API server serves as a frontend to a set of shared delegators, which
-handle the implementation of resource provisioning according to the SECA API specifications.
-The delegators, in turn, delegate the actual implementation to the respective Cloud Service
-Provider (CSP) plugin, enabling seamless integration and compatibility.
+To maintain consistency of the SECA API across all providers, a **common API gateway** is introduced. This server acts as the entry point for clients and relies on a set of shared delegators to manage resource provisioning according to SECA specifications. The delegators then pass execution to the appropriate Cloud Service Provider (CSP) plugin, which performs the actual provisioning. This layered approach ensures seamless integration, provider compatibility, and a unified experience for clients.
 
 ## Data-Plane
 
-When interacting with cloud resources, requests for Data-Plane operations are directed to an
-instance-specific endpoint, enabling direct interaction with the actual data or services
-provided, such as object storage or databases. The primary function of Data-Plane APIs is to
-manage and return data, encompassing files, query results, and responses to data manipulation
-requests. Due to the diverse nature of data types and service objects, including NFS, SQL,
-Key/Value, and Vaults, the schemas for Data-Plane APIs exhibit significant variability.
-Unlike other APIs that focus on metadata or configuration, Data-Plane APIs are exclusively
-concerned with operating on actual data, facilitating its retrieval, manipulation, and
-return. **It is important to note that Data-Plane APIs serve a unique purpose within the cloud
-ecosystem and, as such, fall outside the scope of the SECA API**.
+When interacting with cloud resources, **Data Plane operations** are directed to instance-specific endpoints, allowing direct access to the underlying data and services, such as object storage or databases. The primary role of Data Plane APIs is to handle and return data, whether in the form of files, query results, or responses to data manipulation requests.
+
+Because Data Plane services span a wide range of technologies — including NFS, SQL, key/value stores, and vaults — their API schemas naturally vary. Unlike Control Plane APIs, which focus on metadata and configuration, Data Plane APIs operate exclusively on the actual data, supporting its retrieval, manipulation, and delivery.
+
+As a result, Data Plane APIs serve a distinct purpose within the cloud ecosystem and remain outside the scope of the SECA API.
+
+## Control Plane vs Data Plane
+
+### Control Plane APIs
+
+Control Plane APIs are responsible for managing the lifecycle, configuration, and metadata of cloud resources.  
+They provide a unified, provider-agnostic interface through the SECA API, ensuring consistency across environments.
+
+- **Primary Role**: Manage resources (create, update, delete) and return configuration details such as metadata, properties, and states.  
+- **Endpoints**: Common API server shared across providers.  
+- **Schema**: Standardized resource schema.  
+- **Examples**:  
+  - Create a VM instance  
+  - Configure a network  
+  - Assign roles or policies  
+
+---
+
+### Data Plane APIs
+
+Data Plane APIs handle direct interaction with data and services provisioned by cloud resources.  
+They operate at the instance level and are not part of the SECA API, as their schemas vary by service type.
+
+- **Primary Role**: Operate on actual data (read, write, query, manipulate).  
+- **Endpoints**: Instance-specific service endpoints.  
+- **Schema**: Variable schemas depending on service type (e.g., NFS, SQL, Key/Value, Vaults).  
+- **Examples**:  
+  - Upload/download files from object storage  
+  - Execute SQL queries on a managed database  
+  - Read/write key-value pairs  
+  - Retrieve secrets from a vault  
+
+---
+
+### Summary Table
+
+| Aspect              | Control Plane APIs                                                                 | Data Plane APIs                                                                 |
+|---------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| **Primary Role**    | Manage lifecycle, configuration, and metadata of resources                          | Operate directly on data and services                                           |
+| **Endpoints**       | Common, provider-agnostic API server                                                | Instance-specific service endpoints                                             |
+| **Focus**           | Metadata, resource properties, and states                                           | Files, query results, objects, and responses to data operations                 |
+| **Schema**          | Standardized resource schema (consistent across providers)                          | Variable schemas (depends on service type: NFS, SQL, Key/Value, Vaults, etc.)   |
+| **Integration**     | Unified under SECA API                                                              | Outside SECA API scope                                                          |
+| **Examples**        | Create VM, configure network, assign roles                                          | Upload/download files, execute SQL queries, read/write key-value pairs          |
+
+---

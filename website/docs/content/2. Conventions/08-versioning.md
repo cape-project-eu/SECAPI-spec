@@ -52,7 +52,9 @@ The definition of backward compatibility also partially depends on technical and
 
 ### Universal examples of breaking changes
 
-- Removal, renaming, or alteration of part of a contract in the form of data models, types, paths, parameters, or other elements. Examples:
+Removal, renaming, or alteration of part of a contract in the form of data models, types, paths, parameters, or other elements. 
+
+Examples:
 - Removing a method.
 - Adding a mandatory parameter to a method without providing a default.
 - Adding a mandatory attribute without providing a default.
