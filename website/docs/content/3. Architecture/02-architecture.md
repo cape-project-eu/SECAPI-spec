@@ -21,6 +21,7 @@ As a result, Data Plane APIs serve a distinct purpose within the cloud ecosystem
 ## Control Plane vs Data Plane
 
 ### Control Plane APIs
+
 Control Plane APIs are responsible for managing the lifecycle, configuration, and metadata of cloud resources.  
 They provide a unified, provider-agnostic interface through the SECA API, ensuring consistency across environments.
 
@@ -35,6 +36,7 @@ They provide a unified, provider-agnostic interface through the SECA API, ensuri
 ---
 
 ### Data Plane APIs
+
 Data Plane APIs handle direct interaction with data and services provisioned by cloud resources.  
 They operate at the instance level and are not part of the SECA API, as their schemas vary by service type.
 

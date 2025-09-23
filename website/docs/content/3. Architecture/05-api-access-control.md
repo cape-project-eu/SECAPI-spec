@@ -45,6 +45,7 @@ The JWT validation middleware ensures:
 
 - **Signature verification** – Confirms token integrity.  
 - **Expiration check** – Rejects expired tokens.  
+- **Revocation check** – Rejects tokens that have been revoked.
 - **Scope/role check** – Ensures the token contains required claims for access (see *Authorization*).  
 
 Token issuance and lifecycle management are handled **externally** to this API.  
