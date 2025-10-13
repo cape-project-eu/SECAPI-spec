@@ -68,9 +68,13 @@ components:
 
     SkuResourceMetadata:
       description: |
-        Metadata for SKU resources.
+        Metadata for SKU resources with name, permission, modification, type and tenant.
       allOf:
       - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/ModificationMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
 
     TypeMetadata:
       type: object
