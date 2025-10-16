@@ -68,9 +68,13 @@ components:
 
     SkuResourceMetadata:
       description: |
-        Metadata for SKU resources.
+        Metadata for SKU resources with name, permission, type, tenant and region information.
       allOf:
       - $ref: '#/components/schemas/NameMetadata'
+      - $ref: '#/components/schemas/PermissionMetadata'
+      - $ref: '#/components/schemas/TypeMetadata'
+      - $ref: '#/components/schemas/TenantMetadata'
+      - $ref: '#/components/schemas/RegionalMetadata'
 
     TypeMetadata:
       type: object
@@ -189,7 +193,7 @@ components:
           description: |
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
-          example: "us-west-1"
+          example: "eu-central-1"
         provider:
           type: string
           description: |
@@ -232,14 +236,14 @@ components:
         resource:
           type: string
           maxLength: 256
-          example: "tenants/1/workspaces/ws-1/instances/my-server"
+          example: "tenants/tn-1/workspaces/ws-1/instances/my-server"
         verb:
           type: string
           maxLength: 7
           example: get
       example:
         provider: "seca.compute/v1"
-        resource: "tenants/1/workspaces/ws-1/instances/my-server"
+        resource: "tenants/tn-1/workspaces/ws-1/instances/my-server"
         verb: get
 
     ModificationMetadata:
@@ -389,6 +393,7 @@ components:
           type: string
           description: Reference to the region where the resource is located
           maxLength: 64
+          example: "eu-central-1"
 
     Status:
       type: object
@@ -491,5 +496,5 @@ components:
       example:
         skipToken: "false"
         provider: "seca.compute/v1"
-        resource: "tenants/1/workspaces/ws-1/instances/my-server"
+        resource: "tenants/tn-1/workspaces/ws-1/instances/my-server"
         verb: get
