@@ -193,7 +193,7 @@ components:
           description: |
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
-          example: "us-west-1"
+          example: "eu-central-1"
         provider:
           type: string
           description: |
@@ -393,6 +393,7 @@ components:
           type: string
           description: Reference to the region where the resource is located
           maxLength: 64
+          example: "eu-central-1"
 
     Status:
       type: object
