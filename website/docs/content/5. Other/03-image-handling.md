@@ -175,3 +175,32 @@ PUT /providers/seca.storage/v1/tenants/152552672/images/debian-container-13
   },
   "spec" ...
 }
+```
+
+Using a public Ubuntu 24.04 Image:
+
+```json
+GET /providers/seca.storage/v1/tenants/public/images/ubuntu-24
+
+{
+  "labels": {
+    "os": "linux",
+    "version": "24.04",
+    "base": "ubuntu"
+  },
+  "annotations": {
+    "name": "Ubuntu 24.04 Container",
+    "description": "The image contains the Ubuntu 24.04 base including preinstalled software for the use of linux containers",
+    "release": "2024-04-25T00:00:00Z",
+    "eol": "2026-04-25T00:00:00Z",
+    "recommendedCpu": "2",
+    "recommendedMemory": "2",
+    "recommendedNics": "2",
+    "recommendedStorageSize": "100"
+  },
+  "spec": {
+    "cpuArchitecture": "amd64",
+    "initializer": "cloudinit-22",
+    "boot": "UEFI"
+  }
+}
