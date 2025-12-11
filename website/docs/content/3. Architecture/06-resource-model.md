@@ -70,21 +70,138 @@ The record of intent that describes the changes to be applied to a resource; in 
 ### Status
 > This section is read-only and is included only in the GET response payload; it cannot be modified through create or update operations.
 
-The purpose of this section is to provide insights into the current state of a resource. Customers,by examining this status information, can assess resource health, troubleshoot issues, and confirm successful deployments or configurations.
+The purpose of this section is to provide insights into the current state of a resource. Customers, by examining this status information, can assess resource health, troubleshoot issues, and confirm successful deployments or configurations.
 
-What do we include in the status object is below described:
+The status object contains two complementary parts:
 
-- **conditions**
-  - **type** - the condition type (e.g Ready, Available, Progressing)
-  - **status** - whether the condition is met (True, False, or Unknown)
-  - **lastTransitionAt** - When the condition last changed
-  - **reason** - Details about the current condition status, helpful for debugging or understanding issues.
-  - **message** - Human-readable message indicating details about the last status transition
+1. **Status fields** - Represent the current observed state of the resource
+2. **Conditions** - Provide a historical record of state transitions and events
+
+#### Status Fields
+
+The status section includes various fields that describe the current state of a resource. These fields are updated by the CSP to reflect the actual observed state:
+
 - **state** - indicates the resource lifecycle phase, like Pending, Succeeded, Failed or Unknown.
+- **Resource-specific fields** - Additional fields that vary by resource type (e.g., `powerState` for Instances, `primary` for database clusters, `endpoint` for services)
 
-In addition, there are attributes under the status section that may change after the initial creation. These attributes are updated by the CSP to reflect the user’s intended input or the current state of the resource.
+These fields represent the "what is" - the current snapshot of the resource state at any given moment.
 
-Unlike the **admission controller**, which mutates or enriches user input during request processing by filling in fields, updates to the status section do not modify or enrich the user’s input. Instead, the CSP updates the status solely to reflect the current observed state of the resource within the system.
+#### Conditions
+
+Conditions complement status fields by providing a historical view and event-based semantics. Following Kubernetes conventions, conditions capture:
+
+- **What changed** - State transitions and significant events
+- **When it changed** - Timestamps for audit and debugging
+- **Why it changed** - Context and reasons for transitions
+- **Current satisfaction** - Whether specific conditions are currently met
+
+Each condition in the conditions array contains:
+
+- **type** - The condition type (e.g., Ready, Available, PowerStateChanged, PrimaryChanged)
+- **status** - Whether the condition is currently satisfied ("True", "False", or "Unknown")
+- **lastTransitionAt** - Timestamp when the condition last changed state
+- **reason** - Machine-readable cause for the condition (e.g., UserRequested, Failover, AutoScaling)
+- **message** - Human-readable message providing details about the transition
+
+#### How Status Fields and Conditions Work Together
+
+Status fields and conditions serve different but complementary purposes:
+
+- **Status fields** provide the current state snapshot
+- **Conditions** provide the transition history and event context
+
+**Example: Instance Power State Management**
+
+Consider an Instance resource where the user requests a power-off operation:
+
+**Before power-off (Instance running):**
+```yaml
+status:
+  state: Succeeded
+  powerState: "on"
+  conditions:
+    - type: Ready
+      status: "True"
+      lastTransitionAt: "2024-12-11T10:00:00Z"
+      reason: InstanceRunning
+      message: "Instance is running and ready"
+```
+
+**During power-off (transition in progress):**
+```yaml
+status:
+  state: Succeeded
+  powerState: "transitioning"    # status field reflects current state
+  conditions:
+    - type: Ready
+      status: "False"              # Ready condition now false
+      lastTransitionAt: "2024-12-11T11:30:00Z"
+      reason: PowerStateChanging
+      message: "Instance is shutting down"
+    
+    - type: PowerStateChanged      # New condition added
+      status: "True"
+      lastTransitionAt: "2024-12-11T11:30:00Z"
+      reason: UserRequested
+      message: "Power state changing from 'on' to 'off' as requested by user"
+```
+
+**After power-off (Instance stopped):**
+```yaml
+status:
+  state: Succeeded
+  powerState: "off"                # status field updated to new state
+  conditions:
+    - type: Ready
+      status: "False"
+      lastTransitionAt: "2024-12-11T11:30:00Z"
+      reason: InstanceStopped
+      message: "Instance is stopped"
+    
+    - type: PowerStateChanged      # Condition remains in history
+      status: "True"
+      lastTransitionAt: "2024-12-11T11:30:15Z"
+      reason: UserRequested
+      message: "Power state changed from 'on' to 'off' successfully"
+```
+
+**After power-on (Instance restarted):**
+```yaml
+status:
+  state: Succeeded
+  powerState: "on"                 # status field back to 'on'
+  conditions:
+    - type: Ready
+      status: "True"
+      lastTransitionAt: "2024-12-11T12:00:00Z"
+      reason: InstanceRunning
+      message: "Instance is running and ready"
+    
+    - type: PowerStateChanged      # New event recorded
+      status: "True"
+      lastTransitionAt: "2024-12-11T12:00:00Z"
+      reason: UserRequested
+      message: "Power state changed from 'off' to 'on' successfully"
+```
+
+In this example:
+- The `powerState` field always shows the **current** power state
+- The `state` field shows the overall lifecycle phase (remains "Succeeded" as the resource exists and operations complete successfully)
+- The `Ready` condition indicates whether the instance is **currently** ready to serve requests
+- The `PowerStateChanged` condition provides a **historical record** of power state transitions, capturing when, why, and how the state changed
+
+This pattern allows clients to:
+1. **Poll status fields** to check current state
+2. **Monitor conditions** to track events and understand state transition history
+3. **Debug issues** by examining the reason and message in conditions
+4. **Build automation** that reacts to specific condition types
+
+#### Additional Status Attributes
+
+In addition to `state` and `conditions`, the status section may include other attributes that change after initial resource creation. These attributes are updated by the CSP to reflect the current observed state of the resource (e.g., assigned IP addresses, generated endpoints, capacity metrics).
+
+Unlike the **admission controller**, which mutates or enriches user input during request processing by filling in fields, updates to the status section do not modify or enrich the user's input. Instead, the CSP updates the status solely to reflect the current observed state of the resource within the system.
+
 
 ## Resource Lifecycle
 
