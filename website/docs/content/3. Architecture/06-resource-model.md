@@ -138,7 +138,6 @@ status:
       message: "Instance is shutting down"
     
     - type: PowerStateChanged      # New condition added
-      status: "True"
       lastTransitionAt: "2024-12-11T11:30:00Z"
       reason: UserRequested
       message: "Power state changing from 'on' to 'off' as requested by user"
