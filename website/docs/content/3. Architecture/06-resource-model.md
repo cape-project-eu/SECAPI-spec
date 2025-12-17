@@ -174,7 +174,6 @@ status:
       message: "Instance is running and ready"
     
     - type: PowerStateChanged      # New event recorded
-      status: "True"
       lastTransitionAt: "2024-12-11T12:00:00Z"
       reason: UserRequested
       message: "Power state changed from 'off' to 'on' successfully"
