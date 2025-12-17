@@ -93,7 +93,6 @@ Conditions complement status fields by providing a historical view and event-bas
 - **What changed** - State transitions and significant events
 - **When it changed** - Timestamps for audit and debugging
 - **Why it changed** - Context and reasons for transitions
-- **Current satisfaction** - Whether specific conditions are currently met
 
 Each condition in the conditions array contains:
 
