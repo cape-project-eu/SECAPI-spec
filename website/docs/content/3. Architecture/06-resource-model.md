@@ -168,7 +168,6 @@ status:
   powerState: "on"                 # status field back to 'on'
   conditions:
     - type: Ready
-      status: "True"
       lastTransitionAt: "2024-12-11T12:00:00Z"
       reason: InstanceRunning
       message: "Instance is running and ready"
