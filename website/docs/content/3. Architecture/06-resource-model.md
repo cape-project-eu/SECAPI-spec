@@ -132,7 +132,6 @@ status:
   powerState: "transitioning"    # status field reflects current state
   conditions:
     - type: Ready
-      status: "False"              # Ready condition now false
       lastTransitionAt: "2024-12-11T11:30:00Z"
       reason: PowerStateChanging
       message: "Instance is shutting down"
