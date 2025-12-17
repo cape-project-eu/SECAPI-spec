@@ -150,7 +150,6 @@ status:
   powerState: "off"                # status field updated to new state
   conditions:
     - type: Ready
-      status: "False"
       lastTransitionAt: "2024-12-11T11:30:00Z"
       reason: InstanceStopped
       message: "Instance is stopped"
