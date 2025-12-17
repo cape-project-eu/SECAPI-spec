@@ -154,7 +154,6 @@ status:
       message: "Instance is stopped"
     
     - type: PowerStateChanged      # Condition remains in history
-      status: "True"
       lastTransitionAt: "2024-12-11T11:30:15Z"
       reason: UserRequested
       message: "Power state changed from 'on' to 'off' successfully"
