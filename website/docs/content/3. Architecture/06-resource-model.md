@@ -98,7 +98,6 @@ Conditions complement status fields by providing a historical view and event-bas
 Each condition in the conditions array contains:
 
 - **type** - The condition type (e.g., Ready, Available, PowerStateChanged, PrimaryChanged)
-- **status** - Whether the condition is currently satisfied ("True", "False", or "Unknown")
 - **lastTransitionAt** - Timestamp when the condition last changed state
 - **reason** - Machine-readable cause for the condition (e.g., UserRequested, Failover, AutoScaling)
 - **message** - Human-readable message providing details about the transition
