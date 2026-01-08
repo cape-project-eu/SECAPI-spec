@@ -52,6 +52,10 @@ const config = {
     ],
   ],
 
+  markdown: {
+    mermaid: true,
+  },
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -151,7 +155,7 @@ const config = {
       },
     }),
 
-    themes: ["docusaurus-theme-openapi-docs"],
+    themes: ["docusaurus-theme-openapi-docs", "@docusaurus/theme-mermaid"],
     plugins: [
       ['docusaurus-plugin-drawio', {}],
       [ 
