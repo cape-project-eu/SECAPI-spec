@@ -50,10 +50,12 @@ components:
             provider: seca.network/v1
             resource: security-groups/sg-123
         frontendPort:
-          $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
           description: 'Frontend port to which the load balancer will be listening on'
         backendPort:
-          $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
           description: 'Backend port to which the load balancer will be forwarding the traffic to'
         frontends:
           type: array
@@ -95,7 +97,8 @@ components:
           - LoadBalancerProtocolUDP
           - LoadBalancerProtocolBoth
         port:
-          $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
           description: 'Frontend port to which the load balancer will be listening on'
         target:
           $ref: '#/components/schemas/LoadBalancerTarget'
@@ -117,7 +120,8 @@ components:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
         port:
-          $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
           description: 'Backend port to which the load balancer will be forwarding the traffic to'
         members:
           type: array
