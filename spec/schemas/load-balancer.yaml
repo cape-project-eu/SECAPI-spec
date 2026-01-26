@@ -17,6 +17,13 @@ components:
           status:
             $ref: '#/components/schemas/NetworkLoadBalancerStatus'
 
+    NetworkLoadBalancerPort:
+        type: integer
+        description: 'Load Balancer port to receive or forward the traffic'
+        minimum: 1
+        maximum: 65535
+        example: 443
+
     NetworkLoadBalancerSpec:
       type: object
       description: |
@@ -43,17 +50,13 @@ components:
             provider: seca.network/v1
             resource: security-groups/sg-123
         frontendPort:
-          type: integer
-          description: 'Front End Port to which the load balancer will be listening on'
-          minimum: 1
-          maximum: 65535
-          example: 443
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          description: 'Frontend port to which the load balancer will be listening on'
         backendPort:
-          type: integer
-          description: 'Back End Port to which the load balancer will be forwarding the traffic to'
-          minimum: 1
-          maximum: 65535
-          example: 443
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          description: 'Backend port to which the load balancer will be forwarding the traffic to'
         frontends:
           type: array
           items:
@@ -94,7 +97,9 @@ components:
           - LoadBalancerProtocolUDP
           - LoadBalancerProtocolBoth
         port:
-          $ref: '#/components/schemas/NetworkLoadBalancerSpec/properties/frontendPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          description: 'Frontend port to which the load balancer will be listening on'
         target:
           $ref: '#/components/schemas/LoadBalancerTarget'
 
@@ -115,7 +120,9 @@ components:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
         port:
-          $ref: '#/components/schemas/NetworkLoadBalancerSpec/properties/backendPort'
+          allOf:
+          - $ref: '#/components/schemas/NetworkLoadBalancerPort'
+          description: 'Backend port to which the load balancer will be forwarding the traffic to'
         members:
           type: array
           description: 'Nic reference to the members as part of the LoadBalancerTarget'
