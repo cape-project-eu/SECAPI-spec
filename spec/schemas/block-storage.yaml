@@ -28,7 +28,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the block storage.
-          example: "tenants/seca/skus/n1k"
+          example:
+            resource: "tenants/seca/skus/n1k"
         sizeGB:
           type: integer
           description: Size of the block storage in GB.
@@ -38,7 +39,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the source image used as the base for creating the block storage.
-          example: "images/image-123"
+          example:
+            resource: "images/image-123"
 
     BlockStorageStatus:
       description: |
@@ -60,11 +62,12 @@ components:
             example: 10
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
             description: Reference to the instance the block storage is attached to.
             example:
               provider: seca.compute/v1
               resource: instances/instance-123
+              ref: seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/instance-123
 
     VolumeReference:
       type: object
@@ -76,7 +79,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the block storage used to store the volume.
-          example: "block-storages/block-123"
+          example:
+            resource: "block-storages/block-123"
         type:
           type: string
           description: The connection type depends on the type of device and type of block storage.
@@ -86,6 +90,7 @@ components:
           x-enumNames:
           - VolumeReferenceTypeVirtio
       example:
-        deviceRef: "block-storages/block-123"
+        deviceRef:
+          resource: "block-storages/block-123"
         type: "virtio"
 

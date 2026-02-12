@@ -31,7 +31,8 @@ components:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the instance.
-          example: 'tenants/seca/skus/s'
+          example:
+            resource: 'tenants/seca/skus/s'
         primaryNicRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -39,6 +40,7 @@ components:
           example:
             provider: seca.network/v1
             resource: network-interfaces/nic-123
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-123
         additionalNicRefs:
           type: array
           description: Additional NICs attached to this instance
@@ -49,6 +51,7 @@ components:
             example:
               provider: seca.network/v1
               resource: network-interfaces/nic-124
+              ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-124
         zone:
           $ref: './region.yaml#/components/schemas/Zone'
         securityGroupRef:
@@ -58,6 +61,7 @@ components:
           example:
             provider: seca.network/v1
             resource: security-groups/sg-123
+            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
         userData:
           type: string
           description: |
@@ -97,7 +101,8 @@ components:
             - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
             description: Reference to the block storage used to store an additional volume of the instance.
       example:
-        skuRef: "tenants/seca/skus/s"
+        skuRef:
+          resource: "tenants/seca/skus/s"
         zone: "a"
         bootVolume:
           deviceRef:
