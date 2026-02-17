@@ -27,7 +27,7 @@ GREEN = \033[1;32m
 YELLOW = \033[1;33m
 RESET = \033[0m
 
-.PHONY: all build resource-apis lint clean
+.PHONY: all build resource-apis lint clean tag
 
 all: clean build lint
 
@@ -68,3 +68,12 @@ lint: resource-apis
 clean:
 	@echo "$(BLUE)Cleaning up...$(RESET)"
 	@rm -rf $(DIST) $(OUTPUT) $(ROOT)/*.yaml
+
+tag:
+	@if [ -z "$(VERSION)" ]; then \
+		echo "ERROR: VERSION is required. Usage: make tag VERSION=v0.1.0"; \
+		exit 1; \
+	fi
+	@echo "Tagging $(VERSION)..."
+	git tag $(VERSION)
+	git push origin $(VERSION)
