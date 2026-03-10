@@ -43,6 +43,7 @@ components:
             ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-123
         additionalNicRefs:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: Additional NICs attached to this instance
           items:
             allOf:
@@ -64,6 +65,7 @@ components:
             ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
         userData:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Cloud-init user data for instance initialization
             Example cloud-init user configuration with SSH key:
@@ -78,10 +80,12 @@ components:
             Instances in the same anti-affinity group are placed on different physical hosts.
             The number of maximum instances in an anti-affinity group is provider-specific.
           type: string
+          x-go-type-skip-optional-pointer: true
           maxLength: 64
           example: 'exclusive-server'
         sshKeys:
           type: array
+          x-go-type-skip-optional-pointer: true
           items:
             type: string
             maxLength: 4096
@@ -96,6 +100,7 @@ components:
           description: Reference to the block storage used to store the boot volume of the instance.
         dataVolumes:
           type: array
+          x-go-type-skip-optional-pointer: true
           items:
             allOf:
             - $ref: './block-storage.yaml#/components/schemas/VolumeReference'

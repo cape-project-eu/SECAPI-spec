@@ -34,6 +34,7 @@ components:
       properties:
         securityGroupRefs:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: References to the security groups associated with this NIC.
           items:
             allOf:
@@ -55,6 +56,7 @@ components:
             $ref: '#/components/schemas/NicIp'
         publicIpRefs:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             References to public IP addresses associated with this NIC. The IP may be external
             and not directly visible on the server/NIC itself.
@@ -98,10 +100,12 @@ components:
         properties:
           addresses:
             type: array
+            x-go-type-skip-optional-pointer: true
             items:
               $ref: '#/components/schemas/NicIp'
           macAddress:
             type: string
+            x-go-type-skip-optional-pointer: true
             description: |
               MAC address of the NIC.
             maxLength: 17
@@ -109,6 +113,7 @@ components:
             description: |
               Array of public IP addresses associated with this NIC.
             type: array
+            x-go-type-skip-optional-pointer: true
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'

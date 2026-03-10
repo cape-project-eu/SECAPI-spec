@@ -76,6 +76,7 @@ components:
           healthyMembers:
             description: 'List of healthy members'
             type: array
+            x-go-type-skip-optional-pointer: true
             items:
               $ref: './resource.yaml#/components/schemas/Reference'
 
@@ -116,6 +117,7 @@ components:
       properties:
         algorithm:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: 'LoadBalancer algorithm to take a backend instance'
           enum: [ round-robin ]
           x-enumNames:
@@ -141,6 +143,7 @@ components:
           $ref: '#/components/schemas/LoadBalancerHealthCheck'
         proxyProtocol:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Specifies the proxy protocol version. The proxy protocol is used to
             pass client connection information to the backend instances.
@@ -173,6 +176,7 @@ components:
       properties:
         type:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Specifies the type of health check. A `connect` health check attempts
             to establish a connection to the specified port to determine its health.

@@ -31,16 +31,19 @@ components:
         properties:
           accessKey:
             type: string
+            x-go-type-skip-optional-pointer: true
             description: Access key for the object storage account
             readOnly: true
             maxLength: 128
           secretKey:
             type: string
+            x-go-type-skip-optional-pointer: true
             description: Secret key for the object storage account
             readOnly: true
             maxLength: 128
           canonicalUserId:
             type: string
+            x-go-type-skip-optional-pointer: true
             description: Canonical user ID for the object storage account
             readOnly: true
             maxLength: 64

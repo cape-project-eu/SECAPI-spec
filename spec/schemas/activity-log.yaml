@@ -17,6 +17,7 @@ components:
       properties:
         subject:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: User-JWT executing this query
           maxLength: 256
         request:
@@ -30,6 +31,7 @@ components:
       properties:
         verb:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Verb that describes the action to be performed on the resource.
             The verb can be one of the following: get, list, put, delete, post, ..
@@ -54,6 +56,7 @@ components:
             - $ref: './workspace.yaml#/components/schemas/WorkspaceSpec'
         resource:
           type: string
+          x-go-type-skip-optional-pointer: true
           maxLength: 2000
 
     ResponseObject:

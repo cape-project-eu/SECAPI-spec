@@ -41,9 +41,12 @@ components:
             * ingress: Only incoming traffic is allowed
             * egress: Only outgoing traffic is allowed
         version:
-          $ref: './network.yaml#/components/schemas/IPVersion'
+          x-go-type-skip-optional-pointer: true
+          allOf:
+            - $ref: './network.yaml#/components/schemas/IPVersion'          
         protocol:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: Network protocol for the rule
           enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
           x-enumNames:
@@ -57,6 +60,7 @@ components:
           $ref: '#/components/schemas/IcmpConfig'
         sourceRef:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             Reference to a CIDR block, IP address, gateway, instance or security group that is allowed to communicate
             with the security group. If a security group is specified, all instances in that group are allowed.
@@ -95,11 +99,16 @@ components:
         The final result is a comprehensive list of ports and/or port ranges.
       properties:
         from:
-          $ref: '#/components/schemas/Port'
+          x-go-type-skip-optional-pointer: true
+          allOf:
+            - $ref: '#/components/schemas/Port'
         to:
-          $ref: '#/components/schemas/Port'
+          x-go-type-skip-optional-pointer: true
+          allOf:
+            - $ref: '#/components/schemas/Port'
         list:
           type: array
+          x-go-type-skip-optional-pointer: true
           items:
             $ref: '#/components/schemas/Port'
           example: [80, 443]
