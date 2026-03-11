@@ -28,6 +28,7 @@ components:
       properties:
         egressOnly:
           type: boolean
+          x-go-type-skip-optional-pointer: true
           description: |
             If set to true, the internet gateway will only allow outgoing traffic
             and will not allow incoming traffic. This is useful for public subnets
