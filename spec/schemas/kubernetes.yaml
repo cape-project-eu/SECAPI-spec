@@ -41,6 +41,7 @@ components:
             the Kubernetes API is accessible from any IP address. Nodes that are
             part of the cluster are always allowed to access the Kubernetes API.
           type: array
+          x-go-type-skip-optional-pointer: true
           items:
             type: string
             description: |
@@ -54,6 +55,7 @@ components:
           - "2002::1234:abcd:ffff:c0a8:101"
         podCidr:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             CIDR range for the pod network. This is used to allocate IP addresses
             for pods in the cluster. The CIDR must be a valid IPv4 or IPv6 CIDR.
@@ -61,6 +63,7 @@ components:
           example: "192.168.0.0/24"
         serviceCidr:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             CIDR range for the service network. This is used to allocate IP addresses
             for services in the cluster. The CIDR must be a valid IPv4 or IPv6 CIDR.
@@ -77,6 +80,7 @@ components:
         properties:
           kubeConfig:
             type: string
+            x-go-type-skip-optional-pointer: true
             description: |
               The kube config file for the cluster. This file is used to configure
               access to the cluster using kubectl or other Kubernetes clients.
@@ -124,6 +128,7 @@ components:
           $ref: '#/components/schemas/KubernetesNodeTemplate'
         taints:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             List of taints to apply to the nodes in the node pool. Taints are used
             to mark nodes as unsuitable for certain workloads, allowing for more
@@ -277,6 +282,7 @@ components:
               List of nodes in the Node Pool. Each node is represented by its
               reference to a compute instance.
             type: array
+            x-go-type-skip-optional-pointer: true
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'

@@ -148,6 +148,7 @@ components:
       properties:
         tenants:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             Optionally, can be opened to all tenants or restricted to a specific tenant.
             If not specified, the role assignment is valid for the current tenant.
@@ -161,6 +162,7 @@ components:
             maxLength: 64
         regions:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             Optionally, a restriction can be applied to the region
             where the role assignment is valid. If not specified,
@@ -173,6 +175,7 @@ components:
             maxLength: 64
         workspaces:
           type: array
+          x-go-type-skip-optional-pointer: true
           description: |
             Optionally, a restriction can be applied to the workspace
             where the role assignment is valid. If not specified,

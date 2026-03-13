@@ -50,6 +50,7 @@ components:
           $ref: './network.yaml#/components/schemas/cidr'
         additionalCidrs:
           type: array
+          x-go-type-skip-optional-pointer: true
           items:
             $ref: './network.yaml#/components/schemas/cidr'
         skuRef:
@@ -96,6 +97,7 @@ components:
             $ref: './network.yaml#/components/schemas/cidr'
           additionalCidrs:
             type: array
+            x-go-type-skip-optional-pointer: true
             items:
               $ref: './network.yaml#/components/schemas/cidr'
           routeTableRef:
@@ -123,6 +125,7 @@ components:
       properties:
         ipv4:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             IPv4 CIDR block for the subnet.
           minLength: 9
@@ -130,6 +133,7 @@ components:
           example: '10.0.100.0/24'
         ipv6:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             IPv6 CIDR block for the subnet.
           minLength: 4

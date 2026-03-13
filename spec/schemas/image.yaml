@@ -69,6 +69,7 @@ components:
           - ImageSpecCpuArchitectureArm64
         initializer:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: Initializer for the Image
           enum:
           - none
@@ -79,6 +80,7 @@ components:
           default: none
         boot:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: Boot type for the Image
           enum:
           - UEFI

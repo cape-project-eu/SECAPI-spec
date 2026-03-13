@@ -83,6 +83,7 @@ components:
             resource: "block-storages/block-123"
         type:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: The connection type depends on the type of device and type of block storage.
           enum:
           - virtio

@@ -187,24 +187,28 @@ components:
       properties:
         region:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
           example: "eu-central-1"
         provider:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Provider of the resource. If not set, the provider is inferred from the context.
           maxLength: 64
           example: "seca.compute/v1"
         tenant:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Tenant of the resource. If not set, the tenant is inferred from the context.
           maxLength: 64
           example: "tenant-1"
         workspace:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Workspace of the resource. If not set, the workspace is inferred from the context.
           maxLength: 64
@@ -401,7 +405,9 @@ components:
       - conditions
       properties:
         state:
-          $ref: '#/components/schemas/ResourceState'
+          x-go-type-skip-optional-pointer: true
+          allOf:
+            - $ref: '#/components/schemas/ResourceState'
         conditions:
           type: array
           items:
@@ -446,6 +452,7 @@ components:
       properties:
         type:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             Type of condition. The condition type is provider-specific and should
             reflect the specific states relevant to your resource.
@@ -461,6 +468,7 @@ components:
             acceptable.
         reason:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             The reason for the condition's last transition in CamelCase.
             The specific set of reason values is provider-specific and should be
@@ -469,6 +477,7 @@ components:
           pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
         message:
           type: string
+          x-go-type-skip-optional-pointer: true
           description: |
             A human-readable message indicating details about the transition.
           maxLength: 32768
