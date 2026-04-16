@@ -72,6 +72,7 @@ components:
       required: true
       schema:
         type: string
+        maxLength: 64
       description: Tenant ID
 
     workspacePathParam:
@@ -80,6 +81,7 @@ components:
       required: true
       schema:
         type: string
+        maxLength: 64
       description: Workspace name
 
     networkPathParam:
@@ -88,6 +90,7 @@ components:
       required: true
       schema:
         type: string
+        maxLength: 64
       description: Network name
 
     clusterPathParam:
@@ -96,6 +99,7 @@ components:
       required: true
       schema:
         type: string
+        maxLength: 128
       description: Cluster name
 
     resourcePathParam:
@@ -104,5 +108,8 @@ components:
       required: true
       schema:
         type: string
+        maxLength: 128
+        minLength: 1
+        pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
       description: Resource name
       
