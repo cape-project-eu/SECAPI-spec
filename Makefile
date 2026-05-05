@@ -1,6 +1,5 @@
 GO ?= go
-VACUUM = github.com/daveshanley/vacuum@latest
-GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate@latest
+GO_TOOL := $(GO) -C ./tools run -mod=mod
 
 ROOT = spec
 DIST = dist
@@ -15,12 +14,13 @@ SCHEMAS := $(shell find $(ROOT)/schemas -type f)
 SCHEMAS_SOURCES = $(shell find $(ROOT) -maxdepth 1 -name '*.yaml')
 SCHEMAS_FINAL = $(SCHEMAS_SOURCES:$(ROOT)/%.yaml=$(DIST)/specs/%.yaml)
 
+GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate
 GOMPLATE_TEMPLATE = spec/templates/resource.yaml.tpl
 GOMPLATE_SOURCES = $(shell find $(ROOT)/resources -type f -name '*.yaml')
 GOMPLATE_FINAL = $(GOMPLATE_SOURCES:$(ROOT)/resources/%.yaml=$(ROOT)/%.yaml)
 
-VACUUM := $(GO) run $(VACUUM)
-VACUUM_LINT_FLAGS := -r config/ruleset-recommended.yaml -b
+VACUUM = github.com/daveshanley/vacuum
+VACUUM_LINT_FLAGS := -r $(CURDIR)/config/ruleset-recommended.yaml -b
 
 BLUE  = \033[1;34m
 GREEN = \033[1;32m
@@ -34,22 +34,21 @@ all: clean build lint
 build: $(DIST) resource-apis $(SCHEMAS_FINAL)
 
 resource-apis:
-	@command -v gomplate >/dev/null || { echo "$(YELLOW)⚠️  gomplate command not found or not executable. Please install gomplate.\n    For instructions visit $(BLUE)https://docs.gomplate.ca/installing/$(RESET)"; exit 1; }
 	@echo "$(BLUE)Generating OpenAPI resources with gomplate...$(RESET)"
 	@for f in $(GOMPLATE_SOURCES); do \
-		group="$$(gomplate -d spec=$$f -i '{{ (ds "spec").group }}')"; \
-		name="$$(gomplate -d spec=$$f -i '{{ (ds "spec").name }}' | tr '[:upper:]' '[:lower:]' | tr -d ' -')"; \
-		version="$$(gomplate -d spec=$$f -i '{{ (ds "spec").version }}')"; \
+		group="$$($(GO_TOOL) $(GOMPLATE) -d spec=$(CURDIR)/$$f -i '{{ (ds "spec").group }}')"; \
+		name="$$($(GO_TOOL) $(GOMPLATE) -d spec=$(CURDIR)/$$f -i '{{ (ds "spec").name }}' | tr '[:upper:]' '[:lower:]' | tr -d ' -')"; \
+		version="$$($(GO_TOOL) $(GOMPLATE) -d spec=$(CURDIR)/$$f -i '{{ (ds "spec").version }}')"; \
 		out="$(ROOT)/$${group}.$${name}.$${version}.yaml"; \
 		echo "$(GREEN)→ $$out$(RESET) from $$f"; \
-		$(GO) run $(GOMPLATE) -d spec=$$f -f $(GOMPLATE_TEMPLATE) -o $$out; \
+		$(GO_TOOL) $(GOMPLATE) -d spec=$(CURDIR)/$$f -f $(CURDIR)/$(GOMPLATE_TEMPLATE) -o $(CURDIR)/$$out; \
 	done
 
 $(DIST):
 	@mkdir -p $(DIST)
 
 $(ROOT)/%.yaml: $(ROOT)/resources/%.yaml $(GOMPLATE_TEMPLATE) $(SCHEMAS) | resource-apis
-	@$(GO) run $(GOMPLATE) -d spec=$< -f $(GOMPLATE_TEMPLATE) -o $@
+	@$(GO_TOOL) $(GOMPLATE) -d spec=$(CURDIR)/$< -f $(CURDIR)/$(GOMPLATE_TEMPLATE) -o $(CURDIR)/$@
 
 $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)
 	@mkdir -p $(dir $@)
@@ -58,12 +57,12 @@ $(DIST)/specs/%.yaml: $(ROOT)/%.yaml $(SCHEMAS)
 lint: resource-apis
 	@echo "$(YELLOW)Linting OpenAPI specs...$(RESET)"
 	@$(MAKE) $(SCHEMAS_FINAL)
-	@SCHEMAS="$$(find $(DIST)/specs -type f -name '*.yaml')"; \
+	@SCHEMAS="$$(find $(CURDIR)/$(DIST)/specs -type f -name '*.yaml')"; \
 	if [ -z "$$SCHEMAS" ]; then \
 		echo "$(YELLOW)⚠️  No OpenAPI specs found to lint.$(RESET)"; \
 		exit 1; \
 	fi; \
-	$(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $$SCHEMAS --fail-severity warn
+	$(GO_TOOL) $(VACUUM) lint $(VACUUM_LINT_FLAGS) -d $$SCHEMAS --fail-severity warn
 
 clean:
 	@echo "$(BLUE)Cleaning up...$(RESET)"
