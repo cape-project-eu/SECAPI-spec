@@ -339,7 +339,7 @@ components:
           pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
           example: "resource-name"
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.matches('^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')"
+            x-cel-rule-0: "self.matches('^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')"
             x-cel-message-0: "metadata.name must be in dash-case format, can contain lowercase letters, numbers, hyphens and dots, and must start and end with an alphanumeric character"
             x-cel-rule-1: "self.size() >= 1 && self.size() <= 128"
             x-cel-message-1: "metadata.name must be between 1 and 128 characters long"
