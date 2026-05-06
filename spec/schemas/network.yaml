@@ -9,17 +9,17 @@ components:
         * Enables network segmentation and isolation
         * Provides common performance configuration across the network using a SKU
       allOf:
-      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
-      - type: object
-        required:
-        - spec
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
-          spec:
-            $ref: './network.yaml#/components/schemas/NetworkSpec'
-          status:
-            $ref: './network.yaml#/components/schemas/NetworkStatus'
+        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+        - type: object
+          required:
+            - spec
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            spec:
+              $ref: "./network.yaml#/components/schemas/NetworkSpec"
+            status:
+              $ref: "./network.yaml#/components/schemas/NetworkStatus"
 
     NetworkSpec:
       type: object
@@ -42,20 +42,20 @@ components:
         CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
         be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
       required:
-      - cidr
-      - skuRef
-      - routeTableRef
+        - cidr
+        - skuRef
+        - routeTableRef
       properties:
         cidr:
-          $ref: './network.yaml#/components/schemas/cidr'
+          $ref: "./network.yaml#/components/schemas/cidr"
         additionalCidrs:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
-            $ref: './network.yaml#/components/schemas/cidr'
+            $ref: "./network.yaml#/components/schemas/cidr"
         skuRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: |
             Reference to the SKU used by default for all NIC in this Network.
             Can be overridden by the NIC.
@@ -63,7 +63,7 @@ components:
             resource: "tenants/seca/skus/n1k"
         routeTableRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the route table used by default for all Subnets.
           example:
             resource: "route-tables/route-table-1"
@@ -83,35 +83,35 @@ components:
         and its CIDR blocks. It will report the status of the CIDR blocks and the network
         as a whole including automatically assigned IP networks.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/Status"
-      - type: object
-        readOnly: true
-        description: |
-          Current status of the network and its CIDR blocks. Will report
-          the status of the CIDR blocks and the network as a whole including
-          automatically assigned IP networks.
-        required:
-        - cidr
-        properties:
-          cidr:
-            $ref: './network.yaml#/components/schemas/cidr'
-          additionalCidrs:
-            type: array
-            x-go-type-skip-optional-pointer: true
-            items:
-              $ref: './network.yaml#/components/schemas/cidr'
-          routeTableRef:
-            allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
-            description: Reference to the route table used by default for all Subnets.
-            example:
+        - $ref: "./resource.yaml#/components/schemas/Status"
+        - type: object
+          readOnly: true
+          description: |
+            Current status of the network and its CIDR blocks. Will report
+            the status of the CIDR blocks and the network as a whole including
+            automatically assigned IP networks.
+          required:
+            - cidr
+          properties:
+            cidr:
+              $ref: "./network.yaml#/components/schemas/cidr"
+            additionalCidrs:
+              type: array
+              x-go-type-skip-optional-pointer: true
+              items:
+                $ref: "./network.yaml#/components/schemas/cidr"
+            routeTableRef:
+              allOf:
+                - $ref: "./resource.yaml#/components/schemas/Reference"
+              description: Reference to the route table used by default for all Subnets.
+              example:
+                resource: "route-tables/route-table-1"
+          example:
+            cidr:
+              ipv4: "10.100.0.0/16"
+              ipv6: "2001:239:203:2400::/56"
+            routeTableRef:
               resource: "route-tables/route-table-1"
-        example:
-          cidr:
-            ipv4: "10.100.0.0/16"
-            ipv6: "2001:239:203:2400::/56"
-          routeTableRef:
-            resource: "route-tables/route-table-1"
     cidr:
       type: object
       description: |
@@ -130,7 +130,12 @@ components:
             IPv4 CIDR block for the subnet.
           minLength: 9
           maxLength: 18
-          example: '10.0.100.0/24'
+          example: "10.0.100.0/24"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || (self.size() >= 9 && self.size() <= 18)"
+            x-cel-message-0: "cidr.ipv4 must be between 9 and 18 characters long"
+            x-cel-rule-1: "self == null || (isCIDR(self) && cidr(self).ip().family() == 4)"
+            x-cel-message-1: "cidr.ipv4 must be a valid IPv4 CIDR block"
         ipv6:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -138,7 +143,12 @@ components:
             IPv6 CIDR block for the subnet.
           minLength: 4
           maxLength: 43
-          example: '2001:db8::/32'
+          example: "2001:db8::/32"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || (self.size() >= 4 && self.size() <= 43)"
+            x-cel-message-0: "cidr.ipv6 must be between 4 and 43 characters long"
+            x-cel-rule-1: "self == null || (isCIDR(self) && cidr(self).ip().family() == 6)"
+            x-cel-message-1: "cidr.ipv6 must be a valid IPv6 CIDR block"
 
     IPVersion:
       type: string
@@ -149,3 +159,6 @@ components:
       x-enumNames:
         - IPVersionIPv4
         - IPVersionIPv6
+      x-oapi-codegen-extra-tags:
+        x-cel-rule-0: "self in ['IPv4', 'IPv6']"
+        x-cel-message-0: "ipVersion must be either 'IPv4' or 'IPv6'"

@@ -3,17 +3,17 @@ components:
     BlockStorage:
       description: Represents a block storage resource.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
-      - type: object
-        required:
-        - spec
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
-          spec:
-            $ref: '#/components/schemas/BlockStorageSpec'
-          status:
-            $ref: '#/components/schemas/BlockStorageStatus'
+        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+        - type: object
+          required:
+            - spec
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            spec:
+              $ref: "#/components/schemas/BlockStorageSpec"
+            status:
+              $ref: "#/components/schemas/BlockStorageStatus"
 
     BlockStorageSpec:
       type: object
@@ -21,12 +21,12 @@ components:
         References the SKU used for this block.
         If a reference to the source image is used as the base for creating this block storage.
       required:
-      - skuRef
-      - sizeGB
+        - skuRef
+        - sizeGB
       properties:
         skuRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the SKU of the block storage.
           example:
             resource: "tenants/seca/skus/n1k"
@@ -36,13 +36,13 @@ components:
           maximum: 1000000
           example: 10
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: '!oldSelf.hasValue() || self >= oldSelf.value()'
-            x-cel-message-0: 'spec.sizeGB cannot be decreased'
-            x-cel-rule-1: 'self > 0'
-            x-cel-message-1: 'spec.sizeGB must be greater than 0'
+            x-cel-rule-0: "!oldSelf.hasValue() || self >= oldSelf.value()"
+            x-cel-message-0: "spec.sizeGB cannot be decreased"
+            x-cel-rule-1: "self > 0 && self <= 1000000"
+            x-cel-message-1: "spec.sizeGB must be between 1 and 1000000"
         sourceImageRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the source image used as the base for creating the block storage.
           example:
             resource: "images/image-123"
@@ -51,38 +51,41 @@ components:
       description: |
         The status of the block storage.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/Status'
-      - type: object
-        readOnly: true
-        description: |
-          Conditions type `attachment` indicates the status of the volume attachment.
-          The status can be `attached` or `detached`.
-        required:
-        - sizeGB
-        properties:
-          sizeGB:
-            type: integer
-            description: Size of the block storage in GB.
-            maximum: 1000000
-            example: 10
-          attachedTo:
-            allOf:
-            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
-            description: Reference to the instance the block storage is attached to.
-            example:
-              provider: seca.compute/v1
-              resource: instances/instance-123
-              ref: seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/instance-123
+        - $ref: "./resource.yaml#/components/schemas/Status"
+        - type: object
+          readOnly: true
+          description: |
+            Conditions type `attachment` indicates the status of the volume attachment.
+            The status can be `attached` or `detached`.
+          required:
+            - sizeGB
+          properties:
+            sizeGB:
+              type: integer
+              description: Size of the block storage in GB.
+              maximum: 1000000
+              example: 10
+              x-oapi-codegen-extra-tags:
+                x-cel-rule-0: "self > 0 && self <= 1000000"
+                x-cel-message-0: "status.sizeGB must be between 1 and 1000000"
+            attachedTo:
+              allOf:
+                - $ref: "./resource.yaml#/components/schemas/ReferenceObject"
+              description: Reference to the instance the block storage is attached to.
+              example:
+                provider: seca.compute/v1
+                resource: instances/instance-123
+                ref: seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/instance-123
 
     VolumeReference:
       type: object
       description: Represents a connection between a Block Storage and an a user of the block storage.
       required:
-      - deviceRef
+        - deviceRef
       properties:
         deviceRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the block storage used to store the volume.
           example:
             resource: "block-storages/block-123"
@@ -91,12 +94,11 @@ components:
           x-go-type-skip-optional-pointer: true
           description: The connection type depends on the type of device and type of block storage.
           enum:
-          - virtio
+            - virtio
           default: virtio
           x-enumNames:
-          - VolumeReferenceTypeVirtio
+            - VolumeReferenceTypeVirtio
       example:
         deviceRef:
           resource: "block-storages/block-123"
         type: "virtio"
-

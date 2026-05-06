@@ -4,19 +4,19 @@ components:
       description: |
         Represents an Image resource that can be used to create a virtual machine.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
-      - type: object
-        description: |
-          Represents  an Image resource that can be used to create a virtual machine.
-        required:
-        - spec
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalResourceMetadata'
-          spec:
-            $ref: './image.yaml#/components/schemas/ImageSpec'
-          status:
-            $ref: './image.yaml#/components/schemas/ImageStatus'
+        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+        - type: object
+          description: |
+            Represents  an Image resource that can be used to create a virtual machine.
+          required:
+            - spec
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/RegionalResourceMetadata"
+            spec:
+              $ref: "./image.yaml#/components/schemas/ImageSpec"
+            status:
+              $ref: "./image.yaml#/components/schemas/ImageStatus"
       example:
         labels:
           os: linux
@@ -49,12 +49,12 @@ components:
         [Image Handling](/docs/content/Other/image-handling) section.
       type: object
       required:
-      - blockStorageRef
-      - cpuArchitecture
+        - blockStorageRef
+        - cpuArchitecture
       properties:
         blockStorageRef:
           allOf:
-          - $ref: './resource.yaml#/components/schemas/Reference'
+            - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the block storage used to store the image.
           example:
             resource: "block-storages/block-123"
@@ -62,48 +62,60 @@ components:
           type: string
           description: CPU architecture for the Image
           enum:
-          - amd64
-          - arm64
+            - amd64
+            - arm64
           x-enumNames:
-          - ImageSpecCpuArchitectureAmd64
-          - ImageSpecCpuArchitectureArm64
+            - ImageSpecCpuArchitectureAmd64
+            - ImageSpecCpuArchitectureArm64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['amd64', 'arm64']"
+            x-cel-message-0: "spec.cpuArchitecture must be either 'amd64' or 'arm64'"
         initializer:
           type: string
           x-go-type-skip-optional-pointer: true
           description: Initializer for the Image
           enum:
-          - none
-          - cloudinit-22
+            - none
+            - cloudinit-22
           x-enumNames:
-          - ImageSpecInitializerNone
-          - ImageSpecInitializerCloudinit22
+            - ImageSpecInitializerNone
+            - ImageSpecInitializerCloudinit22
           default: none
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['none', 'cloudinit-22']"
+            x-cel-message-0: "spec.initializer must be either 'none', 'cloudinit-22', or not set"
         boot:
           type: string
           x-go-type-skip-optional-pointer: true
           description: Boot type for the Image
           enum:
-          - UEFI
-          - BIOS
+            - UEFI
+            - BIOS
           x-enumNames:
-          - ImageSpecBootUEFI
-          - ImageSpecBootBIOS
+            - ImageSpecBootUEFI
+            - ImageSpecBootBIOS
           default: UEFI
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['UEFI', 'BIOS']"
+            x-cel-message-0: "spec.boot must be either 'UEFI', 'BIOS', or not set"
 
     ImageStatus:
       description: |
         Status of the Image, including the size of the Image in MB.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/Status"
-      - type: object
-        readOnly: true
-        description: |
-          Current status of the Image. The status is read-only and will be set by
-          the system. The status contains information about the current state of the
-          Image.
-        properties:
-          sizeMB:
-            type: integer
-            description: Size of the Image in MB
-            minimum: 1
-            example: 628
+        - $ref: "./resource.yaml#/components/schemas/Status"
+        - type: object
+          readOnly: true
+          description: |
+            Current status of the Image. The status is read-only and will be set by
+            the system. The status contains information about the current state of the
+            Image.
+          properties:
+            sizeMB:
+              type: integer
+              description: Size of the Image in MB
+              minimum: 1
+              example: 628
+              x-oapi-codegen-extra-tags:
+                x-cel-rule-0: "self == null || self > 0"
+                x-cel-message-0: "status.sizeMB must be greater than 0"

@@ -4,21 +4,21 @@ components:
       description: |
         Represents a Stock Keeping Unit (SKU) for compute instances.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
-      - type: object
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
-          spec:
-            $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
+        - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+        - type: object
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+            spec:
+              $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
 
     InstanceSkuSpec:
       type: object
       description: |
         Specification of the instance SKU, including its capabilities and extensions.
       required:
-      - vCPU
-      - ram
+        - vCPU
+        - ram
       properties:
         vCPU:
           type: integer
@@ -28,9 +28,15 @@ components:
             It does not specify the number of physical processors or hyper-threads available.
           maximum: 60
           example: 2
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self > 0 && self <= 60"
+            x-cel-message-0: "spec.vCPU must be between 1 and 60"
         ram:
           type: integer
           description: |
             The amount of RAM (Random Access Memory) allocated to the instance SKU in gigabytes.
             This value represents the total memory available to the instance.
           example: 230
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self > 0"
+            x-cel-message-0: "spec.ram must be greater than 0"

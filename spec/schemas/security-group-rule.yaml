@@ -5,19 +5,19 @@ components:
         The SecurityGroupRule resource defines a reusable network access rule.
         It can be referenced by multiple Security Groups to enforce consistent policies.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
-      - type: object
-        description: |
-          A Security Group Rule defines network access permissions.
-        required:
-        - spec
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
-          spec:
-            $ref: '#/components/schemas/SecurityGroupRuleSpec'
-          status:
-            $ref: '#/components/schemas/SecurityGroupRuleStatus'
+        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+        - type: object
+          description: |
+            A Security Group Rule defines network access permissions.
+          required:
+            - spec
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            spec:
+              $ref: "#/components/schemas/SecurityGroupRuleSpec"
+            status:
+              $ref: "#/components/schemas/SecurityGroupRuleStatus"
 
     SecurityGroupRuleSpec:
       type: object
@@ -29,35 +29,41 @@ components:
         - direction
       properties:
         annotations:
-          $ref: './resource.yaml#/components/schemas/Annotations'
+          $ref: "./resource.yaml#/components/schemas/Annotations"
         direction:
           type: string
-          enum: ['ingress', 'egress']
+          enum: ["ingress", "egress"]
           x-enumNames:
-          - SecurityGroupRuleDirectionIngress
-          - SecurityGroupRuleDirectionEgress
+            - SecurityGroupRuleDirectionIngress
+            - SecurityGroupRuleDirectionEgress
           description: |
             Direction of the traffic flow:
             * ingress: Only incoming traffic is allowed
             * egress: Only outgoing traffic is allowed
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['ingress', 'egress']"
+            x-cel-message-0: "spec.direction must be either 'ingress' or 'egress'"
         version:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: './network.yaml#/components/schemas/IPVersion'          
+            - $ref: "./network.yaml#/components/schemas/IPVersion"
         protocol:
           type: string
           x-go-type-skip-optional-pointer: true
           description: Network protocol for the rule
-          enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
+          enum: ["tcp", "udp", "tcp+udp", "icmp"]
           x-enumNames:
-          - SecurityGroupRuleProtocolTCP
-          - SecurityGroupRuleProtocolUDP
-          - SecurityGroupRuleProtocolTCPUDP
-          - SecurityGroupRuleProtocolICMP
+            - SecurityGroupRuleProtocolTCP
+            - SecurityGroupRuleProtocolUDP
+            - SecurityGroupRuleProtocolTCPUDP
+            - SecurityGroupRuleProtocolICMP
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['tcp', 'udp', 'tcp+udp', 'icmp']"
+            x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'tcp+udp' or 'icmp'"
         ports:
-          $ref: '#/components/schemas/Ports'
+          $ref: "#/components/schemas/Ports"
         icmp:
-          $ref: '#/components/schemas/IcmpConfig'
+          $ref: "#/components/schemas/IcmpConfig"
         sourceRef:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -66,7 +72,7 @@ components:
             with the security group. If a security group is specified, all instances in that group are allowed.
             If no sourceRef is specified, all traffic is allowed.
           items:
-            $ref: './resource.yaml#/components/schemas/Reference'
+            $ref: "./resource.yaml#/components/schemas/Reference"
           example:
             - provider: seca.network/v1
               resource: security-groups/security-group-1
@@ -78,8 +84,8 @@ components:
         protocol: tcp
         ports:
           list:
-          - 80
-          - 443
+            - 80
+            - 443
         sourceRef:
           - provider: seca.network/v1
             resource: security-groups/frontend-sg
@@ -101,16 +107,16 @@ components:
         from:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: '#/components/schemas/Port'
+            - $ref: "#/components/schemas/Port"
         to:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: '#/components/schemas/Port'
+            - $ref: "#/components/schemas/Port"
         list:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
-            $ref: '#/components/schemas/Port'
+            $ref: "#/components/schemas/Port"
           example: [80, 443]
 
     Port:
@@ -121,24 +127,33 @@ components:
       minimum: 1
       maximum: 65535
       example: 80
+      x-oapi-codegen-extra-tags:
+        x-cel-rule-0: "self >= 1 && self <= 65535"
+        x-cel-message-0: "port number must be between 1 and 65535"
 
     IcmpConfig:
       type: object
       description: ICMP specific rule configuration
       required:
-      - type
-      - code
+        - type
+        - code
       properties:
         type:
           type: integer
           description: ICMP type
           maximum: 8
           example: 8
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self <= 8"
+            x-cel-message-0: "ICMP type must be less than or equal to 8"
         code:
           type: integer
           description: ICMP code
           maximum: 5
           example: 4
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self <= 5"
+            x-cel-message-0: "ICMP code must be less than or equal to 5"
 
     SecurityGroupRuleStatus:
       $ref: "./resource.yaml#/components/schemas/Status"

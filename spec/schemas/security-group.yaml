@@ -8,35 +8,35 @@ components:
         The SecurityGroup resource is hierarchical, meaning it can be defined at different levels (tenant, workspace).
         This allows for flexible management of network access rules across different scopes.
       allOf:
-      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
-      - type: object
-        description: |
-          A Security Group defines network access rules for a group of compute instances.
+        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+        - type: object
+          description: |
+            A Security Group defines network access rules for a group of compute instances.
 
-          Key Concepts:
-          - Rules define bi-directional or uni-directional network communication
-          - Supports routing between security groups
-          - Enables granular control over public internet access
-          - Implements stateful connection tracking
+            Key Concepts:
+            - Rules define bi-directional or uni-directional network communication
+            - Supports routing between security groups
+            - Enables granular control over public internet access
+            - Implements stateful connection tracking
 
-          Connection Tracking:
-          When a connection is initiated from an allowed source, return traffic^ is automatically permitted,
-          even if not explicitly defined in the rules. This ensures seamless, bi-directional communication
-          for established connections.
+            Connection Tracking:
+            When a connection is initiated from an allowed source, return traffic^ is automatically permitted,
+            even if not explicitly defined in the rules. This ensures seamless, bi-directional communication
+            for established connections.
 
-          Routing and Communication Patterns:
-          - Group-to-Group Rules: Define explicit communication paths between security groups
-          - PublicInternet Target: Allows precise control over internet-facing traffic
-          - Ingress/Egress Control: Fine-grained rules for incoming and outgoing traffic
-        required:
-        - spec
-        properties:
-          metadata:
-            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
-          spec:
-            $ref: '#/components/schemas/SecurityGroupSpec'
-          status:
-            $ref: '#/components/schemas/SecurityGroupStatus'
+            Routing and Communication Patterns:
+            - Group-to-Group Rules: Define explicit communication paths between security groups
+            - PublicInternet Target: Allows precise control over internet-facing traffic
+            - Ingress/Egress Control: Fine-grained rules for incoming and outgoing traffic
+          required:
+            - spec
+          properties:
+            metadata:
+              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            spec:
+              $ref: "#/components/schemas/SecurityGroupSpec"
+            status:
+              $ref: "#/components/schemas/SecurityGroupStatus"
 
     SecurityGroupSpec:
       type: object
@@ -52,7 +52,7 @@ components:
             - Default behavior is to deny all traffic not explicitly allowed
             - Rules provide granular control over allowed traffic types, sources, and destinations
           items:
-            $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec'
+            $ref: "./security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec"
         ruleRefs:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -61,7 +61,7 @@ components:
             These rules are applied in addition to the inline rules.
           items:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/Reference'
+              - $ref: "./resource.yaml#/components/schemas/Reference"
             description: Reference to a SecurityGroupRule resource.
             example:
               provider: seca.network/v1
@@ -73,16 +73,16 @@ components:
         Status of the security group, including the status of its rules.
         The status is read-only and reflects the current state of the security group.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/Status"
-      - type: object
-        readOnly: true
-        description: |
-          Current status of the security group
-          Condition type `rules` indicates the status of the security group rules.
-          The status can be `applied` or `pending`.
-        properties:
-          rules:
-            type: array
-            x-go-type-skip-optional-pointer: true
-            items:
-              $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus'
+        - $ref: "./resource.yaml#/components/schemas/Status"
+        - type: object
+          readOnly: true
+          description: |
+            Current status of the security group
+            Condition type `rules` indicates the status of the security group rules.
+            The status can be `applied` or `pending`.
+          properties:
+            rules:
+              type: array
+              x-go-type-skip-optional-pointer: true
+              items:
+                $ref: "./security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus"

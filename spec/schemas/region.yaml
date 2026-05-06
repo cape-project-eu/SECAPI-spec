@@ -9,9 +9,9 @@ components:
         - spec
       properties:
         metadata:
-          $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
+          $ref: "./resource.yaml#/components/schemas/GlobalResourceMetadata"
         spec:
-          $ref: './region.yaml#/components/schemas/RegionSpec'
+          $ref: "./region.yaml#/components/schemas/RegionSpec"
 
     RegionSpec:
       type: object
@@ -26,7 +26,7 @@ components:
             The list of zones available in the region.
           type: array
           items:
-            $ref: '#/components/schemas/Zone'
+            $ref: "#/components/schemas/Zone"
           example: ["a", "b", "c"]
 
         providers:
@@ -34,13 +34,16 @@ components:
             The list of providers available in the region.
           type: array
           items:
-            $ref: './region.yaml#/components/schemas/Provider'
+            $ref: "./region.yaml#/components/schemas/Provider"
 
     Zone:
       type: string
       description: Reference to a specific zone within a region
       maxLength: 32
       example: "a"
+      x-oapi-codegen-extra-tags:
+        x-cel-rule-0: "self.size() <= 32"
+        x-cel-message-0: "zone must be at most 32 characters long"
 
     Provider:
       type: object
@@ -55,11 +58,20 @@ components:
           type: string
           maxLength: 64
           example: "seca.network"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "provider.name must be at most 64 characters long"
         version:
           type: string
           maxLength: 16
           example: "v1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 16"
+            x-cel-message-0: "provider.version must be at most 16 characters long"
         url:
           type: string
           maxLength: 4000
           example: "https://demo.secapi.cloud/providers/seca.network"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 4000"
+            x-cel-message-0: "provider.url must be at most 4000 characters long"

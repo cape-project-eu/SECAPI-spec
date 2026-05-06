@@ -1,11 +1,11 @@
 components:
-  schemas: 
+  schemas:
     ResourceMetadata:
       description: |
         Metadata for all resources with type and name information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
       example:
         name: "resource-name"
         apiVersion: "v1"
@@ -16,75 +16,75 @@ components:
       description: |
         Metadata for global resources with name, permission, modification and type information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/ModificationMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/ModificationMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
 
     GlobalTenantResourceMetadata:
       description: |
         Metadata for global resources with name, permission, modification, type, and tenant information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/ModificationMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'      
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/ModificationMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
+        - $ref: "#/components/schemas/TenantMetadata"
 
     RegionalResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant and region information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/ModificationMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'
-      - $ref: '#/components/schemas/RegionalMetadata'
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/ModificationMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
+        - $ref: "#/components/schemas/TenantMetadata"
+        - $ref: "#/components/schemas/RegionalMetadata"
 
     RegionalWorkspaceResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant and workspace and region information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/ModificationMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'
-      - $ref: '#/components/schemas/WorkspaceMetadata'
-      - $ref: '#/components/schemas/RegionalMetadata'  
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/ModificationMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
+        - $ref: "#/components/schemas/TenantMetadata"
+        - $ref: "#/components/schemas/WorkspaceMetadata"
+        - $ref: "#/components/schemas/RegionalMetadata"
 
     RegionalNetworkResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant, workspace, network and region information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/ModificationMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'
-      - $ref: '#/components/schemas/WorkspaceMetadata'
-      - $ref: '#/components/schemas/NetworkMetadata'
-      - $ref: '#/components/schemas/RegionalMetadata'
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/ModificationMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
+        - $ref: "#/components/schemas/TenantMetadata"
+        - $ref: "#/components/schemas/WorkspaceMetadata"
+        - $ref: "#/components/schemas/NetworkMetadata"
+        - $ref: "#/components/schemas/RegionalMetadata"
 
     SkuResourceMetadata:
       description: |
         Metadata for SKU resources with name, permission, type, tenant and region information.
       allOf:
-      - $ref: '#/components/schemas/NameMetadata'
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'
-      - $ref: '#/components/schemas/RegionalMetadata'
+        - $ref: "#/components/schemas/NameMetadata"
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - $ref: "#/components/schemas/TypeMetadata"
+        - $ref: "#/components/schemas/TenantMetadata"
+        - $ref: "#/components/schemas/RegionalMetadata"
 
     TypeMetadata:
       type: object
       readOnly: true
       required:
-      - apiVersion
-      - kind
-      - ref
-      description:  |
+        - apiVersion
+        - kind
+        - ref
+      description: |
         Metadata for all resources with type information.
       properties:
         apiVersion:
@@ -96,54 +96,54 @@ components:
           type: string
           description: Type of the resource
           enum:
-          - activity-log
-          - block-storage
-          - image
-          - instance
-          - instance-sku
-          - internet-gateway
-          - network
-          - network-load-balancer
-          - network-sku
-          - nic
-          - object-storage-account
-          - public-ip
-          - region
-          - role
-          - role-assignment
-          - routing-table
-          - security-group
-          - security-group-rule
-          - storage-sku
-          - subnet
-          - workspace
+            - activity-log
+            - block-storage
+            - image
+            - instance
+            - instance-sku
+            - internet-gateway
+            - network
+            - network-load-balancer
+            - network-sku
+            - nic
+            - object-storage-account
+            - public-ip
+            - region
+            - role
+            - role-assignment
+            - routing-table
+            - security-group
+            - security-group-rule
+            - storage-sku
+            - subnet
+            - workspace
           x-enumNames:
-          - ResourceKindActivityLog
-          - ResourceKindBlockStorage
-          - ResourceKindImage
-          - ResourceKindInstance
-          - ResourceKindInstanceSku
-          - ResourceKindInternetGateway
-          - ResourceKindNetwork
-          - ResourceKindNetworkLoadBalancer
-          - ResourceKindNetworkSku
-          - ResourceKindNic
-          - ResourceKindObjectStorageAccount
-          - ResourceKindPublicIP
-          - ResourceKindRegion
-          - ResourceKindRole
-          - ResourceKindRoleAssignment
-          - ResourceKindRoutingTable
-          - ResourceKindSecurityGroup
-          - ResourceKindSecurityGroupRule
-          - ResourceKindStorageSku
-          - ResourceKindSubnet
-          - ResourceKindWorkspace
+            - ResourceKindActivityLog
+            - ResourceKindBlockStorage
+            - ResourceKindImage
+            - ResourceKindInstance
+            - ResourceKindInstanceSku
+            - ResourceKindInternetGateway
+            - ResourceKindNetwork
+            - ResourceKindNetworkLoadBalancer
+            - ResourceKindNetworkSku
+            - ResourceKindNic
+            - ResourceKindObjectStorageAccount
+            - ResourceKindPublicIP
+            - ResourceKindRegion
+            - ResourceKindRole
+            - ResourceKindRoleAssignment
+            - ResourceKindRoutingTable
+            - ResourceKindSecurityGroup
+            - ResourceKindSecurityGroupRule
+            - ResourceKindStorageSku
+            - ResourceKindSubnet
+            - ResourceKindWorkspace
         ref:
-          $ref: '#/components/schemas/ReferenceURN'
+          $ref: "#/components/schemas/ReferenceURN"
 
     Reference:
-      $ref: '#/components/schemas/ReferenceObject'
+      $ref: "#/components/schemas/ReferenceObject"
 
     ReferenceURN:
       type: string
@@ -185,6 +185,9 @@ components:
         mostly suitable for human use.
       maxLength: 255
       example: "seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/my-server"
+      x-oapi-codegen-extra-tags:
+        x-cel-rule-0: "self.size() <= 255"
+        x-cel-message-0: "referenceURN must be at most 255 characters long"
 
     ReferenceObject:
       type: object
@@ -195,7 +198,7 @@ components:
         resources in different workspaces or regions without the need to specify
         the full URN.
       required:
-      - resource
+        - resource
       properties:
         region:
           type: string
@@ -204,6 +207,9 @@ components:
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
           example: "eu-central-1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "reference.region must be at most 64 characters long"
         provider:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -211,6 +217,9 @@ components:
             Provider of the resource. If not set, the provider is inferred from the context.
           maxLength: 64
           example: "seca.compute/v1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "reference.provider must be at most 64 characters long"
         tenant:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -218,6 +227,9 @@ components:
             Tenant of the resource. If not set, the tenant is inferred from the context.
           maxLength: 64
           example: "tenant-1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "reference.tenant must be at most 64 characters long"
         workspace:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -225,6 +237,9 @@ components:
             Workspace of the resource. If not set, the workspace is inferred from the context.
           maxLength: 64
           example: "workspace-1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "reference.workspace must be at most 64 characters long"
         resource:
           type: string
           description: |
@@ -237,28 +252,40 @@ components:
             object; they do not need to be repeated here.
           maxLength: 256
           example: "instances/my-server"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 256"
+            x-cel-message-0: "reference.resource must be at most 256 characters long"
 
     PermissionMetadata:
       type: object
       readOnly: true
       description: Metadata for permission management
       required:
-      - provider
-      - resource
-      - verb
+        - provider
+        - resource
+        - verb
       properties:
         provider:
           type: string
           maxLength: 64
           example: "seca.compute/v1"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "metadata.provider must be at most 64 characters long"
         resource:
           type: string
           maxLength: 256
           example: "tenants/tn-1/workspaces/ws-1/instances/my-server"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 256"
+            x-cel-message-0: "metadata.resource must be at most 256 characters long"
         verb:
           type: string
           maxLength: 7
           example: get
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 7"
+            x-cel-message-0: "metadata.verb must be at most 7 characters long"
       example:
         provider: "seca.compute/v1"
         resource: "tenants/tn-1/workspaces/ws-1/instances/my-server"
@@ -269,9 +296,9 @@ components:
       readOnly: true
       description: Base metadata for all resources with optional region references
       required:
-      - createdAt
-      - lastModifiedAt
-      - resourceVersion
+        - createdAt
+        - lastModifiedAt
+        - resourceVersion
       properties:
         createdAt:
           type: string
@@ -290,12 +317,15 @@ components:
           description: Incremented on every modification of the resource. Used for optimistic concurrency control.
           minimum: 1
           format: int64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self >= 1"
+            x-cel-message-0: "metadata.resourceVersion must be greater than or equal to 1"
 
     NameMetadata:
       type: object
       readOnly: true
       required:
-      - name
+        - name
       description: Metadata for resource names
       properties:
         name:
@@ -308,18 +338,23 @@ components:
           maxLength: 128
           pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
           example: "resource-name"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.matches('^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')"
+            x-cel-message-0: "metadata.name must be in dash-case format, can contain lowercase letters, numbers, hyphens and dots, and must start and end with an alphanumeric character"
+            x-cel-rule-1: "self.size() >= 1 && self.size() <= 128"
+            x-cel-message-1: "metadata.name must be between 1 and 128 characters long"
 
     UserResourceMetadata:
       type: object
       description: Metadata for user-defined resource properties
       properties:
         labels:
-          $ref: '#/components/schemas/Labels'
+          $ref: "#/components/schemas/Labels"
         annotations:
-          $ref: '#/components/schemas/Annotations'
+          $ref: "#/components/schemas/Annotations"
         extensions:
-          $ref: '#/components/schemas/Extensions'
-    
+          $ref: "#/components/schemas/Extensions"
+
     Extensions:
       x-go-type-skip-optional-pointer: true
       type: object
@@ -329,7 +364,7 @@ components:
       additionalProperties:
         type: string
 
-    Labels: 
+    Labels:
       x-go-type-skip-optional-pointer: true
       type: object
       description: |
@@ -339,6 +374,9 @@ components:
       additionalProperties:
         type: string
         maxLength: 63
+        x-oapi-codegen-extra-tags:
+          x-cel-rule-0: "self.size() <= 63"
+          x-cel-message-0: "label values must be at most 63 characters long"
       example:
         env: production
 
@@ -351,6 +389,9 @@ components:
       additionalProperties:
         type: string
         maxLength: 1024
+        x-oapi-codegen-extra-tags:
+          x-cel-rule-0: "self.size() <= 1024"
+          x-cel-message-0: "annotation values must be at most 1024 characters long"
       example:
         description: "Human readable description"
 
@@ -359,59 +400,71 @@ components:
       description: Metadata for user-defined resource properties
       properties:
         labels:
-          $ref: '#/components/schemas/Labels'
+          $ref: "#/components/schemas/Labels"
         annotations:
-          $ref: '#/components/schemas/Annotations'
+          $ref: "#/components/schemas/Annotations"
         extensions:
-          $ref: '#/components/schemas/Extensions'
+          $ref: "#/components/schemas/Extensions"
 
     TenantMetadata:
       type: object
       description: Metadata for resources with tenant constraints
       readOnly: true
       required:
-      - tenant
+        - tenant
       properties:
         tenant:
           type: string
           description: Tenant identifier
           maxLength: 64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "metadata.tenant must be at most 64 characters long"
 
     WorkspaceMetadata:
       type: object
       description: Metadata for resources with workspace constraints
       readOnly: true
       required:
-      - workspace
+        - workspace
       properties:
         workspace:
           type: string
           description: Workspace identifier
           maxLength: 64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "metadata.workspace must be at most 64 characters long"
 
     NetworkMetadata:
       type: object
       description: Metadata for resources with network constraints
       readOnly: true
       required:
-      - network
+        - network
       properties:
         network:
           type: string
           description: Network identifier
           maxLength: 64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "metadata.network must be at most 64 characters long"
 
     RegionalMetadata:
       type: object
       description: Metadata for regional resources
       readOnly: true
       required:
-      - region
+        - region
       properties:
         region:
           type: string
           description: Reference to the region where the resource is located
           maxLength: 64
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "metadata.region must be at most 64 characters long"
           example: "eu-central-1"
 
     Status:
@@ -419,19 +472,18 @@ components:
       readOnly: true
       description: Current status of the resource
       required:
-      - conditions
+        - conditions
       properties:
         state:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: '#/components/schemas/ResourceState'
+            - $ref: "#/components/schemas/ResourceState"
         conditions:
           type: array
           items:
             $ref: "#/components/schemas/StatusCondition"
 
     ResourceState:
-
       type: string
       description: |
         Current phase of the resource:
@@ -442,19 +494,19 @@ components:
         - deleting: maybe still available for data layer user, can fail any moment
         - error: failed to fulfill the request; would be related to provider issue or customer related input.
       enum:
-      - pending
-      - creating
-      - active
-      - updating
-      - deleting
-      - error
+        - pending
+        - creating
+        - active
+        - updating
+        - deleting
+        - error
       x-enumNames:
-      - ResourceStatePending
-      - ResourceStateCreating
-      - ResourceStateActive
-      - ResourceStateUpdating
-      - ResourceStateDeleting
-      - ResourceStateError
+        - ResourceStatePending
+        - ResourceStateCreating
+        - ResourceStateActive
+        - ResourceStateUpdating
+        - ResourceStateDeleting
+        - ResourceStateError
       example: "active"
 
     StatusCondition:
@@ -464,11 +516,11 @@ components:
         Conditions are provider-specific and can represent different states depending on the
         resource type and provider implementation.
       required:
-      - state
-      - lastTransitionAt
+        - state
+        - lastTransitionAt
       properties:
         state:
-          $ref: '#/components/schemas/ResourceState'
+          $ref: "#/components/schemas/ResourceState"
         lastTransitionAt:
           type: string
           format: date-time
@@ -491,13 +543,21 @@ components:
             The specific set of reason values is provider-specific and should be
             documented by the provider.
           maxLength: 1024
-          pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
+          pattern: "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.matches('^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$')"
+            x-cel-message-0: "statusCondition.reason must be in CamelCase and can contain letters, numbers, underscores, commas and colons"
+            x-cel-rule-1: "self.size() <= 1024"
+            x-cel-message-1: "statusCondition.reason must be at most 1024 characters long"
         message:
           type: string
           x-go-type-skip-optional-pointer: true
           description: |
             A human-readable message indicating details about the transition.
           maxLength: 32768
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 32768"
+            x-cel-message-0: "statusCondition.message must be at most 32768 characters long"
       example:
         state: active
         lastTransitionAt: "2024-11-21T14:39:22Z"
@@ -506,14 +566,14 @@ components:
       description: |
         Metadata for response objects.
       allOf:
-      - $ref: '#/components/schemas/PermissionMetadata'
-      - type: object
-        readOnly: true
-        properties:
-          skipToken:
-            type: string
-            description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
-            maxLength: 5
+        - $ref: "#/components/schemas/PermissionMetadata"
+        - type: object
+          readOnly: true
+          properties:
+            skipToken:
+              type: string
+              description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+              maxLength: 5
       example:
         skipToken: "false"
         provider: "seca.compute/v1"
