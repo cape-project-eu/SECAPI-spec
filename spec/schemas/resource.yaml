@@ -185,9 +185,6 @@ components:
         mostly suitable for human use.
       maxLength: 255
       example: "seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/my-server"
-      x-oapi-codegen-extra-tags:
-        x-cel-rule-0: "self.size() <= 255"
-        x-cel-message-0: "referenceURN must be at most 255 characters long"
 
     ReferenceObject:
       type: object
@@ -207,9 +204,6 @@ components:
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
           example: "eu-central-1"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "reference.region must be at most 64 characters long"
         provider:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -217,9 +211,6 @@ components:
             Provider of the resource. If not set, the provider is inferred from the context.
           maxLength: 64
           example: "seca.compute/v1"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "reference.provider must be at most 64 characters long"
         tenant:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -227,9 +218,6 @@ components:
             Tenant of the resource. If not set, the tenant is inferred from the context.
           maxLength: 64
           example: "tenant-1"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "reference.tenant must be at most 64 characters long"
         workspace:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -237,9 +225,6 @@ components:
             Workspace of the resource. If not set, the workspace is inferred from the context.
           maxLength: 64
           example: "workspace-1"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "reference.workspace must be at most 64 characters long"
         resource:
           type: string
           description: |
@@ -252,9 +237,6 @@ components:
             object; they do not need to be repeated here.
           maxLength: 256
           example: "instances/my-server"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 256"
-            x-cel-message-0: "reference.resource must be at most 256 characters long"
 
     PermissionMetadata:
       type: object
@@ -269,23 +251,14 @@ components:
           type: string
           maxLength: 64
           example: "seca.compute/v1"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "metadata.provider must be at most 64 characters long"
         resource:
           type: string
           maxLength: 256
           example: "tenants/tn-1/workspaces/ws-1/instances/my-server"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 256"
-            x-cel-message-0: "metadata.resource must be at most 256 characters long"
         verb:
           type: string
           maxLength: 7
           example: get
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 7"
-            x-cel-message-0: "metadata.verb must be at most 7 characters long"
       example:
         provider: "seca.compute/v1"
         resource: "tenants/tn-1/workspaces/ws-1/instances/my-server"
@@ -317,9 +290,6 @@ components:
           description: Incremented on every modification of the resource. Used for optimistic concurrency control.
           minimum: 1
           format: int64
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self >= 1"
-            x-cel-message-0: "metadata.resourceVersion must be greater than or equal to 1"
 
     NameMetadata:
       type: object
@@ -338,11 +308,6 @@ components:
           maxLength: 128
           pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$'
           example: "resource-name"
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.matches('^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$')"
-            x-cel-message-0: "metadata.name must be in dash-case format, can contain lowercase letters, numbers, hyphens and dots, and must start and end with an alphanumeric character"
-            x-cel-rule-1: "self.size() >= 1 && self.size() <= 128"
-            x-cel-message-1: "metadata.name must be between 1 and 128 characters long"
 
     UserResourceMetadata:
       type: object
@@ -375,9 +340,6 @@ components:
       additionalProperties:
         type: string
         maxLength: 63
-        x-oapi-codegen-extra-tags:
-          x-cel-rule-0: "self.size() <= 63"
-          x-cel-message-0: "label values must be at most 63 characters long"
       example:
         env: production
 
@@ -390,9 +352,6 @@ components:
       additionalProperties:
         type: string
         maxLength: 1024
-        x-oapi-codegen-extra-tags:
-          x-cel-rule-0: "self.size() <= 1024"
-          x-cel-message-0: "annotation values must be at most 1024 characters long"
       example:
         description: "Human readable description"
 
@@ -418,9 +377,6 @@ components:
           type: string
           description: Tenant identifier
           maxLength: 64
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "metadata.tenant must be at most 64 characters long"
 
     WorkspaceMetadata:
       type: object
@@ -433,9 +389,6 @@ components:
           type: string
           description: Workspace identifier
           maxLength: 64
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "metadata.workspace must be at most 64 characters long"
 
     NetworkMetadata:
       type: object
@@ -448,9 +401,6 @@ components:
           type: string
           description: Network identifier
           maxLength: 64
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "metadata.network must be at most 64 characters long"
 
     RegionalMetadata:
       type: object
@@ -463,9 +413,6 @@ components:
           type: string
           description: Reference to the region where the resource is located
           maxLength: 64
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "metadata.region must be at most 64 characters long"
           example: "eu-central-1"
 
     Status:
@@ -545,20 +492,12 @@ components:
             documented by the provider.
           maxLength: 1024
           pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.matches('^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$')"
-            x-cel-message-0: "statusCondition.reason must be in CamelCase and can contain letters, numbers, underscores, commas and colons"
-            x-cel-rule-1: "self.size() <= 1024"
-            x-cel-message-1: "statusCondition.reason must be at most 1024 characters long"
         message:
           type: string
           x-go-type-skip-optional-pointer: true
           description: |
             A human-readable message indicating details about the transition.
           maxLength: 32768
-          x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 32768"
-            x-cel-message-0: "statusCondition.message must be at most 32768 characters long"
       example:
         state: active
         lastTransitionAt: "2024-11-21T14:39:22Z"
