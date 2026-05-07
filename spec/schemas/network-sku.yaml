@@ -7,11 +7,11 @@ components:
         Network SKUs define performance tiers for network bandwidth and characteristics.
         capabilities can be found also in the metadata.labels sections and are searchable.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
       - type: object
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
           spec:
             $ref: "./network-sku.yaml#/components/schemas/NetworkSkuSpec"
 

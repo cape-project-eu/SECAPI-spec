@@ -4,7 +4,7 @@ components:
       description: |
         Represents an Image resource that can be used to create a virtual machine.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           Represents  an Image resource that can be used to create a virtual machine.
@@ -12,11 +12,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalResourceMetadata'
           spec:
-            $ref: "./image.yaml#/components/schemas/ImageSpec"
+            $ref: './image.yaml#/components/schemas/ImageSpec'
           status:
-            $ref: "./image.yaml#/components/schemas/ImageStatus"
+            $ref: './image.yaml#/components/schemas/ImageStatus'
       example:
         labels:
           os: linux
@@ -54,7 +54,7 @@ components:
       properties:
         blockStorageRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the block storage used to store the image.
           example:
             resource: "block-storages/block-123"

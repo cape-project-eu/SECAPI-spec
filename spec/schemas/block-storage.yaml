@@ -3,17 +3,17 @@ components:
     BlockStorage:
       description: Represents a block storage resource.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         required:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "#/components/schemas/BlockStorageSpec"
+            $ref: '#/components/schemas/BlockStorageSpec'
           status:
-            $ref: "#/components/schemas/BlockStorageStatus"
+            $ref: '#/components/schemas/BlockStorageStatus'
 
     BlockStorageSpec:
       type: object
@@ -26,7 +26,7 @@ components:
       properties:
         skuRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the block storage.
           example:
             resource: "tenants/seca/skus/n1k"
@@ -42,7 +42,7 @@ components:
             x-cel-message-1: "spec.sizeGB must be between 1 and 1000000"
         sourceImageRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the source image used as the base for creating the block storage.
           example:
             resource: "images/image-123"
@@ -51,7 +51,7 @@ components:
       description: |
         The status of the block storage.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/Status"
+      - $ref: './resource.yaml#/components/schemas/Status'
       - type: object
         readOnly: true
         description: |
@@ -70,7 +70,7 @@ components:
               x-cel-message-0: "status.sizeGB must be between 1 and 1000000"
           attachedTo:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/ReferenceObject"
+            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
             description: Reference to the instance the block storage is attached to.
             example:
               provider: seca.compute/v1
@@ -85,7 +85,7 @@ components:
       properties:
         deviceRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the block storage used to store the volume.
           example:
             resource: "block-storages/block-123"

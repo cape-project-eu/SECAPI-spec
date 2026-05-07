@@ -4,7 +4,7 @@ components:
       description: |
         Public IP resource.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           Represents a public IP address that can be assigned to network
@@ -14,11 +14,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "#/components/schemas/PublicIpSpec"
+            $ref: '#/components/schemas/PublicIpSpec'
           status:
-            $ref: "#/components/schemas/PublicIpStatus"
+            $ref: '#/components/schemas/PublicIpStatus'
 
     PublicIpSpec:
       type: object
@@ -28,7 +28,7 @@ components:
       - version
       properties:
         version:
-          $ref: "./network.yaml#/components/schemas/IPVersion"
+          $ref: './network.yaml#/components/schemas/IPVersion'
         address:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -58,7 +58,7 @@ components:
         properties:
           attachedTo:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/ReferenceObject"
+            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
             description: Reference to the instance the public IP is attached to.
             example:
               provider: seca.compute/v1

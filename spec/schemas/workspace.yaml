@@ -5,7 +5,7 @@ components:
         A workspace is a collection of resources.
         Can contain multiple resources of different types, and it can be used to manage the lifecycle of those resources.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           Represents a workspace, a workspace is a collection of resources.
@@ -13,11 +13,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalResourceMetadata'
           spec:
-            $ref: "./workspace.yaml#/components/schemas/WorkspaceSpec"
+            $ref: './workspace.yaml#/components/schemas/WorkspaceSpec'
           status:
-            $ref: "./workspace.yaml#/components/schemas/WorkspaceStatus"
+            $ref: './workspace.yaml#/components/schemas/WorkspaceStatus'
 
     WorkspaceSpec:
       type: object

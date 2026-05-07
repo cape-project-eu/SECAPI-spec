@@ -10,17 +10,17 @@ components:
         * Enables network segmentation and isolation
         * Provides common performance configuration across the network using a SKU
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         required:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "./network.yaml#/components/schemas/NetworkSpec"
+            $ref: './network.yaml#/components/schemas/NetworkSpec'
           status:
-            $ref: "./network.yaml#/components/schemas/NetworkStatus"
+            $ref: './network.yaml#/components/schemas/NetworkStatus'
 
     NetworkSpec:
       type: object
@@ -48,15 +48,15 @@ components:
       - routeTableRef
       properties:
         cidr:
-          $ref: "./network.yaml#/components/schemas/cidr"
+          $ref: './network.yaml#/components/schemas/cidr'
         additionalCidrs:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
-            $ref: "./network.yaml#/components/schemas/cidr"
+            $ref: './network.yaml#/components/schemas/cidr'
         skuRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the SKU used by default for all NIC in this Network.
             Can be overridden by the NIC.
@@ -64,7 +64,7 @@ components:
             resource: "tenants/seca/skus/n1k"
         routeTableRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the route table used by default for all Subnets.
           example:
             resource: "route-tables/route-table-1"
@@ -95,15 +95,15 @@ components:
         - cidr
         properties:
           cidr:
-            $ref: "./network.yaml#/components/schemas/cidr"
+            $ref: './network.yaml#/components/schemas/cidr'
           additionalCidrs:
             type: array
             x-go-type-skip-optional-pointer: true
             items:
-              $ref: "./network.yaml#/components/schemas/cidr"
+              $ref: './network.yaml#/components/schemas/cidr'
           routeTableRef:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to the route table used by default for all Subnets.
             example:
               resource: "route-tables/route-table-1"
@@ -131,7 +131,7 @@ components:
             IPv4 CIDR block for the subnet.
           minLength: 9
           maxLength: 18
-          example: "10.0.100.0/24"
+          example: '10.0.100.0/24'
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == null || (self.size() >= 9 && self.size() <= 18)"
             x-cel-message-0: "cidr.ipv4 must be between 9 and 18 characters long"
@@ -144,7 +144,7 @@ components:
             IPv6 CIDR block for the subnet.
           minLength: 4
           maxLength: 43
-          example: "2001:db8::/32"
+          example: '2001:db8::/32'
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == null || (self.size() >= 4 && self.size() <= 43)"
             x-cel-message-0: "cidr.ipv6 must be between 4 and 43 characters long"

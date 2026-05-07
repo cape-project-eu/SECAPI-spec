@@ -8,11 +8,11 @@ components:
         Properties, capabilities, and extensions can be found in the metadata.labels sections.
         Searchable with namespaces like "properties.", "capabilities.", and "extensions.".
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
       - type: object
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
           spec:
             $ref: "./storage-sku.yaml#/components/schemas/StorageSkuSpec"
 

@@ -9,9 +9,9 @@ components:
       - spec
       properties:
         metadata:
-          $ref: "./resource.yaml#/components/schemas/GlobalResourceMetadata"
+          $ref: './resource.yaml#/components/schemas/GlobalResourceMetadata'
         spec:
-          $ref: "./region.yaml#/components/schemas/RegionSpec"
+          $ref: './region.yaml#/components/schemas/RegionSpec'
 
     RegionSpec:
       type: object
@@ -26,15 +26,15 @@ components:
             The list of zones available in the region.
           type: array
           items:
-            $ref: "#/components/schemas/Zone"
-          example: [ "a", "b", "c" ]
+            $ref: '#/components/schemas/Zone'
+          example: ["a", "b", "c"]
 
         providers:
           description: |
             The list of providers available in the region.
           type: array
           items:
-            $ref: "./region.yaml#/components/schemas/Provider"
+            $ref: './region.yaml#/components/schemas/Provider'
 
     Zone:
       type: string

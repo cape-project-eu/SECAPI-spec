@@ -8,7 +8,7 @@ components:
         The SecurityGroup resource is hierarchical, meaning it can be defined at different levels (tenant, workspace).
         This allows for flexible management of network access rules across different scopes.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           A Security Group defines network access rules for a group of compute instances.
@@ -32,11 +32,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "#/components/schemas/SecurityGroupSpec"
+            $ref: '#/components/schemas/SecurityGroupSpec'
           status:
-            $ref: "#/components/schemas/SecurityGroupStatus"
+            $ref: '#/components/schemas/SecurityGroupStatus'
 
     SecurityGroupSpec:
       type: object
@@ -52,7 +52,7 @@ components:
             - Default behavior is to deny all traffic not explicitly allowed
             - Rules provide granular control over allowed traffic types, sources, and destinations
           items:
-            $ref: "./security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec"
+            $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec'
         ruleRefs:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -61,7 +61,7 @@ components:
             These rules are applied in addition to the inline rules.
           items:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to a SecurityGroupRule resource.
             example:
               provider: seca.network/v1
@@ -85,4 +85,4 @@ components:
             type: array
             x-go-type-skip-optional-pointer: true
             items:
-              $ref: "./security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus"
+              $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus'

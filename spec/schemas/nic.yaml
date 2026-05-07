@@ -7,18 +7,18 @@ components:
         associated with it. The NIC can be associated with a public IP address and is linked to a
         specific subnet within a virtual network.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: Network Interface Card (NIC) representing a network interface for a compute resource
         required:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "#/components/schemas/NicSpec"
+            $ref: '#/components/schemas/NicSpec'
           status:
-            $ref: "#/components/schemas/NicStatus"
+            $ref: '#/components/schemas/NicStatus'
 
     NicSpec:
       type: object
@@ -38,7 +38,7 @@ components:
           description: References to the security groups associated with this NIC.
           items:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to a security group.
             example:
               provider: seca.network/v1
@@ -51,9 +51,9 @@ components:
             CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
             IP addresses can be assigned to a NIC. The number of IP addresses might be
             limited by the CSP or the subnet size.
-          example: [ "10.100.0.10", "0.0.0.0", "::" ]
+          example: ['10.100.0.10', '0.0.0.0', '::']
           items:
-            $ref: "#/components/schemas/NicIp"
+            $ref: '#/components/schemas/NicIp'
         publicIpRefs:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -62,19 +62,19 @@ components:
             and not directly visible on the server/NIC itself.
           items:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to a public IP address associated with this NIC.
             example:
               resource: "public-ips/public-ip-123"
         skuRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the NIC.
           example:
             resource: "tenants/seca/skus/n1k"
         subnetRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the subnet used by the NIC connections.
           example:
             resource: "seca.networks/subnet-a1b2c3"
@@ -102,7 +102,7 @@ components:
             type: array
             x-go-type-skip-optional-pointer: true
             items:
-              $ref: "#/components/schemas/NicIp"
+              $ref: '#/components/schemas/NicIp'
           macAddress:
             type: string
             x-go-type-skip-optional-pointer: true
@@ -119,7 +119,7 @@ components:
             x-go-type-skip-optional-pointer: true
             items:
               allOf:
-              - $ref: "./resource.yaml#/components/schemas/Reference"
+              - $ref: './resource.yaml#/components/schemas/Reference'
               description: Reference to a public IP address associated with this NIC.
               example:
                 resource: "public-ips/public-ip-123"

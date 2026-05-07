@@ -6,17 +6,17 @@ components:
         This resource is used to manage the lifecycle of the instance, including its creation,
         updates, and deletion.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         required:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "./instance.yaml#/components/schemas/InstanceSpec"
+            $ref: './instance.yaml#/components/schemas/InstanceSpec'
           status:
-            $ref: "./instance.yaml#/components/schemas/InstanceStatus"
+            $ref: './instance.yaml#/components/schemas/InstanceStatus'
 
     InstanceSpec:
       type: object
@@ -29,13 +29,13 @@ components:
       properties:
         skuRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the SKU of the instance.
           example:
-            resource: "tenants/seca/skus/s"
+            resource: 'tenants/seca/skus/s'
         primaryNicRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the primary NIC attached to this instance.
           example:
             provider: seca.network/v1
@@ -47,17 +47,17 @@ components:
           description: Additional NICs attached to this instance
           items:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to an additional NIC attached to this instance.
             example:
               provider: seca.network/v1
               resource: network-interfaces/nic-124
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-124
         zone:
-          $ref: "./region.yaml#/components/schemas/Zone"
+          $ref: './region.yaml#/components/schemas/Zone'
         securityGroupRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the security group associated with this instance.
           example:
             provider: seca.network/v1
@@ -85,7 +85,7 @@ components:
           type: string
           x-go-type-skip-optional-pointer: true
           maxLength: 64
-          example: "exclusive-server"
+          example: 'exclusive-server'
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == null || self.size() <= 64"
             x-cel-message-0: "spec.antiAffinityGroup must be at most 64 characters long"
@@ -102,17 +102,17 @@ components:
             Provider-specific references to SSH keys used in cloud-init vendorData.
             These references are used to inject SSH public keys during instance initialization
             through cloud-init's vendor data configuration.
-          example: [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..." ]
+          example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
         bootVolume:
           allOf:
-          - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
+          - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
           description: Reference to the block storage used to store the boot volume of the instance.
         dataVolumes:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             allOf:
-            - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
+            - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
             description: Reference to the block storage used to store an additional volume of the instance.
       example:
         skuRef:

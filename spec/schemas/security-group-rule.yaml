@@ -5,7 +5,7 @@ components:
         The SecurityGroupRule resource defines a reusable network access rule.
         It can be referenced by multiple Security Groups to enforce consistent policies.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           A Security Group Rule defines network access permissions.
@@ -13,11 +13,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata'
           spec:
-            $ref: "#/components/schemas/SecurityGroupRuleSpec"
+            $ref: '#/components/schemas/SecurityGroupRuleSpec'
           status:
-            $ref: "#/components/schemas/SecurityGroupRuleStatus"
+            $ref: '#/components/schemas/SecurityGroupRuleStatus'
 
     SecurityGroupRuleSpec:
       type: object
@@ -29,10 +29,10 @@ components:
       - direction
       properties:
         annotations:
-          $ref: "./resource.yaml#/components/schemas/Annotations"
+          $ref: './resource.yaml#/components/schemas/Annotations'
         direction:
           type: string
-          enum: [ "ingress", "egress" ]
+          enum: ['ingress', 'egress']
           x-enumNames:
           - SecurityGroupRuleDirectionIngress
           - SecurityGroupRuleDirectionEgress
@@ -46,12 +46,12 @@ components:
         version:
           x-go-type-skip-optional-pointer: true
           allOf:
-          - $ref: "./network.yaml#/components/schemas/IPVersion"
+          - $ref: './network.yaml#/components/schemas/IPVersion'
         protocol:
           type: string
           x-go-type-skip-optional-pointer: true
           description: Network protocol for the rule
-          enum: [ "tcp", "udp", "tcp+udp", "icmp" ]
+          enum: ['tcp', 'udp', 'tcp+udp', 'icmp']
           x-enumNames:
           - SecurityGroupRuleProtocolTCP
           - SecurityGroupRuleProtocolUDP
@@ -61,9 +61,9 @@ components:
             x-cel-rule-0: "self == null || self in ['tcp', 'udp', 'tcp+udp', 'icmp']"
             x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'tcp+udp' or 'icmp'"
         ports:
-          $ref: "#/components/schemas/Ports"
+          $ref: '#/components/schemas/Ports'
         icmp:
-          $ref: "#/components/schemas/IcmpConfig"
+          $ref: '#/components/schemas/IcmpConfig'
         sourceRef:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -72,7 +72,7 @@ components:
             with the security group. If a security group is specified, all instances in that group are allowed.
             If no sourceRef is specified, all traffic is allowed.
           items:
-            $ref: "./resource.yaml#/components/schemas/Reference"
+            $ref: './resource.yaml#/components/schemas/Reference'
           example:
           - provider: seca.network/v1
             resource: security-groups/security-group-1
@@ -107,17 +107,17 @@ components:
         from:
           x-go-type-skip-optional-pointer: true
           allOf:
-          - $ref: "#/components/schemas/Port"
+          - $ref: '#/components/schemas/Port'
         to:
           x-go-type-skip-optional-pointer: true
           allOf:
-          - $ref: "#/components/schemas/Port"
+          - $ref: '#/components/schemas/Port'
         list:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
-            $ref: "#/components/schemas/Port"
-          example: [ 80, 443 ]
+            $ref: '#/components/schemas/Port'
+          example: [80, 443]
 
     Port:
       description: |

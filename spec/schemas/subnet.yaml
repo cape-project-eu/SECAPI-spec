@@ -10,7 +10,7 @@ components:
         of a subnet within a network. It includes properties such as the
         CIDR block, zone, and route table reference.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         description: |
           A Subnet represents a logical subdivision of a Network's IP address space.
@@ -22,11 +22,11 @@ components:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalNetworkResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalNetworkResourceMetadata'
           spec:
-            $ref: "./subnet.yaml#/components/schemas/SubnetSpec"
+            $ref: './subnet.yaml#/components/schemas/SubnetSpec'
           status:
-            $ref: "./subnet.yaml#/components/schemas/SubnetStatus"
+            $ref: './subnet.yaml#/components/schemas/SubnetStatus'
 
     SubnetSpec:
       type: object
@@ -44,12 +44,12 @@ components:
       - zone
       properties:
         cidr:
-          $ref: "./network.yaml#/components/schemas/cidr"
+          $ref: './network.yaml#/components/schemas/cidr'
         zone:
-          $ref: "./region.yaml#/components/schemas/Zone"
+          $ref: './region.yaml#/components/schemas/Zone'
         routeTableRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the route table used by default for all NICs in this Subnet.
             If not provided, the routeTableRef associated with the network of the subnet will be used.
@@ -57,7 +57,7 @@ components:
             resource: "route-tables/route-table-1"
         skuRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the SKU used by default for all NICs in this Network.
             Can be overridden by the NIC
@@ -85,10 +85,10 @@ components:
           associated IP addresses.
         properties:
           cidr:
-            $ref: "./network.yaml#/components/schemas/cidr"
+            $ref: './network.yaml#/components/schemas/cidr'
           routeTableRef:
             allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: |
               The route table used by this subnet.
             example:

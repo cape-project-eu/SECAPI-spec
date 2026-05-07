@@ -5,17 +5,17 @@ components:
         The RouteTable resource defines a set of routes that can be associated with a network.
         The routes can be used to direct traffic to different targets based on the destination CIDR block.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/UserResourceMetadata'
       - type: object
         required:
         - spec
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/RegionalNetworkResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/RegionalNetworkResourceMetadata'
           spec:
-            $ref: "#/components/schemas/RouteTableSpec"
+            $ref: '#/components/schemas/RouteTableSpec'
           status:
-            $ref: "#/components/schemas/RouteTableStatus"
+            $ref: '#/components/schemas/RouteTableStatus'
 
     RouteTableSpec:
       type: object
@@ -27,15 +27,15 @@ components:
         routes:
           type: array
           items:
-            $ref: "#/components/schemas/RouteSpec"
+            $ref: '#/components/schemas/RouteSpec'
       example:
         routes:
-        - destinationCidrBlock: "0.0.0.0/0"
+        - destinationCidrBlock: '0.0.0.0/0'
           targetRef:
-            resource: "internet-gateways/internet-gateway-1"
-        - destinationCidrBlock: "::/0"
+            resource: 'internet-gateways/internet-gateway-1'
+        - destinationCidrBlock: '::/0'
           targetRef:
-            resource: "internet-gateways/internet-gateway-1"
+            resource: 'internet-gateways/internet-gateway-1'
 
     RouteSpec:
       type: object
@@ -54,17 +54,17 @@ components:
             a specific IP address or a range of addresses. It can be
             IPv6 or IPv4.
           maxLength: 43
-          example: "0.0.0.0/0"
+          example: '0.0.0.0/0'
           x-cel-rule-0: "self.size() <= 43"
           x-cel-message-0: "spec.destinationCidrBlock must be at most 43 characters long"
           x-cel-rule-1: "isCIDR(self)"
           x-cel-message-1: "spec.destinationCidrBlock must be a valid CIDR block"
         targetRef:
           allOf:
-          - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: './resource.yaml#/components/schemas/Reference'
           description: Reference to the target of the route. The target can be an instance, an gateway or an IP address.
           example:
-            resource: "internet-gateways/internet-gateway-1"
+            resource: 'internet-gateways/internet-gateway-1'
 
     RouteTableStatus:
       description: |
@@ -80,7 +80,7 @@ components:
             type: array
             x-go-type-skip-optional-pointer: true
             items:
-              $ref: "#/components/schemas/RouteStatus"
+              $ref: '#/components/schemas/RouteStatus'
 
     RouteStatus:
       description: |

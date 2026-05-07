@@ -4,11 +4,11 @@ components:
       description: |
         Represents a Stock Keeping Unit (SKU) for compute instances.
       allOf:
-      - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+      - $ref: './resource.yaml#/components/schemas/SystemResourceMetadata'
       - type: object
         properties:
           metadata:
-            $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+            $ref: './resource.yaml#/components/schemas/SkuResourceMetadata'
           spec:
             $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
 
