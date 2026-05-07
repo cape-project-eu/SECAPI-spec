@@ -8,22 +8,22 @@ components:
         Properties, capabilities, and extensions can be found in the metadata.labels sections.
         Searchable with namespaces like "properties.", "capabilities.", and "extensions.".
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
-        - type: object
-          properties:
-            metadata:
-              $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
-            spec:
-              $ref: "./storage-sku.yaml#/components/schemas/StorageSkuSpec"
+      - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+      - type: object
+        properties:
+          metadata:
+            $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+          spec:
+            $ref: "./storage-sku.yaml#/components/schemas/StorageSkuSpec"
 
     StorageSkuSpec:
       type: object
       description: |
         Specification of the storage SKU, including its capabilities and extensions.
       required:
-        - iops
-        - type
-        - minVolumeSize
+      - iops
+      - type
+      - minVolumeSize
       properties:
         iops:
           type: integer
@@ -74,13 +74,13 @@ components:
               Example use-cases include file storage or replicated databases
               using asynchronous replication.
           enum:
-            - local-ephemeral
-            - local-durable
-            - remote-durable
+          - local-ephemeral
+          - local-durable
+          - remote-durable
           x-enumNames:
-            - StorageSkuTypeLocalEphemeral
-            - StorageSkuTypeLocalDurable
-            - StorageSkuTypeRemoteDurable
+          - StorageSkuTypeLocalEphemeral
+          - StorageSkuTypeLocalDurable
+          - StorageSkuTypeRemoteDurable
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self in ['local-ephemeral', 'local-durable', 'remote-durable']"
             x-cel-message-0: "spec.type must be either 'local-ephemeral', 'local-durable', or 'remote-durable'"

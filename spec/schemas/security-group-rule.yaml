@@ -5,19 +5,19 @@ components:
         The SecurityGroupRule resource defines a reusable network access rule.
         It can be referenced by multiple Security Groups to enforce consistent policies.
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
-        - type: object
-          description: |
-            A Security Group Rule defines network access permissions.
-          required:
-            - spec
-          properties:
-            metadata:
-              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
-            spec:
-              $ref: "#/components/schemas/SecurityGroupRuleSpec"
-            status:
-              $ref: "#/components/schemas/SecurityGroupRuleStatus"
+      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - type: object
+        description: |
+          A Security Group Rule defines network access permissions.
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+          spec:
+            $ref: "#/components/schemas/SecurityGroupRuleSpec"
+          status:
+            $ref: "#/components/schemas/SecurityGroupRuleStatus"
 
     SecurityGroupRuleSpec:
       type: object
@@ -26,16 +26,16 @@ components:
         If no version is specified, any IP version will be allowed.
         If no protocol is specified, any network protocol will be allowed.
       required:
-        - direction
+      - direction
       properties:
         annotations:
           $ref: "./resource.yaml#/components/schemas/Annotations"
         direction:
           type: string
-          enum: ["ingress", "egress"]
+          enum: [ "ingress", "egress" ]
           x-enumNames:
-            - SecurityGroupRuleDirectionIngress
-            - SecurityGroupRuleDirectionEgress
+          - SecurityGroupRuleDirectionIngress
+          - SecurityGroupRuleDirectionEgress
           description: |
             Direction of the traffic flow:
             * ingress: Only incoming traffic is allowed
@@ -46,17 +46,17 @@ components:
         version:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: "./network.yaml#/components/schemas/IPVersion"
+          - $ref: "./network.yaml#/components/schemas/IPVersion"
         protocol:
           type: string
           x-go-type-skip-optional-pointer: true
           description: Network protocol for the rule
-          enum: ["tcp", "udp", "tcp+udp", "icmp"]
+          enum: [ "tcp", "udp", "tcp+udp", "icmp" ]
           x-enumNames:
-            - SecurityGroupRuleProtocolTCP
-            - SecurityGroupRuleProtocolUDP
-            - SecurityGroupRuleProtocolTCPUDP
-            - SecurityGroupRuleProtocolICMP
+          - SecurityGroupRuleProtocolTCP
+          - SecurityGroupRuleProtocolUDP
+          - SecurityGroupRuleProtocolTCPUDP
+          - SecurityGroupRuleProtocolICMP
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == null || self in ['tcp', 'udp', 'tcp+udp', 'icmp']"
             x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'tcp+udp' or 'icmp'"
@@ -74,8 +74,8 @@ components:
           items:
             $ref: "./resource.yaml#/components/schemas/Reference"
           example:
-            - provider: seca.network/v1
-              resource: security-groups/security-group-1
+          - provider: seca.network/v1
+            resource: security-groups/security-group-1
       example:
         annotations:
           description: "Allow incoming HTTP(s) traffic"
@@ -84,12 +84,12 @@ components:
         protocol: tcp
         ports:
           list:
-            - 80
-            - 443
+          - 80
+          - 443
         sourceRef:
-          - provider: seca.network/v1
-            resource: security-groups/frontend-sg
-            ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/frontend-sg
+        - provider: seca.network/v1
+          resource: security-groups/frontend-sg
+          ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/frontend-sg
     Ports:
       type: object
       description: |
@@ -107,17 +107,17 @@ components:
         from:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: "#/components/schemas/Port"
+          - $ref: "#/components/schemas/Port"
         to:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: "#/components/schemas/Port"
+          - $ref: "#/components/schemas/Port"
         list:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             $ref: "#/components/schemas/Port"
-          example: [80, 443]
+          example: [ 80, 443 ]
 
     Port:
       description: |
@@ -135,8 +135,8 @@ components:
       type: object
       description: ICMP specific rule configuration
       required:
-        - type
-        - code
+      - type
+      - code
       properties:
         type:
           type: integer

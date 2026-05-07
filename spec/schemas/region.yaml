@@ -6,7 +6,7 @@ components:
         Represents a region, which is a geographical location
         with one or more zones.
       required:
-        - spec
+      - spec
       properties:
         metadata:
           $ref: "./resource.yaml#/components/schemas/GlobalResourceMetadata"
@@ -18,8 +18,8 @@ components:
       description: |
         The specification of a region, including the available zones and providers.
       required:
-        - availableZones
-        - providers
+      - availableZones
+      - providers
       properties:
         availableZones:
           description: |
@@ -27,7 +27,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Zone"
-          example: ["a", "b", "c"]
+          example: [ "a", "b", "c" ]
 
         providers:
           description: |
@@ -50,9 +50,9 @@ components:
       description: |
         A provider of cloud services
       required:
-        - name
-        - version
-        - url
+      - name
+      - version
+      - url
       properties:
         name:
           type: string

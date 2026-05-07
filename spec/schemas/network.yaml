@@ -1,6 +1,7 @@
 components:
   schemas:
-    Network: # -> rename to PrivateNetwork works like a VPC
+    Network:
+      # -> rename to PrivateNetwork works like a VPC
       description: |
         A Network represents a virtual network that can be used to isolate resources.
         Key network concepts:
@@ -9,17 +10,17 @@ components:
         * Enables network segmentation and isolation
         * Provides common performance configuration across the network using a SKU
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
-        - type: object
-          required:
-            - spec
-          properties:
-            metadata:
-              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
-            spec:
-              $ref: "./network.yaml#/components/schemas/NetworkSpec"
-            status:
-              $ref: "./network.yaml#/components/schemas/NetworkStatus"
+      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+          spec:
+            $ref: "./network.yaml#/components/schemas/NetworkSpec"
+          status:
+            $ref: "./network.yaml#/components/schemas/NetworkStatus"
 
     NetworkSpec:
       type: object
@@ -42,9 +43,9 @@ components:
         CIDR block would be `0.0.0.0/16` and for a /56 IPv6 CIDR block the CIDR block would
         be `::/56`. Most CSP will not allow to use a different IPv6 prefix length than /56.
       required:
-        - cidr
-        - skuRef
-        - routeTableRef
+      - cidr
+      - skuRef
+      - routeTableRef
       properties:
         cidr:
           $ref: "./network.yaml#/components/schemas/cidr"
@@ -55,7 +56,7 @@ components:
             $ref: "./network.yaml#/components/schemas/cidr"
         skuRef:
           allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: "./resource.yaml#/components/schemas/Reference"
           description: |
             Reference to the SKU used by default for all NIC in this Network.
             Can be overridden by the NIC.
@@ -63,7 +64,7 @@ components:
             resource: "tenants/seca/skus/n1k"
         routeTableRef:
           allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the route table used by default for all Subnets.
           example:
             resource: "route-tables/route-table-1"
@@ -83,35 +84,35 @@ components:
         and its CIDR blocks. It will report the status of the CIDR blocks and the network
         as a whole including automatically assigned IP networks.
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/Status"
-        - type: object
-          readOnly: true
-          description: |
-            Current status of the network and its CIDR blocks. Will report
-            the status of the CIDR blocks and the network as a whole including
-            automatically assigned IP networks.
-          required:
-            - cidr
-          properties:
-            cidr:
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        description: |
+          Current status of the network and its CIDR blocks. Will report
+          the status of the CIDR blocks and the network as a whole including
+          automatically assigned IP networks.
+        required:
+        - cidr
+        properties:
+          cidr:
+            $ref: "./network.yaml#/components/schemas/cidr"
+          additionalCidrs:
+            type: array
+            x-go-type-skip-optional-pointer: true
+            items:
               $ref: "./network.yaml#/components/schemas/cidr"
-            additionalCidrs:
-              type: array
-              x-go-type-skip-optional-pointer: true
-              items:
-                $ref: "./network.yaml#/components/schemas/cidr"
-            routeTableRef:
-              allOf:
-                - $ref: "./resource.yaml#/components/schemas/Reference"
-              description: Reference to the route table used by default for all Subnets.
-              example:
-                resource: "route-tables/route-table-1"
-          example:
-            cidr:
-              ipv4: "10.100.0.0/16"
-              ipv6: "2001:239:203:2400::/56"
-            routeTableRef:
+          routeTableRef:
+            allOf:
+            - $ref: "./resource.yaml#/components/schemas/Reference"
+            description: Reference to the route table used by default for all Subnets.
+            example:
               resource: "route-tables/route-table-1"
+        example:
+          cidr:
+            ipv4: "10.100.0.0/16"
+            ipv6: "2001:239:203:2400::/56"
+          routeTableRef:
+            resource: "route-tables/route-table-1"
     cidr:
       type: object
       description: |
@@ -154,11 +155,11 @@ components:
       type: string
       description: IP version of the address
       enum:
-        - IPv4
-        - IPv6
+      - IPv4
+      - IPv6
       x-enumNames:
-        - IPVersionIPv4
-        - IPVersionIPv6
+      - IPVersionIPv4
+      - IPVersionIPv6
       x-oapi-codegen-extra-tags:
         x-cel-rule-0: "self in ['IPv4', 'IPv6']"
         x-cel-message-0: "ipVersion must be either 'IPv4' or 'IPv6'"

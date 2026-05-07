@@ -4,8 +4,8 @@ components:
       description: |
         Metadata for all resources with type and name information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
       example:
         name: "resource-name"
         apiVersion: "v1"
@@ -16,74 +16,74 @@ components:
       description: |
         Metadata for global resources with name, permission, modification and type information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/ModificationMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/ModificationMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
 
     GlobalTenantResourceMetadata:
       description: |
         Metadata for global resources with name, permission, modification, type, and tenant information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/ModificationMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
-        - $ref: "#/components/schemas/TenantMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/ModificationMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/TenantMetadata"
 
     RegionalResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant and region information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/ModificationMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
-        - $ref: "#/components/schemas/TenantMetadata"
-        - $ref: "#/components/schemas/RegionalMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/ModificationMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/TenantMetadata"
+      - $ref: "#/components/schemas/RegionalMetadata"
 
     RegionalWorkspaceResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant and workspace and region information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/ModificationMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
-        - $ref: "#/components/schemas/TenantMetadata"
-        - $ref: "#/components/schemas/WorkspaceMetadata"
-        - $ref: "#/components/schemas/RegionalMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/ModificationMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/TenantMetadata"
+      - $ref: "#/components/schemas/WorkspaceMetadata"
+      - $ref: "#/components/schemas/RegionalMetadata"
 
     RegionalNetworkResourceMetadata:
       description: |
         Metadata for regional resources with name, permission, modification, type, tenant, workspace, network and region information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/ModificationMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
-        - $ref: "#/components/schemas/TenantMetadata"
-        - $ref: "#/components/schemas/WorkspaceMetadata"
-        - $ref: "#/components/schemas/NetworkMetadata"
-        - $ref: "#/components/schemas/RegionalMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/ModificationMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/TenantMetadata"
+      - $ref: "#/components/schemas/WorkspaceMetadata"
+      - $ref: "#/components/schemas/NetworkMetadata"
+      - $ref: "#/components/schemas/RegionalMetadata"
 
     SkuResourceMetadata:
       description: |
         Metadata for SKU resources with name, permission, type, tenant and region information.
       allOf:
-        - $ref: "#/components/schemas/NameMetadata"
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - $ref: "#/components/schemas/TypeMetadata"
-        - $ref: "#/components/schemas/TenantMetadata"
-        - $ref: "#/components/schemas/RegionalMetadata"
+      - $ref: "#/components/schemas/NameMetadata"
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - $ref: "#/components/schemas/TypeMetadata"
+      - $ref: "#/components/schemas/TenantMetadata"
+      - $ref: "#/components/schemas/RegionalMetadata"
 
     TypeMetadata:
       type: object
       readOnly: true
       required:
-        - apiVersion
-        - kind
-        - ref
+      - apiVersion
+      - kind
+      - ref
       description: |
         Metadata for all resources with type information.
       properties:
@@ -96,49 +96,49 @@ components:
           type: string
           description: Type of the resource
           enum:
-            - activity-log
-            - block-storage
-            - image
-            - instance
-            - instance-sku
-            - internet-gateway
-            - network
-            - network-load-balancer
-            - network-sku
-            - nic
-            - object-storage-account
-            - public-ip
-            - region
-            - role
-            - role-assignment
-            - routing-table
-            - security-group
-            - security-group-rule
-            - storage-sku
-            - subnet
-            - workspace
+          - activity-log
+          - block-storage
+          - image
+          - instance
+          - instance-sku
+          - internet-gateway
+          - network
+          - network-load-balancer
+          - network-sku
+          - nic
+          - object-storage-account
+          - public-ip
+          - region
+          - role
+          - role-assignment
+          - routing-table
+          - security-group
+          - security-group-rule
+          - storage-sku
+          - subnet
+          - workspace
           x-enumNames:
-            - ResourceKindActivityLog
-            - ResourceKindBlockStorage
-            - ResourceKindImage
-            - ResourceKindInstance
-            - ResourceKindInstanceSku
-            - ResourceKindInternetGateway
-            - ResourceKindNetwork
-            - ResourceKindNetworkLoadBalancer
-            - ResourceKindNetworkSku
-            - ResourceKindNic
-            - ResourceKindObjectStorageAccount
-            - ResourceKindPublicIP
-            - ResourceKindRegion
-            - ResourceKindRole
-            - ResourceKindRoleAssignment
-            - ResourceKindRoutingTable
-            - ResourceKindSecurityGroup
-            - ResourceKindSecurityGroupRule
-            - ResourceKindStorageSku
-            - ResourceKindSubnet
-            - ResourceKindWorkspace
+          - ResourceKindActivityLog
+          - ResourceKindBlockStorage
+          - ResourceKindImage
+          - ResourceKindInstance
+          - ResourceKindInstanceSku
+          - ResourceKindInternetGateway
+          - ResourceKindNetwork
+          - ResourceKindNetworkLoadBalancer
+          - ResourceKindNetworkSku
+          - ResourceKindNic
+          - ResourceKindObjectStorageAccount
+          - ResourceKindPublicIP
+          - ResourceKindRegion
+          - ResourceKindRole
+          - ResourceKindRoleAssignment
+          - ResourceKindRoutingTable
+          - ResourceKindSecurityGroup
+          - ResourceKindSecurityGroupRule
+          - ResourceKindStorageSku
+          - ResourceKindSubnet
+          - ResourceKindWorkspace
         ref:
           $ref: "#/components/schemas/ReferenceURN"
 
@@ -198,7 +198,7 @@ components:
         resources in different workspaces or regions without the need to specify
         the full URN.
       required:
-        - resource
+      - resource
       properties:
         region:
           type: string
@@ -261,9 +261,9 @@ components:
       readOnly: true
       description: Metadata for permission management
       required:
-        - provider
-        - resource
-        - verb
+      - provider
+      - resource
+      - verb
       properties:
         provider:
           type: string
@@ -296,9 +296,9 @@ components:
       readOnly: true
       description: Base metadata for all resources with optional region references
       required:
-        - createdAt
-        - lastModifiedAt
-        - resourceVersion
+      - createdAt
+      - lastModifiedAt
+      - resourceVersion
       properties:
         createdAt:
           type: string
@@ -325,7 +325,7 @@ components:
       type: object
       readOnly: true
       required:
-        - name
+      - name
       description: Metadata for resource names
       properties:
         name:
@@ -411,7 +411,7 @@ components:
       description: Metadata for resources with tenant constraints
       readOnly: true
       required:
-        - tenant
+      - tenant
       properties:
         tenant:
           type: string
@@ -426,7 +426,7 @@ components:
       description: Metadata for resources with workspace constraints
       readOnly: true
       required:
-        - workspace
+      - workspace
       properties:
         workspace:
           type: string
@@ -441,7 +441,7 @@ components:
       description: Metadata for resources with network constraints
       readOnly: true
       required:
-        - network
+      - network
       properties:
         network:
           type: string
@@ -456,7 +456,7 @@ components:
       description: Metadata for regional resources
       readOnly: true
       required:
-        - region
+      - region
       properties:
         region:
           type: string
@@ -472,12 +472,12 @@ components:
       readOnly: true
       description: Current status of the resource
       required:
-        - conditions
+      - conditions
       properties:
         state:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: "#/components/schemas/ResourceState"
+          - $ref: "#/components/schemas/ResourceState"
         conditions:
           type: array
           items:
@@ -494,19 +494,19 @@ components:
         - deleting: maybe still available for data layer user, can fail any moment
         - error: failed to fulfill the request; would be related to provider issue or customer related input.
       enum:
-        - pending
-        - creating
-        - active
-        - updating
-        - deleting
-        - error
+      - pending
+      - creating
+      - active
+      - updating
+      - deleting
+      - error
       x-enumNames:
-        - ResourceStatePending
-        - ResourceStateCreating
-        - ResourceStateActive
-        - ResourceStateUpdating
-        - ResourceStateDeleting
-        - ResourceStateError
+      - ResourceStatePending
+      - ResourceStateCreating
+      - ResourceStateActive
+      - ResourceStateUpdating
+      - ResourceStateDeleting
+      - ResourceStateError
       example: "active"
 
     StatusCondition:
@@ -516,8 +516,8 @@ components:
         Conditions are provider-specific and can represent different states depending on the
         resource type and provider implementation.
       required:
-        - state
-        - lastTransitionAt
+      - state
+      - lastTransitionAt
       properties:
         state:
           $ref: "#/components/schemas/ResourceState"
@@ -566,14 +566,14 @@ components:
       description: |
         Metadata for response objects.
       allOf:
-        - $ref: "#/components/schemas/PermissionMetadata"
-        - type: object
-          readOnly: true
-          properties:
-            skipToken:
-              type: string
-              description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
-              maxLength: 5
+      - $ref: "#/components/schemas/PermissionMetadata"
+      - type: object
+        readOnly: true
+        properties:
+          skipToken:
+            type: string
+            description: Opaque cursor to get the next page. Field is omitted when there are no more pages available.
+            maxLength: 5
       example:
         skipToken: "false"
         provider: "seca.compute/v1"

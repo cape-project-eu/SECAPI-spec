@@ -6,36 +6,36 @@ components:
         This resource is used to manage the lifecycle of the instance, including its creation,
         updates, and deletion.
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
-        - type: object
-          required:
-            - spec
-          properties:
-            metadata:
-              $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
-            spec:
-              $ref: "./instance.yaml#/components/schemas/InstanceSpec"
-            status:
-              $ref: "./instance.yaml#/components/schemas/InstanceStatus"
+      - $ref: "./resource.yaml#/components/schemas/UserResourceMetadata"
+      - type: object
+        required:
+        - spec
+        properties:
+          metadata:
+            $ref: "./resource.yaml#/components/schemas/RegionalWorkspaceResourceMetadata"
+          spec:
+            $ref: "./instance.yaml#/components/schemas/InstanceSpec"
+          status:
+            $ref: "./instance.yaml#/components/schemas/InstanceStatus"
 
     InstanceSpec:
       type: object
       description: |
         Specification of the instance, including its SKU, network configuration, and storage options.
       required:
-        - skuRef
-        - zone
-        - bootVolume
+      - skuRef
+      - zone
+      - bootVolume
       properties:
         skuRef:
           allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the SKU of the instance.
           example:
             resource: "tenants/seca/skus/s"
         primaryNicRef:
           allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the primary NIC attached to this instance.
           example:
             provider: seca.network/v1
@@ -47,7 +47,7 @@ components:
           description: Additional NICs attached to this instance
           items:
             allOf:
-              - $ref: "./resource.yaml#/components/schemas/Reference"
+            - $ref: "./resource.yaml#/components/schemas/Reference"
             description: Reference to an additional NIC attached to this instance.
             example:
               provider: seca.network/v1
@@ -57,7 +57,7 @@ components:
           $ref: "./region.yaml#/components/schemas/Zone"
         securityGroupRef:
           allOf:
-            - $ref: "./resource.yaml#/components/schemas/Reference"
+          - $ref: "./resource.yaml#/components/schemas/Reference"
           description: Reference to the security group associated with this instance.
           example:
             provider: seca.network/v1
@@ -102,17 +102,17 @@ components:
             Provider-specific references to SSH keys used in cloud-init vendorData.
             These references are used to inject SSH public keys during instance initialization
             through cloud-init's vendor data configuration.
-          example: ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..."]
+          example: [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g..." ]
         bootVolume:
           allOf:
-            - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
+          - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
           description: Reference to the block storage used to store the boot volume of the instance.
         dataVolumes:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             allOf:
-              - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
+            - $ref: "./block-storage.yaml#/components/schemas/VolumeReference"
             description: Reference to the block storage used to store an additional volume of the instance.
       example:
         skuRef:
@@ -128,24 +128,24 @@ components:
       description: |
         Current status of the instance.
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/Status"
-        - type: object
-          readOnly: true
-          required:
-            - powerState
-          properties:
-            powerState:
-              type: string
-              description: Current power state of the instance.
-              enum:
-                - "on"
-                - "off"
-              x-enumNames:
-                - InstanceStatusPowerStateOn
-                - InstanceStatusPowerStateOff
-              example: "on"
-            powerStateSince:
-              type: string
-              format: date-time
-              description: Indicates the time when the instance powerState has updated, basecause the instance was started, stoped or restarted. If the instance was never started the field is `null`.
-              example: "2023-01-01T12:00:00Z"
+      - $ref: "./resource.yaml#/components/schemas/Status"
+      - type: object
+        readOnly: true
+        required:
+        - powerState
+        properties:
+          powerState:
+            type: string
+            description: Current power state of the instance.
+            enum:
+            - "on"
+            - "off"
+            x-enumNames:
+            - InstanceStatusPowerStateOn
+            - InstanceStatusPowerStateOff
+            example: "on"
+          powerStateSince:
+            type: string
+            format: date-time
+            description: Indicates the time when the instance powerState has updated, basecause the instance was started, stoped or restarted. If the instance was never started the field is `null`.
+            example: "2023-01-01T12:00:00Z"

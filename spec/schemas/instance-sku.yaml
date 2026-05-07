@@ -4,21 +4,21 @@ components:
       description: |
         Represents a Stock Keeping Unit (SKU) for compute instances.
       allOf:
-        - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
-        - type: object
-          properties:
-            metadata:
-              $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
-            spec:
-              $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
+      - $ref: "./resource.yaml#/components/schemas/SystemResourceMetadata"
+      - type: object
+        properties:
+          metadata:
+            $ref: "./resource.yaml#/components/schemas/SkuResourceMetadata"
+          spec:
+            $ref: "./instance-sku.yaml#/components/schemas/InstanceSkuSpec"
 
     InstanceSkuSpec:
       type: object
       description: |
         Specification of the instance SKU, including its capabilities and extensions.
       required:
-        - vCPU
-        - ram
+      - vCPU
+      - ram
       properties:
         vCPU:
           type: integer
