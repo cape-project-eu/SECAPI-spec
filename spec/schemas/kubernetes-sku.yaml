@@ -30,6 +30,9 @@ components:
             The version is a string in the format of `<major>.<minor>.<patch>` or `<major>.<minor>`.
           maxLength: 16
           example: '1.30'
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 16"
+            x-cel-message-0: "spec.version must be at most 16 characters long"
         automaticUpdatePolicy:
           type: string
           description: |
@@ -50,6 +53,9 @@ components:
             - KubernetesClusterAutomaticUpdatePolicyNone
             - KubernetesClusterAutomaticUpdatePolicyStable
             - KubernetesClusterAutomaticUpdatePolicyPreview
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['none', 'stable', 'preview']"
+            x-cel-message-0: "spec.automaticUpdatePolicy must be one of 'none', 'stable', 'preview'"
         type:
           type: string
           description: |
@@ -66,6 +72,9 @@ components:
           x-enumNames:
             - KubernetesClusterTypeDedicated
             - KubernetesClusterTypeShared
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['dedicated', 'shared']"
+            x-cel-message-0: "spec.type must be either 'dedicated' or 'shared'"
         releasedAt:
           type: string
           format: date-time

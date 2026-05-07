@@ -48,6 +48,9 @@ components:
               IP address or CIDR range to restrict access to the Kubernetes API.
               The IP address or CIDR can be for IPv4 or IPv6.
             maxLength: 45
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 45"
+              x-cel-message-0: "restrictKubernetesApi items must be at most 45 characters long"
           example:
           - "1.2.3.4/32"
           - "2002::1234:abcd:ffff:c0a8:101/64"
@@ -86,6 +89,9 @@ components:
               access to the cluster using kubectl or other Kubernetes clients.
             maxLength: 65536
             example: "---\n..."
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self == null || self.size() <= 65536"
+              x-cel-message-0: "status.kubeConfig must be at most 65536 characters long"
 
     KubernetesNodePool:
       description: |
@@ -124,6 +130,9 @@ components:
           minimum: 1
           maximum: 5000
           example: 3
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self >= 1 && self <= 5000"
+            x-cel-message-0: "spec.instances must be between 1 and 5000"
         nodeTemplate:
           $ref: '#/components/schemas/KubernetesNodeTemplate'
         taints:
@@ -215,6 +224,9 @@ components:
             in conjunction with the value and effect.
           example: "example-key"
           maxLength: 63
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 63"
+            x-cel-message-0: "taint.key must be at most 63 characters long"
         value:
           type: string
           description: |
@@ -222,6 +234,9 @@ components:
             in conjunction with the key and effect.
           example: "example-value"
           maxLength: 63
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 63"
+            x-cel-message-0: "taint.value must be at most 63 characters long"
         effect:
           type: string
           enum:
@@ -237,6 +252,9 @@ components:
             the nodes in the node pool. For details on the effects, see the
             (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
           example: "NoSchedule"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['NoSchedule', 'PreferNoSchedule', 'NoExecute']"
+            x-cel-message-0: "taint.effect must be one of 'NoSchedule', 'PreferNoSchedule', 'NoExecute'"
 
     KubernetesNodeRootVolume:
       type: object
@@ -262,6 +280,9 @@ components:
           type: integer
           example: 100
           minimum: 20
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self >= 20"
+            x-cel-message-0: "rootVolume.sizeGB must be at least 20"
       example:
         skuRef:
           resource: tenants/seca/skus/le500

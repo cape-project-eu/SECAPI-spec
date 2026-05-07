@@ -67,11 +67,17 @@ components:
             The provider for which the resource and verbs are defined.
           maxLength: 64
           example: 'seca.storage/v1'
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() <= 64"
+            x-cel-message-0: "spec.provider must be at most 64 characters long"
         resources:
           type: array
           items:
             type: string
             maxLength: 256
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 256"
+              x-cel-message-0: "spec.resources items must be at most 256 characters long"
           description: |
             The resources are the specific resources that the permission applies to.
             The resource can be a wildcard `*` to represent all resources or a
@@ -83,6 +89,9 @@ components:
           items:
             type: string
             maxLength: 7
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 7"
+              x-cel-message-0: "spec.verb items must be at most 7 characters long"
           description: |
             The verb is a string that represents the action to be performed on a resource.
             The standard operations are defined as `get`, `put`, `list`, `delete`. If the
@@ -124,6 +133,9 @@ components:
           items:
             type: string
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 128"
+              x-cel-message-0: "spec.subs items must be at most 128 characters long"
           description: |
             List of subject IDs (from JWT) to whom the roles are assigned,
             A wildcard `*` can be used to represent all users of the tenant scopes
@@ -138,6 +150,9 @@ components:
           items:
             type: string
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 64"
+              x-cel-message-0: "spec.roles items must be at most 64 characters long"
           description: List of assigned role names
           example: ["project-manager", "workspace-viewer"]
 
@@ -160,6 +175,9 @@ components:
               to represent all tenants. This allows the role assignment to
               be applied to other tenants if needed.
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 64"
+              x-cel-message-0: "scope.tenants items must be at most 64 characters long"
         regions:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -173,6 +191,9 @@ components:
             description: |
               Region ID for the role assignment
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 64"
+              x-cel-message-0: "scope.regions items must be at most 64 characters long"
         workspaces:
           type: array
           x-go-type-skip-optional-pointer: true
@@ -186,6 +207,9 @@ components:
             description: |
               Workspace ID for the role assignment.
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() <= 64"
+              x-cel-message-0: "scope.workspaces items must be at most 64 characters long"
 
     RoleAssignmentStatus:
       $ref: "./resource.yaml#/components/schemas/Status"

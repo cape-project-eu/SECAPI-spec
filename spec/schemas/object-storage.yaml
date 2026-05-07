@@ -35,15 +35,24 @@ components:
             description: Access key for the object storage account
             readOnly: true
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self == null || self.size() <= 128"
+              x-cel-message-0: "status.accessKey must be at most 128 characters long"
           secretKey:
             type: string
             x-go-type-skip-optional-pointer: true
             description: Secret key for the object storage account
             readOnly: true
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self == null || self.size() <= 128"
+              x-cel-message-0: "status.secretKey must be at most 128 characters long"
           canonicalUserId:
             type: string
             x-go-type-skip-optional-pointer: true
             description: Canonical user ID for the object storage account
             readOnly: true
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self == null || self.size() <= 64"
+              x-cel-message-0: "status.canonicalUserId must be at most 64 characters long"

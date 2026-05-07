@@ -144,6 +144,9 @@ components:
             - InstanceStatusPowerStateOn
             - InstanceStatusPowerStateOff
             example: "on"
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self in ['on', 'off']"
+              x-cel-message-0: "status.powerState must be either 'on' or 'off'"
           powerStateSince:
             type: string
             format: date-time

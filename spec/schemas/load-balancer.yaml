@@ -23,6 +23,9 @@ components:
         minimum: 1
         maximum: 65535
         example: 443
+        x-oapi-codegen-extra-tags:
+          x-cel-rule-0: "self >= 1 && self <= 65535"
+          x-cel-message-0: "port must be between 1 and 65535"
 
     NetworkLoadBalancerSpec:
       type: object
@@ -99,6 +102,9 @@ components:
           - LoadBalancerProtocolTCP
           - LoadBalancerProtocolUDP
           - LoadBalancerProtocolBoth
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self in ['tcp', 'udp', 'both']"
+            x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'both'"
         port:
           allOf:
           - $ref: '#/components/schemas/NetworkLoadBalancerPort'
@@ -123,6 +129,9 @@ components:
           x-enumNames:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['round-robin']"
+            x-cel-message-0: "spec.algorithm must be 'round-robin' or not set"
         port:
           allOf:
           - $ref: '#/components/schemas/NetworkLoadBalancerPort'
@@ -155,6 +164,9 @@ components:
           - LoadBalancerProxyProtocolNone
           - LoadBalancerProxyProtocolV2
           default: none
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['none', 'v2']"
+            x-cel-message-0: "spec.proxyProtocol must be 'none', 'v2', or not set"
       example:
         members:
         - provider: 'seca.network/v1'
@@ -184,18 +196,30 @@ components:
           x-enumNames:
           - LoadBalancerHealthCheckConnect
           default: connect
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['connect']"
+            x-cel-message-0: "healthCheck.type must be 'connect' or not set"
         interval:
           type: integer
           description: 'health check interval in seconds. It means after how many seconds it will take a new check'
           maximum: 86400
           example: 10
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self > 0 && self <= 86400"
+            x-cel-message-0: "healthCheck.interval must be between 1 and 86400"
         timeout:
           type: integer
           description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
           maximum: 600
           example: 5
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self > 0 && self <= 600"
+            x-cel-message-0: "healthCheck.timeout must be between 1 and 600"
         retry:
           type: integer
           description: 'health check retry number after considered unhealthy a backend instance'
           maximum: 10
           example: 3
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self > 0 && self <= 10"
+            x-cel-message-0: "healthCheck.retry must be between 1 and 10"

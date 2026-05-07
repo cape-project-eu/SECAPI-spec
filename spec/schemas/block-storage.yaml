@@ -98,6 +98,9 @@ components:
           default: virtio
           x-enumNames:
           - VolumeReferenceTypeVirtio
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == null || self in ['virtio']"
+            x-cel-message-0: "spec.type must be 'virtio' or not set"
       example:
         deviceRef:
           resource: "block-storages/block-123"
