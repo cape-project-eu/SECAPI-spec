@@ -69,9 +69,14 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the NIC.
+          description: |
+            Reference to the SKU of the NIC. The SKU is immutable after the NIC is created.
+            To change the SKU, the NIC must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "!oldSelf.hasValue() || self == oldSelf.value()"
+            x-cel-message-0: "spec.skuRef is immutable"
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'

@@ -27,9 +27,14 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the block storage.
+          description: |
+            Reference to the SKU of the block storage. The SKU is immutable after creation.
+            If you want to change the SKU, you need to create a new block storage and migrate the data.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         sizeGB:
           type: integer
           description: Size of the block storage in GB.

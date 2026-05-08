@@ -30,9 +30,14 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the instance.
+          description: |
+            Reference to the SKU of the instance. The SKU is immutable after the instance is created.
+            To change the SKU, the instance must be deleted and recreated with the new SKU reference.
           example:
             resource: 'tenants/seca/skus/s'
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         primaryNicRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -54,7 +59,14 @@ components:
               resource: network-interfaces/nic-124
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-124
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          description: |
+            The zone in which the instance is deployed. The zone is immutable after the instance is created.
+            To change the zone, the instance must be deleted and recreated with the new zone.
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.zone is immutable"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'

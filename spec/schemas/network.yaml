@@ -59,9 +59,13 @@ components:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the SKU used by default for all NIC in this Network.
-            Can be overridden by the NIC.
+            Can be overridden by the NIC. The SKU is immutable after the network is created.
+            To change the SKU, the network must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         routeTableRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'

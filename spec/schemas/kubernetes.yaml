@@ -31,9 +31,14 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the Kubernetes cluster.
+          description: |
+            Reference to the SKU of the Kubernetes cluster. The SKU is immutable after the cluster is created.
+            To change the SKU, the cluster must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/xl"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         restrictKubernetesApi:
           description: |
             Restrict access to the Kubernetes API to specific IP addresses or ranges.
@@ -160,11 +165,16 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the node instances.
+          description: |
+            Reference to the SKU of the node instances. The SKU is immutable after the node pool is created.
+            To change the SKU, the node pool must be deleted and recreated with the new SKU reference.
           example:
             provider: seca.compute/v1
             resource: tenants/seca/skus/xl
             ref: seca.compute/v1/tenants/seca/skus/xl
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "nodeTemplate.skuRef is immutable"
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -174,7 +184,14 @@ components:
             resource: subnets/k8s-nodes-a
             ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/subnets/k8s-nodes-a
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          description: |
+            The zone in which the node instances will be created. The zone is immutable after the node pool is created.
+            To change the zone, the node pool must be deleted and recreated with the new zone.
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "nodeTemplate.zone is immutable"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -270,10 +287,16 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the block storage created to store the root volume.
+          description: |
+            Reference to the SKU of the block storage created to store the root volume.
+            The SKU is immutable after the node pool is created. To change the SKU,
+            the node pool must be deleted and recreated with the new SKU reference.
           example:
             provider: seca.storage/v1
             resource: tenats/seca/skus/le500
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "rootVolume.skuRef is immutable"
         sizeGB:
           description: |
             Size of the root volume in GB. The size is recommended to be at least 100GB.
