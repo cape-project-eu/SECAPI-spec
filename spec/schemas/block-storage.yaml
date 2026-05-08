@@ -41,7 +41,7 @@ components:
           maximum: 1000000
           example: 10
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "!oldSelf.hasValue() || self >= oldSelf.value()"
+            x-cel-rule-0: "self >= oldSelf"
             x-cel-message-0: "spec.sizeGB cannot be decreased"
             x-cel-rule-1: "self > 0 && self <= 1000000"
             x-cel-message-1: "spec.sizeGB must be between 1 and 1000000"
