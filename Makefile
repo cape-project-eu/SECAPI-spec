@@ -89,6 +89,7 @@ lint-spec: build-spec
 
 lint-terraform: build-terraform
 	@echo "$(YELLOW)Linting Terraform OpenAPI files...$(RESET)"
+	@$(MAKE) $(TERRAFORM_FINAL)
 	@SCHEMAS="$$(find $(CURDIR)/$(DIST)/terraform -type f -name '*.yaml')"; \
 	if [ -z "$$SCHEMAS" ]; then \
 		echo "$(YELLOW)⚠️  No Terraform OpenAPI files found to lint.$(RESET)"; \
