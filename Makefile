@@ -13,8 +13,7 @@ SPEC_SOURCES = $(shell find $(SPEC_ROOT) -maxdepth 1 -name '*.yaml')
 SPEC_FINAL = $(SPEC_SOURCES:$(SPEC_ROOT)/%.yaml=$(DIST)/spec/%.yaml)
 
 TERRAFORM_ROOT = terraform
-TERRAFORM_SOURCES = $(shell find $(TERRAFORM_ROOT) -maxdepth 1 -name '*.yaml' 2>/dev/null)
-TERRAFORM_FINAL = $(TERRAFORM_SOURCES:$(TERRAFORM_ROOT)/%.yaml=$(DIST)/terraform/%.yaml)
+TERRAFORM_FINAL = $(GOMPLATE_TERRAFORM_SOURCES:$(TERRAFORM_ROOT)/resources/%.yaml=$(DIST)/terraform/%.json)
 
 GOMPLATE = github.com/hairyhenderson/gomplate/v4/cmd/gomplate
 GOMPLATE_SPEC_TEMPLATE = spec/templates/resource.yaml.tpl
@@ -71,7 +70,7 @@ $(DIST)/spec/%.yaml: $(SPEC_ROOT)/%.yaml $(SPEC_SCHEMAS)
 	@mkdir -p $(dir $@)
 	@$(REDOCLY) bundle $(REDOCLY_BUNDLE_FLAGS) $< --output=$@
 
-$(DIST)/terraform/%.yaml: $(TERRAFORM_ROOT)/%.yaml
+$(DIST)/terraform/%.json: $(TERRAFORM_ROOT)/%.yaml
 	@mkdir -p $(dir $@)
 	@$(REDOCLY) bundle $(REDOCLY_BUNDLE_FLAGS) --config=$(REDOCLY_CONFIG) $< --output=$@
 
@@ -90,7 +89,7 @@ lint-spec: build-spec
 lint-terraform: build-terraform
 	@echo "$(YELLOW)Linting Terraform OpenAPI files...$(RESET)"
 	@$(MAKE) $(TERRAFORM_FINAL)
-	@SCHEMAS="$$(find $(CURDIR)/$(DIST)/terraform -type f -name '*.yaml')"; \
+	@SCHEMAS="$$(find $(CURDIR)/$(DIST)/terraform -type f -name '*.json')"; \
 	if [ -z "$$SCHEMAS" ]; then \
 		echo "$(YELLOW)⚠️  No Terraform OpenAPI files found to lint.$(RESET)"; \
 		exit 1; \
