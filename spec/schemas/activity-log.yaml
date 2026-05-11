@@ -21,7 +21,7 @@ components:
           description: User-JWT executing this query
           maxLength: 256
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 256"
+            x-cel-rule-0: "self.size() <= 256"
             x-cel-message-0: "spec.subject must be at most 256 characters long"
         request:
           $ref: '#/components/schemas/RequestObject'
@@ -41,7 +41,7 @@ components:
           maxLength: 7
           example: 'get'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 7"
+            x-cel-rule-0: "self.size() <= 7"
             x-cel-message-0: "request.verb must be at most 7 characters long"
         body:
           oneOf:
@@ -65,7 +65,7 @@ components:
           x-go-type-skip-optional-pointer: true
           maxLength: 2000
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 2000"
+            x-cel-rule-0: "self.size() <= 2000"
             x-cel-message-0: "request.resource must be at most 2000 characters long"
 
     ResponseObject:

@@ -87,7 +87,7 @@ components:
             packages:
             - nginx
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 65536"
+            x-cel-rule-0: "self.size() <= 65536"
             x-cel-message-0: "spec.userData must be at most 65536 characters long"
         antiAffinityGroup:
           description: |
@@ -99,7 +99,7 @@ components:
           maxLength: 64
           example: 'exclusive-server'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 64"
+            x-cel-rule-0: "self.size() <= 64"
             x-cel-message-0: "spec.antiAffinityGroup must be at most 64 characters long"
         sshKeys:
           type: array

@@ -42,5 +42,5 @@ components:
             description: Number of resources currently in the workspace
             minimum: 0
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self >= 0"
+              x-cel-rule-0: "self >= 0"
               x-cel-message-0: "status.resourceCount must be greater than or equal to 0"

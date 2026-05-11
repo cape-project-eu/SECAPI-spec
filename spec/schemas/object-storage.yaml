@@ -36,7 +36,7 @@ components:
             readOnly: true
             maxLength: 128
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 128"
+              x-cel-rule-0: "self.size() <= 128"
               x-cel-message-0: "status.accessKey must be at most 128 characters long"
           secretKey:
             type: string
@@ -45,7 +45,7 @@ components:
             readOnly: true
             maxLength: 128
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 128"
+              x-cel-rule-0: "self.size() <= 128"
               x-cel-message-0: "status.secretKey must be at most 128 characters long"
           canonicalUserId:
             type: string
@@ -54,5 +54,5 @@ components:
             readOnly: true
             maxLength: 64
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 64"
+              x-cel-rule-0: "self.size() <= 64"
               x-cel-message-0: "status.canonicalUserId must be at most 64 characters long"

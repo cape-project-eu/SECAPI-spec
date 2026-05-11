@@ -115,7 +115,7 @@ components:
               MAC address of the NIC.
             maxLength: 17
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 17"
+              x-cel-rule-0: "self.size() <= 17"
               x-cel-message-0: "status.macAddress must be at most 17 characters long"
           publicIpRefs:
             description: |
@@ -145,7 +145,7 @@ components:
         If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
       maxLength: 39
       x-oapi-codegen-extra-tags:
-        x-cel-rule-0: "self == null || self.size() <= 39"
+        x-cel-rule-0: "self.size() <= 39"
         x-cel-message-0: "IP address must be at most 39 characters long"
-        x-cel-rule-1: "self == null || isIP(self)"
+        x-cel-rule-1: "self.size() == 0 || isIP(self)"
         x-cel-message-1: "IP address must be a valid IPv4 or IPv6 address"

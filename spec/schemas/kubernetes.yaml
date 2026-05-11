@@ -95,7 +95,7 @@ components:
             maxLength: 65536
             example: "---\n..."
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 65536"
+              x-cel-rule-0: "self.size() <= 65536"
               x-cel-message-0: "status.kubeConfig must be at most 65536 characters long"
 
     KubernetesNodePool:

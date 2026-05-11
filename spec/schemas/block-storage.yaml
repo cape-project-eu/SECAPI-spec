@@ -104,7 +104,7 @@ components:
           x-enumNames:
           - VolumeReferenceTypeVirtio
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['virtio']"
+            x-cel-rule-0: "self.size() == 0 || self in ['virtio']"
             x-cel-message-0: "spec.type must be 'virtio' or not set"
       example:
         deviceRef:

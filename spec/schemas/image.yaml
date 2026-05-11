@@ -82,7 +82,7 @@ components:
           - ImageSpecInitializerCloudinit22
           default: none
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['none', 'cloudinit-22']"
+            x-cel-rule-0: "self.size() == 0 || self in ['none', 'cloudinit-22']"
             x-cel-message-0: "spec.initializer must be either 'none', 'cloudinit-22', or not set"
         boot:
           type: string
@@ -96,7 +96,7 @@ components:
           - ImageSpecBootBIOS
           default: UEFI
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['UEFI', 'BIOS']"
+            x-cel-rule-0: "self.size() == 0 || self in ['UEFI', 'BIOS']"
             x-cel-message-0: "spec.boot must be either 'UEFI', 'BIOS', or not set"
 
     ImageStatus:
@@ -117,5 +117,5 @@ components:
             minimum: 1
             example: 628
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self > 0"
+              x-cel-rule-0: "self > 0"
               x-cel-message-0: "status.sizeMB must be greater than 0"

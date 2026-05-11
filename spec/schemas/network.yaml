@@ -137,9 +137,9 @@ components:
           maxLength: 18
           example: '10.0.100.0/24'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || (self.size() >= 9 && self.size() <= 18)"
+            x-cel-rule-0: "self.size() == 0 || (self.size() >= 9 && self.size() <= 18)"
             x-cel-message-0: "cidr.ipv4 must be between 9 and 18 characters long"
-            x-cel-rule-1: "self == null || (isCIDR(self) && cidr(self).ip().family() == 4)"
+            x-cel-rule-1: "self.size() == 0 || (isCIDR(self) && cidr(self).ip().family() == 4)"
             x-cel-message-1: "cidr.ipv4 must be a valid IPv4 CIDR block"
         ipv6:
           type: string
@@ -150,9 +150,9 @@ components:
           maxLength: 43
           example: '2001:db8::/32'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || (self.size() >= 4 && self.size() <= 43)"
+            x-cel-rule-0: "self.size() == 0 || (self.size() >= 4 && self.size() <= 43)"
             x-cel-message-0: "cidr.ipv6 must be between 4 and 43 characters long"
-            x-cel-rule-1: "self == null || (isCIDR(self) && cidr(self).ip().family() == 6)"
+            x-cel-rule-1: "self.size() == 0 || (isCIDR(self) && cidr(self).ip().family() == 6)"
             x-cel-message-1: "cidr.ipv6 must be a valid IPv6 CIDR block"
 
     IPVersion:

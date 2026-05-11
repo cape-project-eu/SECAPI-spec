@@ -130,7 +130,7 @@ components:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['round-robin']"
+            x-cel-rule-0: "self.size() == 0 || self in ['round-robin']"
             x-cel-message-0: "spec.algorithm must be 'round-robin' or not set"
         port:
           allOf:
@@ -165,7 +165,7 @@ components:
           - LoadBalancerProxyProtocolV2
           default: none
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['none', 'v2']"
+            x-cel-rule-0: "self.size() == 0 || self in ['none', 'v2']"
             x-cel-message-0: "spec.proxyProtocol must be 'none', 'v2', or not set"
       example:
         members:
@@ -197,7 +197,7 @@ components:
           - LoadBalancerHealthCheckConnect
           default: connect
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self in ['connect']"
+            x-cel-rule-0: "self.size() == 0 || self in ['connect']"
             x-cel-message-0: "healthCheck.type must be 'connect' or not set"
         interval:
           type: integer

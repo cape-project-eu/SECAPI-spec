@@ -35,9 +35,9 @@ components:
           description: The public IP address in case of BYOIP.
           maxLength: 39
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self == null || self.size() <= 39"
+            x-cel-rule-0: "self.size() <= 39"
             x-cel-message-0: "spec.address must be at most 39 characters long"
-            x-cel-rule-1: "self == null || isIP(self)"
+            x-cel-rule-1: "self.size() == 0 || isIP(self)"
             x-cel-message-1: "spec.address must be a valid IPv4/IPv6 address"
       example:
         version: "IPv4"
@@ -70,7 +70,7 @@ components:
             description: The public IP address in case of BYOIP.
             maxLength: 39
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self == null || self.size() <= 39"
+              x-cel-rule-0: "self.size() <= 39"
               x-cel-message-0: "status.ipAddress must be at most 39 characters long"
-              x-cel-rule-1: "self == null || isIP(self)"
+              x-cel-rule-1: "self.size() == 0 || isIP(self)"
               x-cel-message-1: "status.ipAddress must be a valid IPv4/IPv6 address"
