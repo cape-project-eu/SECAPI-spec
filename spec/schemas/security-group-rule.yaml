@@ -41,8 +41,8 @@ components:
             * ingress: Only incoming traffic is allowed
             * egress: Only outgoing traffic is allowed
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['ingress', 'egress']"
-            x-cel-message-0: "spec.direction must be either 'ingress' or 'egress'"
+            x-kubebuilder-validation-enum: "ingress;egress"
+            x-kubebuilder-validation-max-length: "7"
         version:
           x-go-type-skip-optional-pointer: true
           allOf:
@@ -58,8 +58,8 @@ components:
           - SecurityGroupRuleProtocolTCPUDP
           - SecurityGroupRuleProtocolICMP
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['tcp', 'udp', 'tcp+udp', 'icmp']"
-            x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'tcp+udp' or 'icmp'"
+            x-kubebuilder-validation-enum: "tcp;udp;tcp+udp;icmp"
+            x-kubebuilder-validation-max-length: "7"
         ports:
           $ref: '#/components/schemas/Ports'
         icmp:
@@ -67,12 +67,15 @@ components:
         sourceRef:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 32
           description: |
             Reference to a CIDR block, IP address, gateway, instance or security group that is allowed to communicate
             with the security group. If a security group is specified, all instances in that group are allowed.
             If no sourceRef is specified, all traffic is allowed.
           items:
             $ref: './resource.yaml#/components/schemas/Reference'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "32"
           example:
           - provider: seca.network/v1
             resource: security-groups/security-group-1
@@ -115,9 +118,14 @@ components:
         list:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 100
           items:
             $ref: '#/components/schemas/Port'
           example: [80, 443]
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-minimum: "1"
+            x-kubebuilder-validation-items-maximum: "65535"
+            x-kubebuilder-validation-max-items: "100"
 
     Port:
       description: |
@@ -128,8 +136,8 @@ components:
       maximum: 65535
       example: 80
       x-oapi-codegen-extra-tags:
-        x-cel-rule-0: "self >= 1 && self <= 65535"
-        x-cel-message-0: "port number must be between 1 and 65535"
+        x-kubebuilder-validation-minimum: "1"
+        x-kubebuilder-validation-maximum: "65535"
 
     IcmpConfig:
       type: object
@@ -141,19 +149,21 @@ components:
         type:
           type: integer
           description: ICMP type
+          minimum: 0
           maximum: 8
           example: 8
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self <= 8"
-            x-cel-message-0: "ICMP type must be less than or equal to 8"
+            x-kubebuilder-validation-minimum: "0"
+            x-kubebuilder-validation-maximum: "8"
         code:
           type: integer
           description: ICMP code
+          minimum: 0
           maximum: 5
           example: 4
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self <= 5"
-            x-cel-message-0: "ICMP code must be less than or equal to 5"
+            x-kubebuilder-validation-minimum: "0"
+            x-kubebuilder-validation-maximum: "5"
 
     SecurityGroupRuleStatus:
       $ref: "./resource.yaml#/components/schemas/Status"

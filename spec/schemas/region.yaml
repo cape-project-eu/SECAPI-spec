@@ -25,25 +25,35 @@ components:
           description: |
             The list of zones available in the region.
           type: array
+          minItems: 1
+          maxItems: 32
           items:
             $ref: '#/components/schemas/Zone'
           example: ["a", "b", "c"]
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "32"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "32"
 
         providers:
           description: |
             The list of providers available in the region.
           type: array
+          minItems: 1
+          maxItems: 64
           items:
             $ref: './region.yaml#/components/schemas/Provider'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "64"
 
     Zone:
       type: string
       description: Reference to a specific zone within a region
+      minLength: 1
       maxLength: 32
       example: "a"
-      x-oapi-codegen-extra-tags:
-        x-cel-rule-0: "self.size() <= 32"
-        x-cel-message-0: "zone must be at most 32 characters long"
 
     Provider:
       type: object
@@ -56,22 +66,25 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 64
           example: "seca.network"
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "provider.name must be at most 64 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "64"
         version:
           type: string
+          minLength: 1
           maxLength: 16
           example: "v1"
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 16"
-            x-cel-message-0: "provider.version must be at most 16 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "16"
         url:
           type: string
+          minLength: 1
           maxLength: 4000
           example: "https://demo.secapi.cloud/providers/seca.network"
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 4000"
-            x-cel-message-0: "provider.url must be at most 4000 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "4000"

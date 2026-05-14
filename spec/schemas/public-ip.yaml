@@ -35,10 +35,9 @@ components:
           description: The public IP address in case of BYOIP.
           maxLength: 39
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 39"
-            x-cel-message-0: "spec.address must be at most 39 characters long"
-            x-cel-rule-1: "self.size() == 0 || isIP(self)"
-            x-cel-message-1: "spec.address must be a valid IPv4/IPv6 address"
+            x-cel-rule-0: "self.size() == 0 || isIP(self)"
+            x-cel-message-0: "spec.address must be a valid IPv4/IPv6 address"
+            x-kubebuilder-validation-max-length: "39"
       example:
         version: "IPv4"
 
@@ -58,7 +57,7 @@ components:
         properties:
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to the instance the public IP is attached to.
             example:
               provider: seca.compute/v1
@@ -70,7 +69,6 @@ components:
             description: The public IP address in case of BYOIP.
             maxLength: 39
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 39"
-              x-cel-message-0: "status.ipAddress must be at most 39 characters long"
-              x-cel-rule-1: "self.size() == 0 || isIP(self)"
-              x-cel-message-1: "status.ipAddress must be a valid IPv4/IPv6 address"
+              x-cel-rule-0: "self.size() == 0 || isIP(self)"
+              x-cel-message-0: "status.ipAddress must be a valid IPv4/IPv6 address"
+              x-kubebuilder-validation-max-length: "39"

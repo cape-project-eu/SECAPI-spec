@@ -68,8 +68,7 @@ components:
           - ImageSpecCpuArchitectureAmd64
           - ImageSpecCpuArchitectureArm64
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['amd64', 'arm64']"
-            x-cel-message-0: "spec.cpuArchitecture must be either 'amd64' or 'arm64'"
+            x-kubebuilder-validation-enum: "amd64;arm64"
         initializer:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -82,8 +81,8 @@ components:
           - ImageSpecInitializerCloudinit22
           default: none
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['none', 'cloudinit-22']"
-            x-cel-message-0: "spec.initializer must be either 'none', 'cloudinit-22', or not set"
+            x-kubebuilder-validation-enum: "none;cloudinit-22"
+            x-kubebuilder-default: "none"
         boot:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -96,8 +95,8 @@ components:
           - ImageSpecBootBIOS
           default: UEFI
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['UEFI', 'BIOS']"
-            x-cel-message-0: "spec.boot must be either 'UEFI', 'BIOS', or not set"
+            x-kubebuilder-validation-enum: "UEFI;BIOS"
+            x-kubebuilder-default: "UEFI"
 
     ImageStatus:
       description: |
@@ -117,5 +116,4 @@ components:
             minimum: 1
             example: 628
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self > 0"
-              x-cel-message-0: "status.sizeMB must be greater than 0"
+              x-kubebuilder-validation-minimum: "1"

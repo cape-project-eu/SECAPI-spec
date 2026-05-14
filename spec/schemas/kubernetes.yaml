@@ -47,15 +47,16 @@ components:
             part of the cluster are always allowed to access the Kubernetes API.
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 100
           items:
             type: string
             description: |
               IP address or CIDR range to restrict access to the Kubernetes API.
               The IP address or CIDR can be for IPv4 or IPv6.
             maxLength: 45
-            x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 45"
-              x-cel-message-0: "restrictKubernetesApi items must be at most 45 characters long"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-max-length: "45"
+            x-kubebuilder-validation-max-items: "100"
           example:
           - "1.2.3.4/32"
           - "2002::1234:abcd:ffff:c0a8:101/64"
@@ -95,8 +96,7 @@ components:
             maxLength: 65536
             example: "---\n..."
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 65536"
-              x-cel-message-0: "status.kubeConfig must be at most 65536 characters long"
+              x-kubebuilder-validation-max-length: "65536"
 
     KubernetesNodePool:
       description: |
@@ -136,19 +136,22 @@ components:
           maximum: 5000
           example: 3
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self >= 1 && self <= 5000"
-            x-cel-message-0: "spec.instances must be between 1 and 5000"
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "5000"
         nodeTemplate:
           $ref: '#/components/schemas/KubernetesNodeTemplate'
         taints:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 50
           description: |
             List of taints to apply to the nodes in the node pool. Taints are used
             to mark nodes as unsuitable for certain workloads, allowing for more
             fine-grained control over scheduling.
           items:
             $ref: '#/components/schemas/KubernetesNodeTaint'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "50"
 
     KubernetesNodeTemplate:
       type: object
@@ -192,6 +195,8 @@ components:
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == oldSelf"
             x-cel-message-0: "nodeTemplate.zone is immutable"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -240,20 +245,22 @@ components:
             The key of the taint. The key is used to identify the taint and is used
             in conjunction with the value and effect.
           example: "example-key"
+          minLength: 1
           maxLength: 63
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 63"
-            x-cel-message-0: "taint.key must be at most 63 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "63"
         value:
           type: string
           description: |
             The value of the taint. The value is used to identify the taint and is used
             in conjunction with the key and effect.
           example: "example-value"
+          minLength: 1
           maxLength: 63
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 63"
-            x-cel-message-0: "taint.value must be at most 63 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "63"
         effect:
           type: string
           enum:
@@ -270,8 +277,7 @@ components:
             (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
           example: "NoSchedule"
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['NoSchedule', 'PreferNoSchedule', 'NoExecute']"
-            x-cel-message-0: "taint.effect must be one of 'NoSchedule', 'PreferNoSchedule', 'NoExecute'"
+            x-kubebuilder-validation-enum: "NoSchedule;PreferNoSchedule;NoExecute"
 
     KubernetesNodeRootVolume:
       type: object
@@ -304,8 +310,7 @@ components:
           example: 100
           minimum: 20
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self >= 20"
-            x-cel-message-0: "rootVolume.sizeGB must be at least 20"
+            x-kubebuilder-validation-minimum: "20"
       example:
         skuRef:
           resource: tenants/seca/skus/le500
@@ -327,6 +332,7 @@ components:
               reference to a compute instance.
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 1000
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'
@@ -334,3 +340,5 @@ components:
               example:
                 provider: seca.compute/v1
                 resource: instances/instance-123
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "1000"

@@ -46,7 +46,11 @@ components:
         cidr:
           $ref: './network.yaml#/components/schemas/cidr'
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         routeTableRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'

@@ -28,11 +28,12 @@ components:
           description: |
             The kubernetes major, minor and patch version.
             The version is a string in the format of `<major>.<minor>.<patch>` or `<major>.<minor>`.
+          minLength: 1
           maxLength: 16
           example: '1.30'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 16"
-            x-cel-message-0: "spec.version must be at most 16 characters long"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "16"
         automaticUpdatePolicy:
           type: string
           description: |
@@ -54,8 +55,7 @@ components:
             - KubernetesClusterAutomaticUpdatePolicyStable
             - KubernetesClusterAutomaticUpdatePolicyPreview
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['none', 'stable', 'preview']"
-            x-cel-message-0: "spec.automaticUpdatePolicy must be one of 'none', 'stable', 'preview'"
+            x-kubebuilder-validation-enum: "none;stable;preview"
         type:
           type: string
           description: |
@@ -73,8 +73,7 @@ components:
             - KubernetesClusterTypeDedicated
             - KubernetesClusterTypeShared
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['dedicated', 'shared']"
-            x-cel-message-0: "spec.type must be either 'dedicated' or 'shared'"
+            x-kubebuilder-validation-enum: "dedicated;shared"
         releasedAt:
           type: string
           format: date-time

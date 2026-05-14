@@ -49,6 +49,7 @@ components:
         additionalNicRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 16
           description: Additional NICs attached to this instance
           items:
             allOf:
@@ -58,6 +59,8 @@ components:
               provider: seca.network/v1
               resource: network-interfaces/nic-124
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/network-interfaces/nic-124
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "16"
         zone:
           allOf:
           - $ref: './region.yaml#/components/schemas/Zone'
@@ -67,6 +70,8 @@ components:
           x-oapi-codegen-extra-tags:
             x-cel-rule-0: "self == oldSelf"
             x-cel-message-0: "spec.zone is immutable"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -87,8 +92,7 @@ components:
             packages:
             - nginx
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 65536"
-            x-cel-message-0: "spec.userData must be at most 65536 characters long"
+            x-kubebuilder-validation-max-length: "65536"
         antiAffinityGroup:
           description: |
             Anti-affinity group to which this instance belongs.
@@ -99,22 +103,26 @@ components:
           maxLength: 64
           example: 'exclusive-server'
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() <= 64"
-            x-cel-message-0: "spec.antiAffinityGroup must be at most 64 characters long"
+            x-kubebuilder-validation-max-length: "64"
         sshKeys:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 32
           items:
             type: string
+            minLength: 1
             maxLength: 4096
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 4096"
-              x-cel-message-0: "spec.sshKeys[*] must be at most 4096 characters long"
+              x-kubebuilder-validation-max-length: "4096"
           description: |
             Provider-specific references to SSH keys used in cloud-init vendorData.
             These references are used to inject SSH public keys during instance initialization
             through cloud-init's vendor data configuration.
           example: ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g...']
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "4096"
+            x-kubebuilder-validation-max-items: "32"
         bootVolume:
           allOf:
           - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
@@ -122,10 +130,13 @@ components:
         dataVolumes:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 64
           items:
             allOf:
             - $ref: './block-storage.yaml#/components/schemas/VolumeReference'
             description: Reference to the block storage used to store an additional volume of the instance.
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "64"
       example:
         skuRef:
           resource: "tenants/seca/skus/s"
@@ -157,8 +168,7 @@ components:
             - InstanceStatusPowerStateOff
             example: "on"
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self in ['on', 'off']"
-              x-cel-message-0: "status.powerState must be either 'on' or 'off'"
+              x-kubebuilder-validation-enum: "on;off"
           powerStateSince:
             type: string
             format: date-time

@@ -24,8 +24,8 @@ components:
         maximum: 65535
         example: 443
         x-oapi-codegen-extra-tags:
-          x-cel-rule-0: "self >= 1 && self <= 65535"
-          x-cel-message-0: "port must be between 1 and 65535"
+          x-kubebuilder-validation-minimum: "1"
+          x-kubebuilder-validation-maximum: "65535"
 
     NetworkLoadBalancerSpec:
       type: object
@@ -64,8 +64,13 @@ components:
           description: 'Backend port to which the load balancer will be forwarding the traffic to'
         frontends:
           type: array
+          minItems: 1
+          maxItems: 50
           items:
             $ref: '#/components/schemas/NetworkLoadBalancerFrontend'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "50"
 
     NetworkLoadBalancerStatus:
       description: |
@@ -80,8 +85,11 @@ components:
             description: 'List of healthy members'
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 1000
             items:
               $ref: './resource.yaml#/components/schemas/Reference'
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "1000"
 
     NetworkLoadBalancerFrontend:
       type: object
@@ -103,8 +111,7 @@ components:
           - LoadBalancerProtocolUDP
           - LoadBalancerProtocolBoth
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self in ['tcp', 'udp', 'both']"
-            x-cel-message-0: "spec.protocol must be one of 'tcp', 'udp', 'both'"
+            x-kubebuilder-validation-enum: "tcp;udp;both"
         port:
           allOf:
           - $ref: '#/components/schemas/NetworkLoadBalancerPort'
@@ -130,14 +137,16 @@ components:
           - LoadBalancerAlgorithmRoundRobin
           default: round-robin
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['round-robin']"
-            x-cel-message-0: "spec.algorithm must be 'round-robin' or not set"
+            x-kubebuilder-validation-enum: "round-robin"
+            x-kubebuilder-default: "round-robin"
         port:
           allOf:
           - $ref: '#/components/schemas/NetworkLoadBalancerPort'
           description: 'Backend port to which the load balancer will be forwarding the traffic to'
         members:
           type: array
+          minItems: 1
+          maxItems: 1000
           description: 'Nic reference to the members as part of the LoadBalancerTarget'
           items:
             allOf:
@@ -147,6 +156,9 @@ components:
               provider: seca.network/v1
               resource: nics/nic-1
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/nics/nic-1
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "1000"
 
         healthCheck:
           $ref: '#/components/schemas/LoadBalancerHealthCheck'
@@ -165,8 +177,8 @@ components:
           - LoadBalancerProxyProtocolV2
           default: none
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['none', 'v2']"
-            x-cel-message-0: "spec.proxyProtocol must be 'none', 'v2', or not set"
+            x-kubebuilder-validation-enum: "none;v2"
+            x-kubebuilder-default: "none"
       example:
         members:
         - provider: 'seca.network/v1'
@@ -197,29 +209,32 @@ components:
           - LoadBalancerHealthCheckConnect
           default: connect
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self.size() == 0 || self in ['connect']"
-            x-cel-message-0: "healthCheck.type must be 'connect' or not set"
+            x-kubebuilder-validation-enum: "connect"
+            x-kubebuilder-default: "connect"
         interval:
           type: integer
           description: 'health check interval in seconds. It means after how many seconds it will take a new check'
+          minimum: 1
           maximum: 86400
           example: 10
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self > 0 && self <= 86400"
-            x-cel-message-0: "healthCheck.interval must be between 1 and 86400"
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "86400"
         timeout:
           type: integer
           description: 'health check in seconds. It means after how many seconds the attempt will be considered unhealthy'
+          minimum: 1
           maximum: 600
           example: 5
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self > 0 && self <= 600"
-            x-cel-message-0: "healthCheck.timeout must be between 1 and 600"
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "600"
         retry:
           type: integer
           description: 'health check retry number after considered unhealthy a backend instance'
+          minimum: 0
           maximum: 10
           example: 3
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: "self > 0 && self <= 10"
-            x-cel-message-0: "healthCheck.retry must be between 1 and 10"
+            x-kubebuilder-validation-minimum: "0"
+            x-kubebuilder-validation-maximum: "10"

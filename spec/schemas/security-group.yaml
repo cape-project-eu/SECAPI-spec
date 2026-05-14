@@ -45,6 +45,7 @@ components:
         rules:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 500
           description: |
             Network access rules defining communication between security groups and external networks.
 
@@ -53,9 +54,12 @@ components:
             - Rules provide granular control over allowed traffic types, sources, and destinations
           items:
             $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleSpec'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "500"
         ruleRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 500
           description: |
             References to shared SecurityGroupRule resources.
             These rules are applied in addition to the inline rules.
@@ -67,6 +71,8 @@ components:
               provider: seca.network/v1
               resource: security-group-rules/rule-1
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-group-rules/rule-1
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "500"
 
     SecurityGroupStatus:
       description: |
@@ -84,5 +90,8 @@ components:
           rules:
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 500
             items:
               $ref: './security-group-rule.yaml#/components/schemas/SecurityGroupRuleStatus'
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "500"

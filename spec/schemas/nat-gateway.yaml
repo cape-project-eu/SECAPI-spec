@@ -60,7 +60,11 @@ components:
             resource: nics/nat-gateway-1
             ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/nics/nat-gateway-1
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'

@@ -36,8 +36,7 @@ components:
             readOnly: true
             maxLength: 128
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 128"
-              x-cel-message-0: "status.accessKey must be at most 128 characters long"
+              x-kubebuilder-validation-max-length: "128"
           secretKey:
             type: string
             x-go-type-skip-optional-pointer: true
@@ -45,8 +44,7 @@ components:
             readOnly: true
             maxLength: 128
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 128"
-              x-cel-message-0: "status.secretKey must be at most 128 characters long"
+              x-kubebuilder-validation-max-length: "128"
           canonicalUserId:
             type: string
             x-go-type-skip-optional-pointer: true
@@ -54,5 +52,4 @@ components:
             readOnly: true
             maxLength: 64
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 64"
-              x-cel-message-0: "status.canonicalUserId must be at most 64 characters long"
+              x-kubebuilder-validation-max-length: "64"

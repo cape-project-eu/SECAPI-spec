@@ -35,6 +35,7 @@ components:
         securityGroupRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 16
           description: References to the security groups associated with this NIC.
           items:
             allOf:
@@ -44,6 +45,8 @@ components:
               provider: seca.network/v1
               resource: security-groups/sg-123
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "16"
         addresses:
           type: array
           description: |
@@ -52,11 +55,21 @@ components:
             IP addresses can be assigned to a NIC. The number of IP addresses might be
             limited by the CSP or the subnet size.
           example: ['10.100.0.10', '0.0.0.0', '::']
+          minItems: 1
+          maxItems: 32
           items:
             $ref: '#/components/schemas/NicIp'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "39"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "32"
+            x-cel-rule-0: "self.all(x, isIP(x))"
+            x-cel-message-0: "all IP addresses must be valid IPv4 or IPv6 addresses"
         publicIpRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 16
           description: |
             References to public IP addresses associated with this NIC. The IP may be external
             and not directly visible on the server/NIC itself.
@@ -66,6 +79,8 @@ components:
             description: Reference to a public IP address associated with this NIC.
             example:
               resource: "public-ips/public-ip-123"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "16"
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -106,8 +121,13 @@ components:
           addresses:
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 32
             items:
               $ref: '#/components/schemas/NicIp'
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-items-min-length: "1"
+              x-kubebuilder-validation-items-max-length: "39"
+              x-kubebuilder-validation-max-items: "32"
           macAddress:
             type: string
             x-go-type-skip-optional-pointer: true
@@ -115,19 +135,21 @@ components:
               MAC address of the NIC.
             maxLength: 17
             x-oapi-codegen-extra-tags:
-              x-cel-rule-0: "self.size() <= 17"
-              x-cel-message-0: "status.macAddress must be at most 17 characters long"
+              x-kubebuilder-validation-max-length: "17"
           publicIpRefs:
             description: |
               Array of public IP addresses associated with this NIC.
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 16
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'
               description: Reference to a public IP address associated with this NIC.
               example:
                 resource: "public-ips/public-ip-123"
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "16"
         example:
           state: "active"
           macAddress: "00:00:00:00:00:00"
@@ -143,9 +165,5 @@ components:
         can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
         automatically. The IP can also be a specific IP address.
         If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
+      minLength: 1
       maxLength: 39
-      x-oapi-codegen-extra-tags:
-        x-cel-rule-0: "self.size() <= 39"
-        x-cel-message-0: "IP address must be at most 39 characters long"
-        x-cel-rule-1: "self.size() == 0 || isIP(self)"
-        x-cel-message-1: "IP address must be a valid IPv4 or IPv6 address"
