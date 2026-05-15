@@ -1,7 +1,6 @@
 components:
   schemas:
-    Network:
-      # -> rename to PrivateNetwork works like a VPC
+    Network: # -> rename to PrivateNetwork works like a VPC
       description: |
         A Network represents a virtual network that can be used to isolate resources.
         Key network concepts:
