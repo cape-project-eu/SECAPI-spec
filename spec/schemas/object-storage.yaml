@@ -35,15 +35,21 @@ components:
             description: Access key for the object storage account
             readOnly: true
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "128"
           secretKey:
             type: string
             x-go-type-skip-optional-pointer: true
             description: Secret key for the object storage account
             readOnly: true
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "128"
           canonicalUserId:
             type: string
             x-go-type-skip-optional-pointer: true
             description: Canonical user ID for the object storage account
             readOnly: true
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "64"

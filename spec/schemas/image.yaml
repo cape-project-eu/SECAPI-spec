@@ -67,6 +67,8 @@ components:
           x-enumNames:
           - ImageSpecCpuArchitectureAmd64
           - ImageSpecCpuArchitectureArm64
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "amd64;arm64"
         initializer:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -78,6 +80,9 @@ components:
           - ImageSpecInitializerNone
           - ImageSpecInitializerCloudinit22
           default: none
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "none;cloudinit-22"
+            x-kubebuilder-default: "none"
         boot:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -89,6 +94,9 @@ components:
           - ImageSpecBootUEFI
           - ImageSpecBootBIOS
           default: UEFI
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "UEFI;BIOS"
+            x-kubebuilder-default: "UEFI"
 
     ImageStatus:
       description: |
@@ -107,3 +115,5 @@ components:
             description: Size of the Image in MB
             minimum: 1
             example: 628
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-minimum: "1"

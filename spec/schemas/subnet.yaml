@@ -46,13 +46,17 @@ components:
         cidr:
           $ref: './network.yaml#/components/schemas/cidr'
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         routeTableRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
-              Reference to the route table used by default for all NICs in this Subnet.
-              If not provided, the routeTableRef associated with the network of the subnet will be used.
+            Reference to the route table used by default for all NICs in this Subnet.
+            If not provided, the routeTableRef associated with the network of the subnet will be used.
           example:
             resource: "route-tables/route-table-1"
         skuRef:

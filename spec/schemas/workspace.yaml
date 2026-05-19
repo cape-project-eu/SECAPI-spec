@@ -41,3 +41,5 @@ components:
             type: integer
             description: Number of resources currently in the workspace
             minimum: 0
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-minimum: "0"

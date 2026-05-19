@@ -27,19 +27,25 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the block storage.
+          description: |
+            Reference to the SKU of the block storage. The SKU is immutable after creation.
+            If you want to change the SKU, you need to create a new block storage and migrate the data.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         sizeGB:
           type: integer
           description: Size of the block storage in GB.
+          minimum: 1
           maximum: 1000000
           example: 10
           x-oapi-codegen-extra-tags:
-            x-cel-rule-0: '!oldSelf.hasValue() || self >= oldSelf.value()'
-            x-cel-message-0: 'spec.sizeGB cannot be decreased'
-            x-cel-rule-1: 'self > 0'
-            x-cel-message-1: 'spec.sizeGB must be greater than 0'
+            x-cel-rule-0: "self >= oldSelf"
+            x-cel-message-0: "spec.sizeGB cannot be decreased"
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "1000000"
         sourceImageRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -63,11 +69,15 @@ components:
           sizeGB:
             type: integer
             description: Size of the block storage in GB.
+            minimum: 1
             maximum: 1000000
             example: 10
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-minimum: "1"
+              x-kubebuilder-validation-maximum: "1000000"
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to the instance the block storage is attached to.
             example:
               provider: seca.compute/v1
@@ -95,8 +105,11 @@ components:
           default: virtio
           x-enumNames:
           - VolumeReferenceTypeVirtio
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "virtio"
+            x-kubebuilder-validation-max-length: "7"
+            x-kubebuilder-default: "virtio"
       example:
         deviceRef:
           resource: "block-storages/block-123"
         type: "virtio"
-

@@ -20,6 +20,8 @@ components:
           x-go-type-skip-optional-pointer: true
           description: User-JWT executing this query
           maxLength: 256
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "256"
         request:
           $ref: '#/components/schemas/RequestObject'
         response:
@@ -37,6 +39,8 @@ components:
             The verb can be one of the following: get, list, put, delete, post, ..
           maxLength: 7
           example: 'get'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "7"
         body:
           oneOf:
             - $ref: './block-storage.yaml#/components/schemas/BlockStorageSpec'
@@ -58,6 +62,8 @@ components:
           type: string
           x-go-type-skip-optional-pointer: true
           maxLength: 2000
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "2000"
 
     ResponseObject:
       type: object
@@ -68,3 +74,6 @@ components:
           minimum: 100
           maximum: 599
           example: 202
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "100"
+            x-kubebuilder-validation-maximum: "599"

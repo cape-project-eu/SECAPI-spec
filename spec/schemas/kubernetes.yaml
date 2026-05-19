@@ -31,9 +31,14 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the Kubernetes cluster.
+          description: |
+            Reference to the SKU of the Kubernetes cluster. The SKU is immutable after the cluster is created.
+            To change the SKU, the cluster must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/xl"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         restrictKubernetesApi:
           description: |
             Restrict access to the Kubernetes API to specific IP addresses or ranges.
@@ -42,12 +47,16 @@ components:
             part of the cluster are always allowed to access the Kubernetes API.
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 100
           items:
             type: string
             description: |
               IP address or CIDR range to restrict access to the Kubernetes API.
               The IP address or CIDR can be for IPv4 or IPv6.
             maxLength: 45
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-max-length: "45"
+            x-kubebuilder-validation-max-items: "100"
           example:
           - "1.2.3.4/32"
           - "2002::1234:abcd:ffff:c0a8:101/64"
@@ -86,6 +95,8 @@ components:
               access to the cluster using kubectl or other Kubernetes clients.
             maxLength: 65536
             example: "---\n..."
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "65536"
 
     KubernetesNodePool:
       description: |
@@ -124,17 +135,23 @@ components:
           minimum: 1
           maximum: 5000
           example: 3
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "5000"
         nodeTemplate:
           $ref: '#/components/schemas/KubernetesNodeTemplate'
         taints:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 50
           description: |
             List of taints to apply to the nodes in the node pool. Taints are used
             to mark nodes as unsuitable for certain workloads, allowing for more
             fine-grained control over scheduling.
           items:
             $ref: '#/components/schemas/KubernetesNodeTaint'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "50"
 
     KubernetesNodeTemplate:
       type: object
@@ -151,11 +168,16 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the node instances.
+          description: |
+            Reference to the SKU of the node instances. The SKU is immutable after the node pool is created.
+            To change the SKU, the node pool must be deleted and recreated with the new SKU reference.
           example:
             provider: seca.compute/v1
             resource: tenants/seca/skus/xl
             ref: seca.compute/v1/tenants/seca/skus/xl
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "nodeTemplate.skuRef is immutable"
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -165,7 +187,16 @@ components:
             resource: subnets/k8s-nodes-a
             ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/subnets/k8s-nodes-a
         zone:
-          $ref: './region.yaml#/components/schemas/Zone'
+          allOf:
+          - $ref: './region.yaml#/components/schemas/Zone'
+          description: |
+            The zone in which the node instances will be created. The zone is immutable after the node pool is created.
+            To change the zone, the node pool must be deleted and recreated with the new zone.
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "nodeTemplate.zone is immutable"
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "32"
         securityGroupRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -214,14 +245,22 @@ components:
             The key of the taint. The key is used to identify the taint and is used
             in conjunction with the value and effect.
           example: "example-key"
+          minLength: 1
           maxLength: 63
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "63"
         value:
           type: string
           description: |
             The value of the taint. The value is used to identify the taint and is used
             in conjunction with the key and effect.
           example: "example-value"
+          minLength: 1
           maxLength: 63
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "63"
         effect:
           type: string
           enum:
@@ -237,6 +276,8 @@ components:
             the nodes in the node pool. For details on the effects, see the
             (kubernetes documentation on taints and tolerations)[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/].
           example: "NoSchedule"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-enum: "NoSchedule;PreferNoSchedule;NoExecute"
 
     KubernetesNodeRootVolume:
       type: object
@@ -252,16 +293,24 @@ components:
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the block storage created to store the root volume.
+          description: |
+            Reference to the SKU of the block storage created to store the root volume.
+            The SKU is immutable after the node pool is created. To change the SKU,
+            the node pool must be deleted and recreated with the new SKU reference.
           example:
             provider: seca.storage/v1
             resource: tenats/seca/skus/le500
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "rootVolume.skuRef is immutable"
         sizeGB:
           description: |
             Size of the root volume in GB. The size is recommended to be at least 100GB.
           type: integer
           example: 100
           minimum: 20
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "20"
       example:
         skuRef:
           resource: tenants/seca/skus/le500
@@ -283,6 +332,7 @@ components:
               reference to a compute instance.
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 1000
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'
@@ -290,3 +340,5 @@ components:
               example:
                 provider: seca.compute/v1
                 resource: instances/instance-123
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "1000"

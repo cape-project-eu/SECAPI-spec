@@ -1,5 +1,5 @@
 components:
-  schemas: 
+  schemas:
     ResourceMetadata:
       description: |
         Metadata for all resources with type and name information.
@@ -29,7 +29,7 @@ components:
       - $ref: '#/components/schemas/PermissionMetadata'
       - $ref: '#/components/schemas/ModificationMetadata'
       - $ref: '#/components/schemas/TypeMetadata'
-      - $ref: '#/components/schemas/TenantMetadata'      
+      - $ref: '#/components/schemas/TenantMetadata'
 
     RegionalResourceMetadata:
       description: |
@@ -52,7 +52,7 @@ components:
       - $ref: '#/components/schemas/TypeMetadata'
       - $ref: '#/components/schemas/TenantMetadata'
       - $ref: '#/components/schemas/WorkspaceMetadata'
-      - $ref: '#/components/schemas/RegionalMetadata'  
+      - $ref: '#/components/schemas/RegionalMetadata'
 
     RegionalNetworkResourceMetadata:
       description: |
@@ -84,12 +84,13 @@ components:
       - apiVersion
       - kind
       - ref
-      description:  |
+      description: |
         Metadata for all resources with type information.
       properties:
         apiVersion:
           type: string
           description: API version of the resource
+          minLength: 1
           maxLength: 16
           default: v1
         kind:
@@ -142,11 +143,9 @@ components:
         ref:
           $ref: '#/components/schemas/ReferenceURN'
 
-    Reference:
-      $ref: '#/components/schemas/ReferenceObject'
-
     ReferenceURN:
       type: string
+      minLength: 1
       description: |
         A unique resource name (URN) used to identify and reference this resource.
 
@@ -186,7 +185,7 @@ components:
       maxLength: 255
       example: "seca.compute/v1/tenants/tn-1/workspaces/ws-1/instances/my-server"
 
-    ReferenceObject:
+    Reference:
       type: object
       description: |
         A reference to a resource using an object. The object contains the
@@ -204,6 +203,8 @@ components:
             Region of the resource. If not set, the region is inferred from the context.
           maxLength: 64
           example: "eu-central-1"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "64"
         provider:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -211,6 +212,8 @@ components:
             Provider of the resource. If not set, the provider is inferred from the context.
           maxLength: 64
           example: "seca.compute/v1"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "64"
         tenant:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -218,6 +221,8 @@ components:
             Tenant of the resource. If not set, the tenant is inferred from the context.
           maxLength: 64
           example: "tenant-1"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "64"
         workspace:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -225,6 +230,8 @@ components:
             Workspace of the resource. If not set, the workspace is inferred from the context.
           maxLength: 64
           example: "workspace-1"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "64"
         resource:
           type: string
           description: |
@@ -235,8 +242,12 @@ components:
               `networks/<network-name>/route-tables/<rt-name>`
             The provider, tenant, and workspace can be specified as separate fields in this
             object; they do not need to be repeated here.
+          minLength: 1
           maxLength: 256
           example: "instances/my-server"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "256"
 
     PermissionMetadata:
       type: object
@@ -249,14 +260,17 @@ components:
       properties:
         provider:
           type: string
+          minLength: 1
           maxLength: 64
           example: "seca.compute/v1"
         resource:
           type: string
+          minLength: 1
           maxLength: 256
           example: "tenants/tn-1/workspaces/ws-1/instances/my-server"
         verb:
           type: string
+          minLength: 1
           maxLength: 7
           example: get
       example:
@@ -319,7 +333,8 @@ components:
           $ref: '#/components/schemas/Annotations'
         extensions:
           $ref: '#/components/schemas/Extensions'
-    
+
+
     Extensions:
       x-go-type-skip-optional-pointer: true
       type: object
@@ -329,7 +344,7 @@ components:
       additionalProperties:
         type: string
 
-    Labels: 
+    Labels:
       x-go-type-skip-optional-pointer: true
       type: object
       description: |
@@ -375,6 +390,7 @@ components:
         tenant:
           type: string
           description: Tenant identifier
+          minLength: 1
           maxLength: 64
 
     WorkspaceMetadata:
@@ -387,6 +403,7 @@ components:
         workspace:
           type: string
           description: Workspace identifier
+          minLength: 1
           maxLength: 64
 
     NetworkMetadata:
@@ -399,6 +416,7 @@ components:
         network:
           type: string
           description: Network identifier
+          minLength: 1
           maxLength: 64
 
     RegionalMetadata:
@@ -411,6 +429,7 @@ components:
         region:
           type: string
           description: Reference to the region where the resource is located
+          minLength: 1
           maxLength: 64
           example: "eu-central-1"
 
@@ -424,14 +443,16 @@ components:
         state:
           x-go-type-skip-optional-pointer: true
           allOf:
-            - $ref: '#/components/schemas/ResourceState'
+          - $ref: '#/components/schemas/ResourceState'
         conditions:
           type: array
+          maxItems: 32
           items:
             $ref: "#/components/schemas/StatusCondition"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "32"
 
     ResourceState:
-
       type: string
       description: |
         Current phase of the resource:
@@ -492,12 +513,17 @@ components:
             documented by the provider.
           maxLength: 1024
           pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "1024"
+            x-kubebuilder-validation-pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
         message:
           type: string
           x-go-type-skip-optional-pointer: true
           description: |
             A human-readable message indicating details about the transition.
           maxLength: 32768
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-length: "32768"
       example:
         state: active
         lastTransitionAt: "2024-11-21T14:39:22Z"

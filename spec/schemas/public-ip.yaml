@@ -25,7 +25,7 @@ components:
       description: |
         Specification of the public IP.
       required:
-        - version
+      - version
       properties:
         version:
           $ref: './network.yaml#/components/schemas/IPVersion'
@@ -34,6 +34,10 @@ components:
           x-go-type-skip-optional-pointer: true
           description: The public IP address in case of BYOIP.
           maxLength: 39
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self.size() == 0 || isIP(self)"
+            x-cel-message-0: "spec.address must be a valid IPv4/IPv6 address"
+            x-kubebuilder-validation-max-length: "39"
       example:
         version: "IPv4"
 
@@ -53,7 +57,7 @@ components:
         properties:
           attachedTo:
             allOf:
-            - $ref: './resource.yaml#/components/schemas/ReferenceObject'
+            - $ref: './resource.yaml#/components/schemas/Reference'
             description: Reference to the instance the public IP is attached to.
             example:
               provider: seca.compute/v1
@@ -62,5 +66,9 @@ components:
           ipAddress:
             type: string
             x-go-type-skip-optional-pointer: true
-            description: The public IP address in case.
+            description: The public IP address in case of BYOIP.
             maxLength: 39
+            x-oapi-codegen-extra-tags:
+              x-cel-rule-0: "self.size() == 0 || isIP(self)"
+              x-cel-message-0: "status.ipAddress must be a valid IPv4/IPv6 address"
+              x-kubebuilder-validation-max-length: "39"

@@ -26,11 +26,20 @@ components:
             The number of virtual CPUs (vCPUs) allocated to the instance SKU.
             This value represents the number of cores visible to the operating system.
             It does not specify the number of physical processors or hyper-threads available.
+          minimum: 1
           maximum: 60
           example: 2
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "60"
         ram:
           type: integer
           description: |
             The amount of RAM (Random Access Memory) allocated to the instance SKU in gigabytes.
             This value represents the total memory available to the instance.
+          minimum: 1
+          maximum: 65536
           example: 230
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-minimum: "1"
+            x-kubebuilder-validation-maximum: "65536"

@@ -35,6 +35,7 @@ components:
         securityGroupRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 16
           description: References to the security groups associated with this NIC.
           items:
             allOf:
@@ -44,19 +45,31 @@ components:
               provider: seca.network/v1
               resource: security-groups/sg-123
               ref: seca.network/v1/tenants/tn-1/workspaces/ws-1/security-groups/sg-123
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "16"
         addresses:
           type: array
           description: |
             List of IP addresses for the NIC. A specific IP address needs to be in the
             CIDR range of the subnet and not used by any other NIC in the subnet. Multiple
-            IP addresses can be assigned to a NIC. The number of IP addresses is might be
+            IP addresses can be assigned to a NIC. The number of IP addresses might be
             limited by the CSP or the subnet size.
           example: ['10.100.0.10', '0.0.0.0', '::']
+          minItems: 1
+          maxItems: 32
           items:
             $ref: '#/components/schemas/NicIp'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "39"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "32"
+            x-cel-rule-0: "self.all(x, isIP(x))"
+            x-cel-message-0: "all IP addresses must be valid IPv4 or IPv6 addresses"
         publicIpRefs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 16
           description: |
             References to public IP addresses associated with this NIC. The IP may be external
             and not directly visible on the server/NIC itself.
@@ -66,12 +79,19 @@ components:
             description: Reference to a public IP address associated with this NIC.
             example:
               resource: "public-ips/public-ip-123"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "16"
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
-          description: Reference to the SKU of the NIC.
+          description: |
+            Reference to the SKU of the NIC. The SKU is immutable after the NIC is created.
+            To change the SKU, the NIC must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "!oldSelf.hasValue() || self == oldSelf.value()"
+            x-cel-message-0: "spec.skuRef is immutable"
         subnetRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -101,25 +121,35 @@ components:
           addresses:
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 32
             items:
               $ref: '#/components/schemas/NicIp'
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-items-min-length: "1"
+              x-kubebuilder-validation-items-max-length: "39"
+              x-kubebuilder-validation-max-items: "32"
           macAddress:
             type: string
             x-go-type-skip-optional-pointer: true
             description: |
               MAC address of the NIC.
             maxLength: 17
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "17"
           publicIpRefs:
             description: |
               Array of public IP addresses associated with this NIC.
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 16
             items:
               allOf:
               - $ref: './resource.yaml#/components/schemas/Reference'
               description: Reference to a public IP address associated with this NIC.
               example:
                 resource: "public-ips/public-ip-123"
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "16"
         example:
           state: "active"
           macAddress: "00:00:00:00:00:00"
@@ -135,4 +165,5 @@ components:
         can be `0.0.0.0` or `::` to indicate that the IP needs to be assigned
         automatically. The IP can also be a specific IP address.
         If not provided, the mutate admission controller will populate this value using the default values for ipv4 and ipv6.
+      minLength: 1
       maxLength: 39

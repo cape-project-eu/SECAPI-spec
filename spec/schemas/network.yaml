@@ -51,16 +51,23 @@ components:
         additionalCidrs:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 32
           items:
             $ref: './network.yaml#/components/schemas/cidr'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-max-items: "32"
         skuRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
           description: |
             Reference to the SKU used by default for all NIC in this Network.
-            Can be overridden by the NIC.
+            Can be overridden by the NIC. The SKU is immutable after the network is created.
+            To change the SKU, the network must be deleted and recreated with the new SKU reference.
           example:
             resource: "tenants/seca/skus/n1k"
+          x-oapi-codegen-extra-tags:
+            x-cel-rule-0: "self == oldSelf"
+            x-cel-message-0: "spec.skuRef is immutable"
         routeTableRef:
           allOf:
           - $ref: './resource.yaml#/components/schemas/Reference'
@@ -98,8 +105,11 @@ components:
           additionalCidrs:
             type: array
             x-go-type-skip-optional-pointer: true
+            maxItems: 32
             items:
               $ref: './network.yaml#/components/schemas/cidr'
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-items: "32"
           routeTableRef:
             allOf:
             - $ref: './resource.yaml#/components/schemas/Reference'
@@ -131,6 +141,11 @@ components:
           minLength: 9
           maxLength: 18
           example: '10.0.100.0/24'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "9"
+            x-kubebuilder-validation-max-length: "18"
+            x-cel-rule-0: "self.size() == 0 || (isCIDR(self) && cidr(self).ip().family() == 4)"
+            x-cel-message-0: "cidr.ipv4 must be a valid IPv4 CIDR block"
         ipv6:
           type: string
           x-go-type-skip-optional-pointer: true
@@ -139,13 +154,20 @@ components:
           minLength: 4
           maxLength: 43
           example: '2001:db8::/32'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "4"
+            x-kubebuilder-validation-max-length: "43"
+            x-cel-rule-0: "self.size() == 0 || (isCIDR(self) && cidr(self).ip().family() == 6)"
+            x-cel-message-0: "cidr.ipv6 must be a valid IPv6 CIDR block"
 
     IPVersion:
       type: string
       description: IP version of the address
       enum:
-        - IPv4
-        - IPv6
+      - IPv4
+      - IPv6
       x-enumNames:
-        - IPVersionIPv4
-        - IPVersionIPv6
+      - IPVersionIPv4
+      - IPVersionIPv6
+      x-oapi-codegen-extra-tags:
+        x-kubebuilder-validation-enum: "IPv4;IPv6"

@@ -15,6 +15,7 @@ components:
         type:
           type: string
           description: The type of error, expressed as a URI.
+          minLength: 1
           maxLength: 4000
           example: "https://httpstatuses.io/400"
         title:
@@ -24,6 +25,7 @@ components:
             type.  It SHOULD NOT change from occurrence to occurrence of the
             problem, except for purposes of localization (e.g., using
             proactive content negotiation; see [RFC7231], Section 3.4).
+          minLength: 1
           maxLength: 1024
         status:
           type: number
@@ -36,15 +38,18 @@ components:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
+          minLength: 1
           maxLength: 32768
         instance:
           type: string
           description: |
             A URI reference that identifies the specific occurrence of the problem.
             It may or may not yield further information if dereferenced.
+          minLength: 1
           maxLength: 256
         sources:
           type: array
+          maxItems: 32
           items:
             $ref: '#/components/schemas/ErrorSource'
         meta:
@@ -61,10 +66,12 @@ components:
         pointer:
           type: string
           description: A JSON Pointer [RFC6901] to the associated entity in the request document.
+          minLength: 1
           maxLength: 256
         parameter:
           type: string
           description: A string indicating which URI query parameter caused the error.
+          minLength: 1
           maxLength: 64
 
     ErrorType:

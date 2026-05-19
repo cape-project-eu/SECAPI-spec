@@ -27,9 +27,14 @@ components:
       properties:
         permissions:
           type: array
+          minItems: 1
+          maxItems: 256
           items:
             $ref: "#/components/schemas/Permission"
           description: List of permissions granted by this role
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "256"
           example:
           - provider: "seca.storage/v1"
             resources:
@@ -65,24 +70,42 @@ components:
           type: string
           description: |
             The provider for which the resource and verbs are defined.
+          minLength: 1
           maxLength: 64
           example: 'seca.storage/v1'
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-length: "1"
+            x-kubebuilder-validation-max-length: "64"
         resources:
           type: array
+          minItems: 1
           items:
             type: string
+            minLength: 1
             maxLength: 256
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "256"
           description: |
             The resources are the specific resources that the permission applies to.
             The resource can be a wildcard `*` to represent all resources or a
             specific resource type. For example, `images/my-image` or
             `images/*`.
           example: ["images/*", "skus/*"]
+          maxItems: 256
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "256"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "256"
         verb:
           type: array
+          minItems: 1
           items:
             type: string
+            minLength: 1
             maxLength: 7
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "7"
           description: |
             The verb is a string that represents the action to be performed on a resource.
             The standard operations are defined as `get`, `put`, `list`, `delete`. If the
@@ -90,6 +113,12 @@ components:
             verb and action in the form `<verb>:<action>`. For example, `post.start`,
             `post.stop`, `post.restart` or with a wildcard for all actions `post`.
           example: ["read", "write"]
+          maxItems: 16
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "7"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "16"
 
     RoleStatus:
       $ref: "./resource.yaml#/components/schemas/Status"
@@ -121,25 +150,50 @@ components:
       properties:
         subs:
           type: array
+          minItems: 1
           items:
             type: string
+            minLength: 1
             maxLength: 128
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "128"
           description: |
             List of subject IDs (from JWT) to whom the roles are assigned,
             A wildcard `*` can be used to represent all users of the tenant scopes
           example: ["user1@example.com", "service-account-1"]
+          maxItems: 256
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "128"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "256"
         scopes:
           type: array
+          minItems: 1
+          maxItems: 256
           items:
             $ref: "#/components/schemas/RoleAssignmentScope"
           description: List of scopes (e.g., tenant, workspace) for the role assignment
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "256"
         roles:
           type: array
+          minItems: 1
+          maxItems: 32
           items:
             type: string
+            minLength: 1
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "64"
           description: List of assigned role names
           example: ["project-manager", "workspace-viewer"]
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "64"
+            x-kubebuilder-validation-min-items: "1"
+            x-kubebuilder-validation-max-items: "32"
 
     RoleAssignmentScope:
       type: object
@@ -149,6 +203,7 @@ components:
         tenants:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 64
           description: |
             Optionally, can be opened to all tenants or restricted to a specific tenant.
             If not specified, the role assignment is valid for the current tenant.
@@ -159,10 +214,18 @@ components:
               Tenant ID for the role assignment. A `*` wildcard can be used
               to represent all tenants. This allows the role assignment to
               be applied to other tenants if needed.
+            minLength: 1
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "64"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "64"
+            x-kubebuilder-validation-max-items: "64"
         regions:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 64
           description: |
             Optionally, a restriction can be applied to the region
             where the role assignment is valid. If not specified,
@@ -172,10 +235,18 @@ components:
             type: string
             description: |
               Region ID for the role assignment
+            minLength: 1
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "64"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "64"
+            x-kubebuilder-validation-max-items: "64"
         workspaces:
           type: array
           x-go-type-skip-optional-pointer: true
+          maxItems: 256
           description: |
             Optionally, a restriction can be applied to the workspace
             where the role assignment is valid. If not specified,
@@ -185,7 +256,14 @@ components:
             type: string
             description: |
               Workspace ID for the role assignment.
+            minLength: 1
             maxLength: 64
+            x-oapi-codegen-extra-tags:
+              x-kubebuilder-validation-max-length: "64"
+          x-oapi-codegen-extra-tags:
+            x-kubebuilder-validation-items-min-length: "1"
+            x-kubebuilder-validation-items-max-length: "64"
+            x-kubebuilder-validation-max-items: "256"
 
     RoleAssignmentStatus:
       $ref: "./resource.yaml#/components/schemas/Status"
